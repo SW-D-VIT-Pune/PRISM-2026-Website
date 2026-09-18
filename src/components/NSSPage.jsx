@@ -39,78 +39,54 @@ export default function NSSPage({ onNavigateHome, onRegisterRedirect }) {
   return (
     <div className="nss-page-wrapper">
       
-      {/* HEADER HERO BANNER - FULL FIRST VIEW WITH FEATURED NSS IMAGE */}
+      {/* HEADER HERO BANNER - FULL FIRST VIEW WITH CLEAR BACKGROUND PHOTO & HIGH-CONTRAST CONTENT */}
       <div className="nss-hero-banner">
         <div className="container-inner">
-          <div className="nss-hero-grid animate-fade-in">
+          <div className="nss-hero-content animate-fade-in">
             
-            {/* LEFT COLUMN: HERO TEXT & CONTROLS */}
-            <div className="nss-hero-text-col">
-              
-              {/* REALTIME CURRENT ANNOUNCEMENT BAR */}
-              <div className="realtime-announcement-bar animate-pulse-glow">
-                <span className="live-indicator-pulse"></span>
-                <Zap size={15} className="zap-icon" />
-                <span className="announcement-text">
-                  <strong>ANNOUNCEMENT:</strong> Stay tuned registration will open soon! • 40+ NSS Teams
-                </span>
-              </div>
-
-              {/* MAIN TITLE */}
-              <h1 className="heading-display nss-main-title">
-                NSS & Social Units Hub
-              </h1>
-
-              <p className="nss-hero-sub">
-                Empowering National Service Scheme units and student social organizations to debate, present, and compete for top honors.
-              </p>
-
-              {/* Concise Sub-Tabs */}
-              <div className="nss-tab-controls">
-                <button 
-                  className={`nss-tab-btn ${activeSection === 'registration' ? 'active' : ''}`}
-                  onClick={() => handleTabClick('registration')}
-                >
-                  <Users size={17} />
-                  <span>Unit Registration</span>
-                </button>
-                <button 
-                  className={`nss-tab-btn ${activeSection === 'events' ? 'active' : ''}`}
-                  onClick={() => handleTabClick('events')}
-                >
-                  <Landmark size={17} />
-                  <span>NSS Unit Events</span>
-                </button>
-              </div>
-
-              {/* Scroll Hint */}
-              <div 
-                className="hero-scroll-hint animate-bounce-soft"
-                onClick={() => scrollToTarget('nss-body-section')}
-              >
-                <span>Explore Guidelines Below</span>
-                <ChevronDown size={18} />
-              </div>
-
+            {/* REALTIME CURRENT ANNOUNCEMENT BAR */}
+            <div className="realtime-announcement-bar animate-pulse-glow">
+              <span className="live-indicator-pulse"></span>
+              <Zap size={15} className="zap-icon" />
+              <span className="announcement-text">
+                <strong>ANNOUNCEMENT:</strong> Stay tuned registration will open soon! • 40+ NSS Teams
+              </span>
             </div>
 
-            {/* RIGHT COLUMN: MODERN FEATURED NSS PHOTO CARD */}
-            <div className="nss-hero-photo-col">
-              <div className="nss-hero-image-wrapper">
-                <img 
-                  src="/images/NSS_unit.jpg" 
-                  alt="NSS Unit Delegation" 
-                  className="nss-hero-img"
-                  onError={(e) => {
-                    e.target.src = '/Images/NSS_unit.jpg';
-                  }}
-                />
-                <div className="nss-hero-image-overlay">
-                  <span className="badge-pill">
-                    <Sparkles size={14} /> NSS DELEGATION SHOWCASE
-                  </span>
-                </div>
-              </div>
+            {/* MAIN TITLE */}
+            <h1 className="heading-display nss-main-title">
+              NSS & Social Units Hub
+            </h1>
+
+            <p className="nss-hero-sub">
+              Empowering National Service Scheme units and student social organizations to debate, present, and compete for top honors.
+            </p>
+
+            {/* Concise Sub-Tabs */}
+            <div className="nss-tab-controls">
+              <button 
+                className={`nss-tab-btn ${activeSection === 'registration' ? 'active' : ''}`}
+                onClick={() => handleTabClick('registration')}
+              >
+                <Users size={17} />
+                <span>Unit Registration</span>
+              </button>
+              <button 
+                className={`nss-tab-btn ${activeSection === 'events' ? 'active' : ''}`}
+                onClick={() => handleTabClick('events')}
+              >
+                <Landmark size={17} />
+                <span>NSS Unit Events</span>
+              </button>
+            </div>
+
+            {/* Scroll Hint */}
+            <div 
+              className="hero-scroll-hint animate-bounce-soft"
+              onClick={() => scrollToTarget('nss-body-section')}
+            >
+              <span>Explore Guidelines Below</span>
+              <ChevronDown size={18} />
             </div>
 
           </div>
@@ -322,74 +298,91 @@ export default function NSSPage({ onNavigateHome, onRegisterRedirect }) {
           padding-bottom: var(--space-3xl);
         }
 
+        /* HERO BANNER WITH VIBRANT NSS BACKGROUND PHOTO */
         .nss-hero-banner {
-          background: linear-gradient(180deg, #F0F6FA 0%, #EAF2F8 100%);
-          border-bottom: 2px solid var(--light-blue);
-          padding-top: 165px;
-          padding-bottom: 60px;
+          position: relative;
+          background: url('/images/NSS_unit.jpg') center/cover no-repeat;
+          border-bottom: 3px solid var(--deep-blue);
+          padding-top: 175px;
+          padding-bottom: 75px;
           min-height: calc(100vh - 138px);
           display: flex;
           align-items: center;
           justify-content: center;
+          text-align: center;
+          overflow: hidden;
         }
 
-        .nss-hero-grid {
-          display: grid;
-          grid-template-columns: 1.15fr 0.85fr;
-          gap: 40px;
-          align-items: center;
-          width: 100%;
+        /* GLASS & DARK NAVY OVERLAY TO KEEP PHOTO & TEXT CLEAR */
+        .nss-hero-banner::before {
+          content: '';
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(180deg, rgba(10, 25, 49, 0.72) 0%, rgba(10, 25, 49, 0.88) 100%);
+          backdrop-filter: blur(2px);
+          -webkit-backdrop-filter: blur(2px);
+          z-index: 1;
         }
 
-        .nss-hero-text-col {
+        .nss-hero-content {
+          position: relative;
+          z-index: 2;
+          max-width: 950px;
+          margin: 0 auto;
           display: flex;
           flex-direction: column;
-          align-items: flex-start;
-          text-align: left;
+          align-items: center;
+          width: 100%;
         }
 
         .realtime-announcement-bar {
           display: inline-flex;
           align-items: center;
           gap: 10px;
-          background: #FFFFFF;
+          background: rgba(255, 255, 255, 0.95);
           border: 1.5px solid var(--medium-blue);
-          padding: 8px 22px;
+          padding: 8px 24px;
           border-radius: var(--radius-pill);
-          margin-bottom: 24px;
-          box-shadow: 0 6px 20px rgba(74, 127, 167, 0.15);
-          font-size: 0.85rem;
+          margin-bottom: 28px;
+          box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+          font-size: 0.875rem;
           color: var(--primary-navy);
+          max-width: 92%;
         }
 
         .nss-main-title {
-          font-size: clamp(2.3rem, 4.5vw, 3.4rem);
+          font-size: clamp(2.3rem, 5vw, 3.5rem);
           white-space: nowrap;
-          color: var(--primary-navy);
-          margin-bottom: 18px;
+          color: #FFFFFF;
+          margin-bottom: 20px;
           letter-spacing: -0.025em;
           font-weight: 800;
+          text-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
         }
 
         .nss-hero-sub {
           font-family: var(--font-body);
-          font-size: 1.05rem;
-          color: var(--deep-blue);
+          font-size: 1.15rem;
+          color: #EAF2F8;
           line-height: 1.6;
-          margin-bottom: 32px;
-          max-width: 680px;
+          margin-bottom: 38px;
+          max-width: 780px;
+          text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
         }
 
         .nss-tab-controls {
           display: flex;
           align-items: center;
           gap: 12px;
-          background: var(--white);
+          background: rgba(255, 255, 255, 0.15);
+          backdrop-filter: blur(12px);
+          -webkit-backdrop-filter: blur(12px);
           padding: 8px;
           border-radius: var(--radius-pill);
-          border: 1.5px solid var(--light-blue);
-          box-shadow: 0 6px 24px rgba(10, 25, 49, 0.06);
+          border: 1.5px solid rgba(179, 207, 229, 0.35);
+          box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
           flex-wrap: wrap;
+          justify-content: center;
         }
 
         .nss-tab-btn {
@@ -400,7 +393,7 @@ export default function NSSPage({ onNavigateHome, onRegisterRedirect }) {
           border-radius: var(--radius-pill);
           border: none;
           background: transparent;
-          color: var(--deep-blue);
+          color: #FFFFFF;
           font-family: var(--font-heading);
           font-size: 0.95rem;
           font-weight: 700;
@@ -410,74 +403,32 @@ export default function NSSPage({ onNavigateHome, onRegisterRedirect }) {
         }
 
         .nss-tab-btn:hover {
-          color: var(--primary-navy);
-          background-color: rgba(179, 207, 229, 0.25);
+          color: #FFFFFF;
+          background-color: rgba(255, 255, 255, 0.2);
         }
 
         .nss-tab-btn.active {
-          background-color: var(--primary-navy);
-          color: var(--white);
-          box-shadow: var(--shadow-sm);
+          background-color: var(--white);
+          color: var(--primary-navy);
+          box-shadow: 0 4px 18px rgba(0, 0, 0, 0.3);
         }
 
         .hero-scroll-hint {
           display: flex;
           align-items: center;
           gap: 6px;
-          margin-top: 32px;
-          color: var(--medium-blue);
+          margin-top: 40px;
+          color: #B3CFE5;
           font-family: var(--font-heading);
           font-size: 0.85rem;
           font-weight: 700;
           cursor: pointer;
           transition: color 0.2s ease;
+          text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
         }
 
         .hero-scroll-hint:hover {
-          color: var(--primary-navy);
-        }
-
-        /* RIGHT COLUMN FEATURED NSS PHOTO CARD */
-        .nss-hero-photo-col {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
-
-        .nss-hero-image-wrapper {
-          width: 100%;
-          max-width: 460px;
-          height: 330px;
-          border-radius: var(--radius-lg);
-          overflow: hidden;
-          position: relative;
-          border: 3px solid var(--white);
-          box-shadow: 0 20px 40px rgba(10, 25, 49, 0.16);
-          transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .nss-hero-image-wrapper:hover {
-          transform: translateY(-4px) scale(1.02);
-          box-shadow: 0 25px 50px rgba(10, 25, 49, 0.22);
-        }
-
-        .nss-hero-img {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          object-position: center;
-        }
-
-        .nss-hero-image-overlay {
-          position: absolute;
-          bottom: 16px;
-          left: 16px;
-          background: rgba(10, 25, 49, 0.85);
-          backdrop-filter: blur(10px);
-          -webkit-backdrop-filter: blur(10px);
-          padding: 6px 16px;
-          border-radius: var(--radius-pill);
-          border: 1px solid rgba(179, 207, 229, 0.3);
+          color: #FFFFFF;
         }
 
         .nss-body-container {
@@ -707,21 +658,10 @@ export default function NSSPage({ onNavigateHome, onRegisterRedirect }) {
           color: var(--deep-blue);
         }
 
-        @media (max-width: 960px) {
-          .nss-hero-grid {
-            grid-template-columns: 1fr;
-            gap: 32px;
-            text-align: center;
-          }
-          .nss-hero-text-col {
-            align-items: center;
-            text-align: center;
-          }
+        @media (max-width: 1024px) {
           .nss-main-title {
+            font-size: clamp(2rem, 4.2vw, 2.75rem);
             white-space: normal;
-          }
-          .nss-hero-image-wrapper {
-            height: 260px;
           }
         }
 
