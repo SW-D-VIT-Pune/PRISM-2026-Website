@@ -39,7 +39,7 @@ export default function NSSPage({ onNavigateHome, onRegisterRedirect }) {
   return (
     <div className="nss-page-wrapper">
       
-      {/* HEADER HERO BANNER - FULL FIRST VIEW WITH CLEAR BACKGROUND PHOTO & HIGH-CONTRAST CONTENT */}
+      {/* HEADER HERO BANNER - CLEAR 100% VISIBLE PHOTO BACKGROUND WITH FROSTED GLASS CONTENT CARD */}
       <div className="nss-hero-banner">
         <div className="container-inner">
           <div className="nss-hero-content animate-fade-in">
@@ -298,13 +298,13 @@ export default function NSSPage({ onNavigateHome, onRegisterRedirect }) {
           padding-bottom: var(--space-3xl);
         }
 
-        /* HERO BANNER WITH VIBRANT NSS BACKGROUND PHOTO */
+        /* HERO BANNER WITH 100% CLEAR NATURAL NSS BACKGROUND PHOTO */
         .nss-hero-banner {
           position: relative;
           background: url('/images/NSS_unit.jpg') center/cover no-repeat;
           border-bottom: 3px solid var(--deep-blue);
-          padding-top: 175px;
-          padding-bottom: 75px;
+          padding-top: 165px;
+          padding-bottom: 65px;
           min-height: calc(100vh - 138px);
           display: flex;
           align-items: center;
@@ -313,26 +313,23 @@ export default function NSSPage({ onNavigateHome, onRegisterRedirect }) {
           overflow: hidden;
         }
 
-        /* GLASS & DARK NAVY OVERLAY TO KEEP PHOTO & TEXT CLEAR */
-        .nss-hero-banner::before {
-          content: '';
-          position: absolute;
-          inset: 0;
-          background: linear-gradient(180deg, rgba(10, 25, 49, 0.72) 0%, rgba(10, 25, 49, 0.88) 100%);
-          backdrop-filter: blur(2px);
-          -webkit-backdrop-filter: blur(2px);
-          z-index: 1;
-        }
-
+        /* FROSTED GLASS CONTENT CONTAINER FOR 100% PHOTO VISIBILITY & HIGH READABILITY */
         .nss-hero-content {
           position: relative;
           z-index: 2;
-          max-width: 950px;
+          max-width: 860px;
           margin: 0 auto;
           display: flex;
           flex-direction: column;
           align-items: center;
           width: 100%;
+          background: rgba(10, 25, 49, 0.75);
+          backdrop-filter: blur(14px);
+          -webkit-backdrop-filter: blur(14px);
+          border: 1.5px solid rgba(179, 207, 229, 0.35);
+          border-radius: var(--radius-lg);
+          padding: 36px 40px;
+          box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
         }
 
         .realtime-announcement-bar {
@@ -343,7 +340,7 @@ export default function NSSPage({ onNavigateHome, onRegisterRedirect }) {
           border: 1.5px solid var(--medium-blue);
           padding: 8px 24px;
           border-radius: var(--radius-pill);
-          margin-bottom: 28px;
+          margin-bottom: 24px;
           box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
           font-size: 0.875rem;
           color: var(--primary-navy);
@@ -351,23 +348,23 @@ export default function NSSPage({ onNavigateHome, onRegisterRedirect }) {
         }
 
         .nss-main-title {
-          font-size: clamp(2.3rem, 5vw, 3.5rem);
+          font-size: clamp(2.3rem, 5vw, 3.4rem);
           white-space: nowrap;
           color: #FFFFFF;
-          margin-bottom: 20px;
+          margin-bottom: 16px;
           letter-spacing: -0.025em;
           font-weight: 800;
-          text-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+          text-shadow: 0 4px 18px rgba(0, 0, 0, 0.6);
         }
 
         .nss-hero-sub {
           font-family: var(--font-body);
-          font-size: 1.15rem;
+          font-size: 1.1rem;
           color: #EAF2F8;
           line-height: 1.6;
-          margin-bottom: 38px;
-          max-width: 780px;
-          text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+          margin-bottom: 32px;
+          max-width: 740px;
+          text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
         }
 
         .nss-tab-controls {
@@ -417,7 +414,7 @@ export default function NSSPage({ onNavigateHome, onRegisterRedirect }) {
           display: flex;
           align-items: center;
           gap: 6px;
-          margin-top: 40px;
+          margin-top: 28px;
           color: #B3CFE5;
           font-family: var(--font-heading);
           font-size: 0.85rem;
@@ -662,6 +659,9 @@ export default function NSSPage({ onNavigateHome, onRegisterRedirect }) {
           .nss-main-title {
             font-size: clamp(2rem, 4.2vw, 2.75rem);
             white-space: normal;
+          }
+          .nss-hero-content {
+            padding: 28px 24px;
           }
         }
 
