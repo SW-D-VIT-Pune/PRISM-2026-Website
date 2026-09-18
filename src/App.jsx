@@ -10,6 +10,7 @@ import EventTracks from './components/EventTracks';
 import ConnectedJourney from './components/Infographics/ConnectedJourney';
 import CommunitySection from './components/TimelineSection';
 import HighlightCTA from './components/HighlightCTA';
+import RegistrationPage from './components/RegistrationPage';
 import Footer from './components/Footer';
 
 import { Clock } from 'lucide-react';
@@ -21,6 +22,9 @@ export default function App() {
   const handleNavClick = (item) => {
     if (item.id === 'home') {
       setActiveTab('home');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else if (item.id === 'registration') {
+      setActiveTab('registration');
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
       // Trigger polished Upcoming interaction notification for unfinished sub-pages
@@ -35,29 +39,53 @@ export default function App() {
     }
   };
 
+  const handleUnstopRedirect = (eventName) => {
+    setUpcomingToast({
+      title: `Redirecting to Unstop for ${eventName}`,
+      message: `Unstop portal link will be connected soon!`
+    });
+    setTimeout(() => setUpcomingToast(null), 3200);
+  };
+
   const handleQuizClick = () => {
     handleNavClick({ id: 'quiz', label: 'Quiz' });
   };
 
   const handleExploreClick = () => {
-    const el = document.getElementById('process');
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
+    if (activeTab !== 'home') {
+      setActiveTab('home');
+      setTimeout(() => {
+        const el = document.getElementById('process');
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      }, 100);
+    } else {
+      const el = document.getElementById('process');
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   const handleVisionClick = () => {
-    const el = document.getElementById('about');
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
+    if (activeTab !== 'home') {
+      setActiveTab('home');
+      setTimeout(() => {
+        const el = document.getElementById('about');
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      }, 100);
+    } else {
+      const el = document.getElementById('about');
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   return (
     <div className="prism-app-wrapper">
-      {/* 1. FINAL RESPONSIVE NAVBAR (Large Logos, Clean Links, Quiz removed from nav) */}
+      {/* 1. FINAL RESPONSIVE NAVBAR */}
       <Navbar 
         activeTab={activeTab}
         onNavClick={handleNavClick}
       />
 
-      {/* Elegant Upcoming Section Toast Interaction */}
+      {/* Elegant Toast Interaction */}
       {upcomingToast && (
         <div className="upcoming-toast">
           <div className="toast-icon-box">
@@ -70,39 +98,48 @@ export default function App() {
         </div>
       )}
 
-      {/* 2. DEMO HOME PAGE (8 SECTIONS) */}
-      <main className="home-page-content">
-        {/* SECTION 1: HERO (With Lighter Theme Background, Large Photos Glimpses, and Take Quiz Button) */}
-        <Hero 
-          onExploreClick={handleExploreClick}
-          onVisionClick={handleVisionClick}
-          onQuizClick={handleQuizClick}
+      {/* DYNAMIC VIEW SWITCHING */}
+      {activeTab === 'home' && (
+        <main className="home-page-content">
+          {/* SECTION 1: HERO */}
+          <Hero 
+            onExploreClick={handleExploreClick}
+            onVisionClick={handleVisionClick}
+            onQuizClick={handleQuizClick}
+          />
+
+          {/* SECTION 2: WHAT IS PRISM? */}
+          <AboutSection />
+
+          {/* SECTION 3: IMPACT / STATISTICS INFOGRAPHIC */}
+          <KeyStats />
+
+          {/* SECTION 4: PRISM EXPERIENCE / HIGHLIGHTS & HOMEPAGE QUIZ BANNER CARD */}
+          <EventTracks 
+            onTrackClick={() => handleNavClick({ id: 'registration', label: 'Registration' })}
+            onQuizClick={handleQuizClick}
+          />
+
+          {/* SECTION 5: VISUAL EVENT JOURNEY */}
+          <ConnectedJourney />
+
+          {/* SECTION 6: COMMUNITY / PARTICIPATION */}
+          <CommunitySection />
+
+          {/* SECTION 7: CALL TO ACTION */}
+          <HighlightCTA 
+            onExploreClick={handleExploreClick}
+            onUpcomingClick={() => handleNavClick({ id: 'registration', label: 'Registration' })}
+          />
+        </main>
+      )}
+
+      {activeTab === 'registration' && (
+        <RegistrationPage 
+          onNavigateHome={() => setActiveTab('home')}
+          onUnstopRedirect={handleUnstopRedirect}
         />
-
-        {/* SECTION 2: WHAT IS PRISM? */}
-        <AboutSection />
-
-        {/* SECTION 3: IMPACT / STATISTICS INFOGRAPHIC */}
-        <KeyStats />
-
-        {/* SECTION 4: PRISM EXPERIENCE / HIGHLIGHTS & HOMEPAGE QUIZ BANNER CARD */}
-        <EventTracks 
-          onTrackClick={() => handleNavClick({ id: 'registration', label: 'Registration' })}
-          onQuizClick={handleQuizClick}
-        />
-
-        {/* SECTION 5: VISUAL EVENT JOURNEY */}
-        <ConnectedJourney />
-
-        {/* SECTION 6: COMMUNITY / PARTICIPATION */}
-        <CommunitySection />
-
-        {/* SECTION 7: CALL TO ACTION */}
-        <HighlightCTA 
-          onExploreClick={handleExploreClick}
-          onUpcomingClick={() => handleNavClick({ id: 'registration', label: 'Registration' })}
-        />
-      </main>
+      )}
 
       {/* SECTION 8: FOOTER */}
       <Footer onNavClick={handleNavClick} />
