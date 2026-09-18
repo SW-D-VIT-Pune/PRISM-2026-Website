@@ -148,7 +148,7 @@ export default function NSSPage({ onNavigateHome, onRegisterRedirect }) {
                     </h4>
                     <ul className="nss-bullet-list">
                       <li><strong>Group Size:</strong> Exactly 4 members in each registered group.</li>
-                      <li><strong>Youth Floor Entry:</strong> One member from each group will represent the unit in <em>The Youth Floor (Youth Parliament)</em>.</li>
+                      <li><strong>Youth Floor Entry:</strong> One member from each group will represent the unit in <em>The Youth Floor</em>.</li>
                       <li>Open to recognized NSS volunteers and campus social organizations.</li>
                     </ul>
                   </div>
@@ -238,7 +238,7 @@ export default function NSSPage({ onNavigateHome, onRegisterRedirect }) {
                   <div>
                     <span className="badge-pill">MOCK PARLIAMENT</span>
                     <h3 className="heading-2" style={{ color: 'var(--primary-navy)', margin: '2px 0' }}>
-                      The Youth Floor (Youth Parliament)
+                      The Youth Floor
                     </h3>
                   </div>
                 </div>
@@ -317,6 +317,21 @@ export default function NSSPage({ onNavigateHome, onRegisterRedirect }) {
           flex-direction: column;
           align-items: center;
           width: 100%;
+        }
+
+        .realtime-announcement-bar {
+          display: inline-flex;
+          align-items: center;
+          gap: 10px;
+          background: #FFFFFF;
+          border: 1.5px solid var(--medium-blue);
+          padding: 8px 24px;
+          border-radius: var(--radius-pill);
+          margin-bottom: 28px;
+          box-shadow: 0 6px 20px rgba(74, 127, 167, 0.15);
+          font-size: 0.875rem;
+          color: var(--primary-navy);
+          max-width: 92%;
         }
 
         .nss-main-title {
