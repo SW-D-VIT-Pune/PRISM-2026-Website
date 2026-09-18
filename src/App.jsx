@@ -11,6 +11,7 @@ import ConnectedJourney from './components/Infographics/ConnectedJourney';
 import CommunitySection from './components/TimelineSection';
 import HighlightCTA from './components/HighlightCTA';
 import RegistrationPage from './components/RegistrationPage';
+import NSSPage from './components/NSSPage';
 import Footer from './components/Footer';
 
 import { Clock } from 'lucide-react';
@@ -25,6 +26,9 @@ export default function App() {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } else if (item.id === 'registration') {
       setActiveTab('registration');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else if (item.id === 'nss') {
+      setActiveTab('nss');
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
       // Trigger polished Upcoming interaction notification for unfinished sub-pages
@@ -41,8 +45,8 @@ export default function App() {
 
   const handleUnstopRedirect = (eventName) => {
     setUpcomingToast({
-      title: `Redirecting to Unstop for ${eventName}`,
-      message: `Unstop portal link will be connected soon!`
+      title: `Redirecting to portal for ${eventName}`,
+      message: `Registration link will be connected soon!`
     });
     setTimeout(() => setUpcomingToast(null), 3200);
   };
@@ -138,6 +142,13 @@ export default function App() {
         <RegistrationPage 
           onNavigateHome={() => setActiveTab('home')}
           onUnstopRedirect={handleUnstopRedirect}
+        />
+      )}
+
+      {activeTab === 'nss' && (
+        <NSSPage 
+          onNavigateHome={() => setActiveTab('home')}
+          onRegisterRedirect={handleUnstopRedirect}
         />
       )}
 
