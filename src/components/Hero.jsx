@@ -6,25 +6,32 @@ export default function Hero({ onExploreClick, onVisionClick, onQuizClick }) {
 
   const lastYearPhotos = [
     {
-      id: 1,
-      src: '/images/prism_photo_1.jpg',
+      id: 2,
+      src: '/images/Prism_IMG2.jpg',
       tag: "GLIMPSES OF PRISM '25",
       title: 'Youth Social Development Conference',
       desc: 'Over 2,500 college delegates collaborating on grassroots community welfare initiatives.'
     },
     {
-      id: 2,
-      src: '/images/prism_photo_2.jpg',
+      id: 3,
+      src: '/images/Prism_IMG3.jpg',
       tag: "INNOVATION STAGE '25",
       title: 'Social Innovation Pitch Showcase',
       desc: 'Student teams presenting technology-driven solutions to civic leaders and domain mentors.'
     },
     {
-      id: 3,
-      src: '/images/prism_photo_3.jpg',
+      id: 4,
+      src: '/images/Prism_IMG4.jpg',
       tag: "FIELDWORK DRIVE '25",
       title: 'Grassroots Community Outreach',
       desc: 'Hands-on digital literacy and educational volunteer campaigns conducted by student leaders.'
+    },
+    {
+      id: 5,
+      src: '/images/Prism_IMG5.jpg',
+      tag: "LEADERSHIP FORUM '25",
+      title: 'Empowering Student Changemakers',
+      desc: 'Interactive workshops and panel discussions featuring pioneering social impact experts.'
     }
   ];
 
