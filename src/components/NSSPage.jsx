@@ -39,54 +39,78 @@ export default function NSSPage({ onNavigateHome, onRegisterRedirect }) {
   return (
     <div className="nss-page-wrapper">
       
-      {/* HEADER HERO BANNER - FULL FIRST VIEW */}
+      {/* HEADER HERO BANNER - FULL FIRST VIEW WITH FEATURED NSS IMAGE */}
       <div className="nss-hero-banner">
         <div className="container-inner">
-          <div className="nss-hero-content animate-fade-in">
+          <div className="nss-hero-grid animate-fade-in">
             
-            {/* REALTIME CURRENT ANNOUNCEMENT BAR */}
-            <div className="realtime-announcement-bar animate-pulse-glow">
-              <span className="live-indicator-pulse"></span>
-              <Zap size={15} className="zap-icon" />
-              <span className="announcement-text">
-                <strong>ANNOUNCEMENT:</strong> Stay tuned registration will open soon! • 40+ NSS Teams
-              </span>
+            {/* LEFT COLUMN: HERO TEXT & CONTROLS */}
+            <div className="nss-hero-text-col">
+              
+              {/* REALTIME CURRENT ANNOUNCEMENT BAR */}
+              <div className="realtime-announcement-bar animate-pulse-glow">
+                <span className="live-indicator-pulse"></span>
+                <Zap size={15} className="zap-icon" />
+                <span className="announcement-text">
+                  <strong>ANNOUNCEMENT:</strong> Stay tuned registration will open soon! • 40+ NSS Teams
+                </span>
+              </div>
+
+              {/* MAIN TITLE */}
+              <h1 className="heading-display nss-main-title">
+                NSS & Social Units Hub
+              </h1>
+
+              <p className="nss-hero-sub">
+                Empowering National Service Scheme units and student social organizations to debate, present, and compete for top honors.
+              </p>
+
+              {/* Concise Sub-Tabs */}
+              <div className="nss-tab-controls">
+                <button 
+                  className={`nss-tab-btn ${activeSection === 'registration' ? 'active' : ''}`}
+                  onClick={() => handleTabClick('registration')}
+                >
+                  <Users size={17} />
+                  <span>Unit Registration</span>
+                </button>
+                <button 
+                  className={`nss-tab-btn ${activeSection === 'events' ? 'active' : ''}`}
+                  onClick={() => handleTabClick('events')}
+                >
+                  <Landmark size={17} />
+                  <span>NSS Unit Events</span>
+                </button>
+              </div>
+
+              {/* Scroll Hint */}
+              <div 
+                className="hero-scroll-hint animate-bounce-soft"
+                onClick={() => scrollToTarget('nss-body-section')}
+              >
+                <span>Explore Guidelines Below</span>
+                <ChevronDown size={18} />
+              </div>
+
             </div>
 
-            {/* MAIN TITLE */}
-            <h1 className="heading-display nss-main-title">
-              NSS & Social Units Hub
-            </h1>
-
-            <p className="nss-hero-sub">
-              Empowering National Service Scheme units and student social organizations to debate, present, and compete for top honors.
-            </p>
-
-            {/* Concise Sub-Tabs */}
-            <div className="nss-tab-controls">
-              <button 
-                className={`nss-tab-btn ${activeSection === 'registration' ? 'active' : ''}`}
-                onClick={() => handleTabClick('registration')}
-              >
-                <Users size={17} />
-                <span>Unit Registration</span>
-              </button>
-              <button 
-                className={`nss-tab-btn ${activeSection === 'events' ? 'active' : ''}`}
-                onClick={() => handleTabClick('events')}
-              >
-                <Landmark size={17} />
-                <span>NSS Unit Events</span>
-              </button>
-            </div>
-
-            {/* Scroll Hint */}
-            <div 
-              className="hero-scroll-hint animate-bounce-soft"
-              onClick={() => scrollToTarget('nss-body-section')}
-            >
-              <span>Explore Guidelines Below</span>
-              <ChevronDown size={18} />
+            {/* RIGHT COLUMN: MODERN FEATURED NSS PHOTO CARD */}
+            <div className="nss-hero-photo-col">
+              <div className="nss-hero-image-wrapper">
+                <img 
+                  src="/images/NSS_unit.jpg" 
+                  alt="NSS Unit Delegation" 
+                  className="nss-hero-img"
+                  onError={(e) => {
+                    e.target.src = '/Images/NSS_unit.jpg';
+                  }}
+                />
+                <div className="nss-hero-image-overlay">
+                  <span className="badge-pill">
+                    <Sparkles size={14} /> NSS DELEGATION SHOWCASE
+                  </span>
+                </div>
+              </div>
             </div>
 
           </div>
@@ -102,21 +126,6 @@ export default function NSSPage({ onNavigateHome, onRegisterRedirect }) {
             
             <div className="nss-main-card card-clean">
               
-              {/* NSS UNIT FEATURED IMAGE SHOWCASE BANNER */}
-              <div className="nss-unit-banner-frame">
-                <img 
-                  src="/images/NSS_unit.jpg" 
-                  alt="NSS Unit Delegation" 
-                  className="nss-unit-banner-img"
-                  onError={(e) => {
-                    e.target.src = '/Images/NSS_unit.jpg';
-                  }}
-                />
-                <div className="nss-banner-overlay">
-                  <span className="badge-pill">NSS DELEGATION SHOWCASE</span>
-                </div>
-              </div>
-
               {/* Header Group */}
               <div className="nss-card-header">
                 <div className="event-icon-box navy">
@@ -316,22 +325,27 @@ export default function NSSPage({ onNavigateHome, onRegisterRedirect }) {
         .nss-hero-banner {
           background: linear-gradient(180deg, #F0F6FA 0%, #EAF2F8 100%);
           border-bottom: 2px solid var(--light-blue);
-          padding-top: 175px;
-          padding-bottom: 75px;
+          padding-top: 165px;
+          padding-bottom: 60px;
           min-height: calc(100vh - 138px);
           display: flex;
           align-items: center;
           justify-content: center;
-          text-align: center;
         }
 
-        .nss-hero-content {
-          max-width: 950px;
-          margin: 0 auto;
-          display: flex;
-          flex-direction: column;
+        .nss-hero-grid {
+          display: grid;
+          grid-template-columns: 1.15fr 0.85fr;
+          gap: 40px;
           align-items: center;
           width: 100%;
+        }
+
+        .nss-hero-text-col {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          text-align: left;
         }
 
         .realtime-announcement-bar {
@@ -340,31 +354,30 @@ export default function NSSPage({ onNavigateHome, onRegisterRedirect }) {
           gap: 10px;
           background: #FFFFFF;
           border: 1.5px solid var(--medium-blue);
-          padding: 8px 24px;
+          padding: 8px 22px;
           border-radius: var(--radius-pill);
-          margin-bottom: 28px;
+          margin-bottom: 24px;
           box-shadow: 0 6px 20px rgba(74, 127, 167, 0.15);
-          font-size: 0.875rem;
+          font-size: 0.85rem;
           color: var(--primary-navy);
-          max-width: 92%;
         }
 
         .nss-main-title {
-          font-size: clamp(2.3rem, 5vw, 3.4rem);
+          font-size: clamp(2.3rem, 4.5vw, 3.4rem);
           white-space: nowrap;
           color: var(--primary-navy);
-          margin-bottom: 20px;
+          margin-bottom: 18px;
           letter-spacing: -0.025em;
           font-weight: 800;
         }
 
         .nss-hero-sub {
           font-family: var(--font-body);
-          font-size: 1.1rem;
+          font-size: 1.05rem;
           color: var(--deep-blue);
           line-height: 1.6;
-          margin-bottom: 38px;
-          max-width: 760px;
+          margin-bottom: 32px;
+          max-width: 680px;
         }
 
         .nss-tab-controls {
@@ -377,7 +390,6 @@ export default function NSSPage({ onNavigateHome, onRegisterRedirect }) {
           border: 1.5px solid var(--light-blue);
           box-shadow: 0 6px 24px rgba(10, 25, 49, 0.06);
           flex-wrap: wrap;
-          justify-content: center;
         }
 
         .nss-tab-btn {
@@ -408,6 +420,66 @@ export default function NSSPage({ onNavigateHome, onRegisterRedirect }) {
           box-shadow: var(--shadow-sm);
         }
 
+        .hero-scroll-hint {
+          display: flex;
+          align-items: center;
+          gap: 6px;
+          margin-top: 32px;
+          color: var(--medium-blue);
+          font-family: var(--font-heading);
+          font-size: 0.85rem;
+          font-weight: 700;
+          cursor: pointer;
+          transition: color 0.2s ease;
+        }
+
+        .hero-scroll-hint:hover {
+          color: var(--primary-navy);
+        }
+
+        /* RIGHT COLUMN FEATURED NSS PHOTO CARD */
+        .nss-hero-photo-col {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
+        .nss-hero-image-wrapper {
+          width: 100%;
+          max-width: 460px;
+          height: 330px;
+          border-radius: var(--radius-lg);
+          overflow: hidden;
+          position: relative;
+          border: 3px solid var(--white);
+          box-shadow: 0 20px 40px rgba(10, 25, 49, 0.16);
+          transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .nss-hero-image-wrapper:hover {
+          transform: translateY(-4px) scale(1.02);
+          box-shadow: 0 25px 50px rgba(10, 25, 49, 0.22);
+        }
+
+        .nss-hero-img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          object-position: center;
+        }
+
+        .nss-hero-image-overlay {
+          position: absolute;
+          bottom: 16px;
+          left: 16px;
+          background: rgba(10, 25, 49, 0.85);
+          backdrop-filter: blur(10px);
+          -webkit-backdrop-filter: blur(10px);
+          padding: 6px 16px;
+          border-radius: var(--radius-pill);
+          border: 1px solid rgba(179, 207, 229, 0.3);
+        }
+
         .nss-body-container {
           padding-top: var(--space-2xl);
         }
@@ -416,39 +488,6 @@ export default function NSSPage({ onNavigateHome, onRegisterRedirect }) {
         .nss-main-card {
           padding: var(--space-xl);
           background: var(--white);
-        }
-
-        .nss-unit-banner-frame {
-          width: 100%;
-          height: 280px;
-          border-radius: var(--radius-md);
-          overflow: hidden;
-          position: relative;
-          border: 1.5px solid var(--light-blue);
-          box-shadow: 0 8px 24px rgba(10, 25, 49, 0.12);
-          margin-bottom: var(--space-lg);
-        }
-
-        .nss-unit-banner-img {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          object-position: center;
-          transition: transform 0.4s ease;
-        }
-
-        .nss-unit-banner-frame:hover .nss-unit-banner-img {
-          transform: scale(1.03);
-        }
-
-        .nss-banner-overlay {
-          position: absolute;
-          bottom: 16px;
-          left: 16px;
-          background: rgba(10, 25, 49, 0.85);
-          backdrop-filter: blur(8px);
-          padding: 6px 16px;
-          border-radius: var(--radius-pill);
         }
 
         .nss-card-header {
@@ -585,7 +624,7 @@ export default function NSSPage({ onNavigateHome, onRegisterRedirect }) {
           display: flex;
           align-items: center;
           justify-content: center;
-          color: #FBBF24; /* Gold trophy color */
+          color: #FBBF24;
           flex-shrink: 0;
         }
 
@@ -668,10 +707,21 @@ export default function NSSPage({ onNavigateHome, onRegisterRedirect }) {
           color: var(--deep-blue);
         }
 
-        @media (max-width: 1024px) {
+        @media (max-width: 960px) {
+          .nss-hero-grid {
+            grid-template-columns: 1fr;
+            gap: 32px;
+            text-align: center;
+          }
+          .nss-hero-text-col {
+            align-items: center;
+            text-align: center;
+          }
           .nss-main-title {
-            font-size: clamp(2rem, 4.2vw, 2.75rem);
             white-space: normal;
+          }
+          .nss-hero-image-wrapper {
+            height: 260px;
           }
         }
 
