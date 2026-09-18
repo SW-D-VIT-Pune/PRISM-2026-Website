@@ -89,11 +89,6 @@ export default function Hero({ onExploreClick, onVisionClick, onQuizClick }) {
           </div>
 
           <div className="hero-cta-group animate-fade-up-delayed-3">
-            <button className="btn btn-primary btn-lg hero-btn-main" onClick={onExploreClick}>
-              <span>Explore PRISM Journey</span>
-              <ArrowRight size={20} />
-            </button>
-
             {/* PROMINENT QUIZ BUTTON ON HOMEPAGE */}
             <button className="btn btn-quiz-home btn-lg" onClick={onQuizClick}>
               <HelpCircle size={20} />
@@ -128,12 +123,11 @@ export default function Hero({ onExploreClick, onVisionClick, onQuizClick }) {
             <div className="photo-view-window-huge">
               <img 
                 src={currentPhoto.src} 
-                alt={currentPhoto.title} 
+                alt="Glimpses of PRISM '25" 
                 className="photo-main-img-huge" 
               />
               <div className="photo-text-overlay-huge">
-                <span className="badge-pill photo-overlay-tag">{currentPhoto.tag}</span>
-                <h4 className="photo-title-huge">{currentPhoto.title}</h4>
+                <span className="badge-pill photo-overlay-tag">GLIMPSES OF PRISM '25</span>
               </div>
             </div>
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Heart, Users, Target, ShieldCheck, CheckCircle2 } from 'lucide-react';
+import { Heart, Users, Target, ShieldCheck, HeartHandshake } from 'lucide-react';
 
 export default function AboutSection() {
   const pillars = [
@@ -41,6 +41,18 @@ export default function AboutSection() {
           </p>
         </div>
 
+        {/* COMMITTEE MISSION BANNER CARD */}
+        <div className="committee-mission-card">
+          <div className="mission-badge">
+            <HeartHandshake size={18} />
+            <span>OUR COMMITTEE MISSION</span>
+          </div>
+          <h3 className="heading-2 mission-title">&quot;Empowering Society, Transforming Lives&quot;</h3>
+          <p className="mission-copy">
+            The Social Welfare &amp; Development Committee at VIT Pune is dedicated to facilitating civic awareness, student-led volunteerism, and sustainable community outreach. PRISM 2026 serves as our flagship stage to empower youth changemakers and engineer long-term social welfare solutions.
+          </p>
+        </div>
+
         <div className="about-pillars-grid">
           {pillars.map((item, idx) => (
             <div key={idx} className="pillar-card card-clean">
@@ -62,11 +74,51 @@ export default function AboutSection() {
           border-bottom: 1px solid var(--light-blue-alpha-50);
         }
 
+        .committee-mission-card {
+          margin-top: var(--space-xl);
+          padding: clamp(24px, 4vw, 36px);
+          background: linear-gradient(135deg, var(--primary-navy) 0%, var(--deep-blue) 100%);
+          border: 2px solid var(--medium-blue);
+          border-radius: var(--radius-xl);
+          color: var(--white);
+          box-shadow: 0 12px 35px rgba(10, 25, 49, 0.18);
+        }
+
+        .mission-badge {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          padding: 6px 14px;
+          background: rgba(179, 207, 229, 0.2);
+          border: 1px solid var(--medium-blue);
+          border-radius: var(--radius-pill);
+          color: var(--light-blue);
+          font-family: var(--font-heading);
+          font-size: 0.75rem;
+          font-weight: 800;
+          letter-spacing: 0.06em;
+          text-transform: uppercase;
+          margin-bottom: 12px;
+        }
+
+        .mission-title {
+          color: var(--white);
+          font-size: clamp(1.4rem, 3vw, 1.85rem);
+          margin-bottom: 10px;
+        }
+
+        .mission-copy {
+          color: var(--light-blue);
+          font-size: var(--font-size-body-lg);
+          line-height: 1.65;
+          max-width: 900px;
+        }
+
         .about-pillars-grid {
           display: grid;
           grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
           gap: var(--space-lg);
-          margin-top: var(--space-lg);
+          margin-top: var(--space-xl);
         }
 
         .pillar-card {
