@@ -60,7 +60,7 @@ export default function RegistrationPage({ onNavigateHome, onUnstopRedirect }) {
               <span className="live-indicator-pulse"></span>
               <Zap size={15} className="zap-icon" />
               <span className="announcement-text">
-                <strong>LIVE NOW:</strong> PRISM '26 Registrations Open • ₹67,000 Cash Prizes • Submit Proposals on Unstop!
+                <strong>ANNOUNCEMENT:</strong> Stay tuned registration will open soon! • ₹67,000 Cash Prizes
               </span>
             </div>
 
