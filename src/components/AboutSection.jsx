@@ -54,22 +54,6 @@ export default function AboutSection() {
           ))}
         </div>
 
-        {/* COMMITTEE MISSION BANNER CARD */}
-        <div className="committee-mission-card card-clean" style={{ marginTop: '36px', background: 'var(--very-light-bg)', border: '2px solid var(--medium-blue)', borderRadius: 'var(--radius-lg)', padding: '28px' }}>
-          <div className="mission-card-header" style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '10px' }}>
-            <div style={{ width: '42px', height: '42px', borderRadius: '50%', background: 'var(--primary-navy)', color: 'var(--white)', display: 'grid', placeItems: 'center' }}>
-              <HeartHandshake size={22} />
-            </div>
-            <div>
-              <span className="section-tag" style={{ margin: 0 }}>OFFICIAL MISSION &amp; VISION</span>
-              <h3 className="heading-2" style={{ color: 'var(--primary-navy)', margin: 0 }}>Committee Mission</h3>
-            </div>
-          </div>
-          <p className="text-muted" style={{ fontSize: '1.05rem', lineHeight: '1.7', color: 'var(--deep-blue)', margin: 0 }}>
-            With the motto of <strong>&quot;Empowering Society, Transforming Lives&quot;</strong>, the Social Welfare and Development Committee at VIT Pune strives to foster empathy, civic responsibility, and sustainable youth leadership across campus, Maharashtra, and nationwide.
-          </p>
-        </div>
-
       </div>
 
       <style>{`

@@ -86,19 +86,10 @@ export default function App() {
             onQuizClick={handleQuizClick}
           />
 
-          {/* SECTION 2: WHAT IS PRISM? & COMMITTEE MISSION */}
+          {/* SECTION 2: WHAT IS PRISM? */}
           <AboutSection />
 
-          {/* SECTION 3: PRISM EXPERIENCE / HIGHLIGHTS & HOMEPAGE QUIZ BANNER CARD */}
-          <EventTracks 
-            onTrackClick={() => handleNavClick({ id: 'registration', label: 'Registration' })}
-            onQuizClick={handleQuizClick}
-          />
-
-          {/* SECTION 4: COMMUNITY / PARTICIPATION */}
-          <CommunitySection />
-
-          {/* SECTION 5: CALL TO ACTION */}
+          {/* SECTION 3: CALL TO ACTION */}
           <HighlightCTA 
             onUpcomingClick={() => handleNavClick({ id: 'registration', label: 'Registration' })}
           />
