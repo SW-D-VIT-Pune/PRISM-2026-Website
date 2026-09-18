@@ -39,7 +39,7 @@ export default function NSSPage({ onNavigateHome, onRegisterRedirect }) {
   return (
     <div className="nss-page-wrapper">
       
-      {/* HEADER HERO BANNER - CLEAR 100% VISIBLE PHOTO BACKGROUND WITH FROSTED GLASS CONTENT CARD */}
+      {/* HEADER HERO BANNER - FULL FIRST VIEW WITH CLEAR PHOTO & FULL-COVER SUBTLE OVERLAY */}
       <div className="nss-hero-banner">
         <div className="container-inner">
           <div className="nss-hero-content animate-fade-in">
@@ -298,13 +298,13 @@ export default function NSSPage({ onNavigateHome, onRegisterRedirect }) {
           padding-bottom: var(--space-3xl);
         }
 
-        /* HERO BANNER WITH 100% CLEAR NATURAL NSS BACKGROUND PHOTO */
+        /* HERO BANNER - FULL VIEW SPAN WITH ULTRA-SUBTLE OVERLAY FOR 100% PHOTO CLEARNESS */
         .nss-hero-banner {
           position: relative;
           background: url('/images/NSS_unit.jpg') center/cover no-repeat;
           border-bottom: 3px solid var(--deep-blue);
-          padding-top: 165px;
-          padding-bottom: 65px;
+          padding-top: 170px;
+          padding-bottom: 70px;
           min-height: calc(100vh - 138px);
           display: flex;
           align-items: center;
@@ -313,23 +313,27 @@ export default function NSSPage({ onNavigateHome, onRegisterRedirect }) {
           overflow: hidden;
         }
 
-        /* FROSTED GLASS CONTENT CONTAINER FOR 100% PHOTO VISIBILITY & HIGH READABILITY */
+        /* FULL PHOTO COVER OVERLAY WITH VERY LOW BLUR & OPACITY SO THE ENTIRE PHOTO IS CRISP & CLEAR */
+        .nss-hero-banner::before {
+          content: '';
+          position: absolute;
+          inset: 0;
+          background: rgba(10, 25, 49, 0.32);
+          backdrop-filter: blur(2px);
+          -webkit-backdrop-filter: blur(2px);
+          z-index: 1;
+        }
+
         .nss-hero-content {
           position: relative;
           z-index: 2;
-          max-width: 860px;
+          max-width: 950px;
           margin: 0 auto;
           display: flex;
           flex-direction: column;
           align-items: center;
           width: 100%;
-          background: rgba(10, 25, 49, 0.75);
-          backdrop-filter: blur(14px);
-          -webkit-backdrop-filter: blur(14px);
-          border: 1.5px solid rgba(179, 207, 229, 0.35);
-          border-radius: var(--radius-lg);
-          padding: 36px 40px;
-          box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+          padding: 0 var(--space-md);
         }
 
         .realtime-announcement-bar {
@@ -340,44 +344,45 @@ export default function NSSPage({ onNavigateHome, onRegisterRedirect }) {
           border: 1.5px solid var(--medium-blue);
           padding: 8px 24px;
           border-radius: var(--radius-pill);
-          margin-bottom: 24px;
-          box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+          margin-bottom: 26px;
+          box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
           font-size: 0.875rem;
           color: var(--primary-navy);
           max-width: 92%;
         }
 
         .nss-main-title {
-          font-size: clamp(2.3rem, 5vw, 3.4rem);
+          font-size: clamp(2.3rem, 5vw, 3.5rem);
           white-space: nowrap;
           color: #FFFFFF;
-          margin-bottom: 16px;
+          margin-bottom: 18px;
           letter-spacing: -0.025em;
           font-weight: 800;
-          text-shadow: 0 4px 18px rgba(0, 0, 0, 0.6);
+          text-shadow: 0 4px 18px rgba(10, 25, 49, 0.95), 0 2px 8px rgba(0, 0, 0, 0.8);
         }
 
         .nss-hero-sub {
           font-family: var(--font-body);
-          font-size: 1.1rem;
-          color: #EAF2F8;
+          font-size: 1.15rem;
+          color: #F6FAFD;
           line-height: 1.6;
-          margin-bottom: 32px;
-          max-width: 740px;
-          text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+          margin-bottom: 36px;
+          max-width: 780px;
+          text-shadow: 0 2px 10px rgba(10, 25, 49, 0.95), 0 1px 4px rgba(0, 0, 0, 0.8);
+          font-weight: 500;
         }
 
         .nss-tab-controls {
           display: flex;
           align-items: center;
           gap: 12px;
-          background: rgba(255, 255, 255, 0.15);
-          backdrop-filter: blur(12px);
-          -webkit-backdrop-filter: blur(12px);
+          background: rgba(10, 25, 49, 0.55);
+          backdrop-filter: blur(8px);
+          -webkit-backdrop-filter: blur(8px);
           padding: 8px;
           border-radius: var(--radius-pill);
-          border: 1.5px solid rgba(179, 207, 229, 0.35);
-          box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+          border: 1.5px solid rgba(179, 207, 229, 0.4);
+          box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
           flex-wrap: wrap;
           justify-content: center;
         }
@@ -414,14 +419,14 @@ export default function NSSPage({ onNavigateHome, onRegisterRedirect }) {
           display: flex;
           align-items: center;
           gap: 6px;
-          margin-top: 28px;
+          margin-top: 36px;
           color: #B3CFE5;
           font-family: var(--font-heading);
           font-size: 0.85rem;
           font-weight: 700;
           cursor: pointer;
           transition: color 0.2s ease;
-          text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+          text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
         }
 
         .hero-scroll-hint:hover {
@@ -659,9 +664,6 @@ export default function NSSPage({ onNavigateHome, onRegisterRedirect }) {
           .nss-main-title {
             font-size: clamp(2rem, 4.2vw, 2.75rem);
             white-space: normal;
-          }
-          .nss-hero-content {
-            padding: 28px 24px;
           }
         }
 
