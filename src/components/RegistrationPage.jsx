@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { 
   Trophy, Users, Award, ShieldAlert, CheckCircle2, ArrowRight, 
   Sparkles, Calendar, Ticket, Music, Code2, Lightbulb, 
-  ExternalLink, ChevronDown, ChevronUp, Zap, HelpCircle, Layers, Camera
+  ExternalLink, ChevronDown, ChevronUp, Zap, HelpCircle, Layers
 } from 'lucide-react';
 
 export default function RegistrationPage({ onNavigateHome, onUnstopRedirect }) {
@@ -52,7 +52,18 @@ export default function RegistrationPage({ onNavigateHome, onUnstopRedirect }) {
       
       {/* HEADER BANNER - FULL FIRST VIEW */}
       <div className="reg-hero-banner">
-        <div className="container-inner">
+
+        {/* FLOWING ANIMATED SVG BACKGROUND WAVES */}
+        <div className="reg-animated-waves-bg">
+          <svg className="wave-path wave-path-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" preserveAspectRatio="none">
+            <path fill="rgba(179, 207, 229, 0.45)" d="M0,160L48,176C96,192,192,224,288,213.3C384,203,480,149,576,144C672,139,768,181,864,186.7C960,192,1056,160,1152,149.3C1248,139,1344,149,1392,154.7L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+          </svg>
+          <svg className="wave-path wave-path-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" preserveAspectRatio="none">
+            <path fill="rgba(246, 250, 253, 0.95)" d="M0,224L60,213.3C120,203,240,181,360,186.7C480,192,600,224,720,229.3C840,235,960,213,1080,202.7C1200,192,1320,192,1380,192L1440,192L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path>
+          </svg>
+        </div>
+
+        <div className="container-inner" style={{ position: 'relative', zIndex: 2 }}>
           <div className="reg-hero-content animate-fade-in">
             
             {/* REALTIME CURRENT ANNOUNCEMENT BAR */}
@@ -72,19 +83,6 @@ export default function RegistrationPage({ onNavigateHome, onUnstopRedirect }) {
             <p className="reg-hero-sub">
               Register your team for Sociothon, Ideathon, Kala-Kriti, or grab your official Student Event Passes.
             </p>
-
-            {/* Flashback & Youth Empowerment Proof Bar */}
-            <div className="hero-proof-bar" style={{ marginTop: '20px', marginBottom: '24px' }}>
-              <div className="proof-item">
-                <Camera size={18} />
-                <span>PRISM '25 Flashback Showcase</span>
-              </div>
-              <div className="proof-sep"></div>
-              <div className="proof-item">
-                <Sparkles size={18} />
-                <span>Youth Empowerment Action</span>
-              </div>
-            </div>
 
             {/* Registration Navigation Sub-Tabs */}
             <div className="reg-tab-controls">
@@ -689,6 +687,30 @@ export default function RegistrationPage({ onNavigateHome, onUnstopRedirect }) {
           justify-content: center;
           text-align: center;
           position: relative;
+          overflow: hidden;
+        }
+
+        .reg-animated-waves-bg {
+          position: absolute;
+          inset: 0;
+          pointer-events: none;
+          z-index: 1;
+        }
+
+        .reg-animated-waves-bg .wave-path {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          width: 100%;
+          height: 180px;
+        }
+
+        .reg-animated-waves-bg .wave-path-1 {
+          animation: waveMove 12s ease-in-out infinite alternate;
+        }
+
+        .reg-animated-waves-bg .wave-path-2 {
+          animation: waveMove 8s ease-in-out infinite alternate;
         }
 
         .reg-hero-content {
@@ -1393,30 +1415,6 @@ export default function RegistrationPage({ onNavigateHome, onUnstopRedirect }) {
           }
           .card-bottom-cta .btn {
             width: 100%;
-          }
-          .hero-proof-bar {
-            display: flex;
-            align-items: center;
-            gap: var(--space-md);
-            border-top: 1.5px solid var(--light-blue);
-            padding-top: var(--space-md);
-            width: 100%;
-            max-width: 540px;
-          }
-          .proof-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-family: var(--font-heading);
-            font-size: var(--font-size-sm);
-            font-weight: 700;
-            color: var(--deep-blue);
-          }
-          .proof-sep {
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background-color: var(--medium-blue);
           }
         }
       `}</style>
