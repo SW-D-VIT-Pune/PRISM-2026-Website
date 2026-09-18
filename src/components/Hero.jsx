@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ArrowRight, Compass, HeartHandshake, Camera, Sparkles, HelpCircle } from 'lucide-react';
 
-export default function Hero({ onExploreClick, onVisionClick, onQuizClick }) {
+export default function Hero({ onQuizClick }) {
   const [activePhotoIndex, setActivePhotoIndex] = useState(0);
 
   const lastYearPhotos = [

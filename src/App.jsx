@@ -5,9 +5,7 @@ import './styles/components.css';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import AboutSection from './components/AboutSection';
-import KeyStats from './components/Infographics/KeyStats';
 import EventTracks from './components/EventTracks';
-import ConnectedJourney from './components/Infographics/ConnectedJourney';
 import CommunitySection from './components/TimelineSection';
 import HighlightCTA from './components/HighlightCTA';
 import RegistrationPage from './components/RegistrationPage';
@@ -59,32 +57,6 @@ export default function App() {
     handleNavClick({ id: 'quiz', label: 'Quiz' });
   };
 
-  const handleExploreClick = () => {
-    if (activeTab !== 'home') {
-      setActiveTab('home');
-      setTimeout(() => {
-        const el = document.getElementById('process');
-        if (el) el.scrollIntoView({ behavior: 'smooth' });
-      }, 100);
-    } else {
-      const el = document.getElementById('process');
-      if (el) el.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
-  const handleVisionClick = () => {
-    if (activeTab !== 'home') {
-      setActiveTab('home');
-      setTimeout(() => {
-        const el = document.getElementById('about');
-        if (el) el.scrollIntoView({ behavior: 'smooth' });
-      }, 100);
-    } else {
-      const el = document.getElementById('about');
-      if (el) el.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
   return (
     <div className="prism-app-wrapper">
       {/* 1. FINAL RESPONSIVE NAVBAR */}
@@ -111,8 +83,6 @@ export default function App() {
         <main className="home-page-content">
           {/* SECTION 1: HERO */}
           <Hero 
-            onExploreClick={handleExploreClick}
-            onVisionClick={handleVisionClick}
             onQuizClick={handleQuizClick}
           />
 
@@ -130,7 +100,6 @@ export default function App() {
 
           {/* SECTION 5: CALL TO ACTION */}
           <HighlightCTA 
-            onExploreClick={handleExploreClick}
             onUpcomingClick={() => handleNavClick({ id: 'registration', label: 'Registration' })}
           />
         </main>

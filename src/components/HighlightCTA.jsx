@@ -20,13 +20,10 @@ export default function HighlightCTA({ onExploreClick, onUpcomingClick }) {
             </p>
 
             <div className="cta-banner-actions">
-              <button className="btn btn-primary btn-lg" onClick={onExploreClick}>
-                <span>Explore Home Showcase</span>
-                <ArrowRight size={18} />
-              </button>
-              <button className="btn btn-outline btn-lg" onClick={onUpcomingClick}>
+              <button className="btn btn-primary btn-lg" onClick={onUpcomingClick}>
                 <Compass size={18} />
-                <span>Registration Info</span>
+                <span>Register for PRISM '26</span>
+                <ArrowRight size={18} />
               </button>
             </div>
           </div>
