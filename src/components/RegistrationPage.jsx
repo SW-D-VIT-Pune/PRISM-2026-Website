@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { 
   Trophy, Users, Award, ShieldAlert, CheckCircle2, ArrowRight, 
-  Sparkles, Calendar, HelpCircle, Ticket, Music, Code2, Lightbulb, 
-  ExternalLink, ChevronDown, ChevronUp, Radio, Info, Layers, Check 
+  Sparkles, Calendar, Ticket, Music, Code2, Lightbulb, 
+  ExternalLink, ChevronDown, ChevronUp, Zap, HelpCircle, Layers
 } from 'lucide-react';
 
 export default function RegistrationPage({ onNavigateHome, onUnstopRedirect }) {
@@ -23,21 +23,19 @@ export default function RegistrationPage({ onNavigateHome, onUnstopRedirect }) {
       {/* HEADER BANNER */}
       <div className="reg-hero-banner">
         <div className="container-inner">
-          <div className="reg-hero-content animate-fade-up">
+          <div className="reg-hero-content animate-fade-in">
             
-            {/* REALTIME CURRENT ANNOUNCEMENT LINE */}
-            <div className="realtime-announcement-bar">
-              <span className="live-pulse-ring">
-                <span className="pulse-dot"></span>
-              </span>
-              <span className="announcement-tag">LIVE ANNOUNCEMENT</span>
+            {/* REALTIME CURRENT ANNOUNCEMENT BAR */}
+            <div className="realtime-announcement-bar animate-pulse-glow">
+              <span className="live-indicator-pulse"></span>
+              <Zap size={15} className="zap-icon" />
               <span className="announcement-text">
-                Registrations are live on Unstop! Shortlisting for Round 1 PPT Submission is open.
+                <strong>LIVE NOW:</strong> PRISM '26 Registrations Open • ₹67,000 Cash Prizes • Submit Proposals on Unstop!
               </span>
             </div>
 
-            {/* SINGLE LINE TITLE WITH SMALLER HEADING FONT */}
-            <h1 className="reg-main-title">
+            {/* MAIN TITLE (Single Line Fit) */}
+            <h1 className="heading-display reg-main-title">
               Participate & Innovate
             </h1>
 
@@ -78,22 +76,22 @@ export default function RegistrationPage({ onNavigateHome, onUnstopRedirect }) {
         
         {/* TAB 1: EVENT TRACKS (Sociothon, Ideathon, Kala-Kriti) */}
         {activeTab === 'tracks' && (
-          <div className="tracks-registration-view animate-fade-up">
+          <div className="tracks-registration-view animate-fade-in">
             
             {/* 1. SOCIOTHON (TECHNICAL TRACK) */}
             <div className={`reg-event-card card-clean ${expandedTrack === 'sociothon' ? 'expanded' : ''}`}>
               <div className="event-card-header" onClick={() => setExpandedTrack(expandedTrack === 'sociothon' ? null : 'sociothon')}>
                 <div className="event-title-group">
                   <div className="event-icon-box navy">
-                    <Code2 size={22} />
+                    <Code2 size={24} />
                   </div>
                   <div>
                     <div className="event-meta-badges">
                       <span className="badge-pill">TECHNICAL TRACK</span>
                       <span className="badge-outline">₹50,000 PRIZE POOL</span>
                     </div>
-                    <h2 className="event-card-title">Sociothon — Technical Track</h2>
-                    <p className="text-muted" style={{ fontSize: '0.88rem' }}>
+                    <h2 className="heading-2 event-card-title">Sociothon — Technical Track</h2>
+                    <p className="text-muted" style={{ fontSize: '0.9rem' }}>
                       Build functional software, hardware, or AI models solving grassroots social challenges.
                     </p>
                   </div>
@@ -110,8 +108,8 @@ export default function RegistrationPage({ onNavigateHome, onUnstopRedirect }) {
                     <span>Register on Unstop</span>
                     <ExternalLink size={14} />
                   </button>
-                  <button className="expand-toggle-btn">
-                    {expandedTrack === 'sociothon' ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
+                  <button className="expand-toggle-btn" aria-label="Toggle details">
+                    {expandedTrack === 'sociothon' ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
                   </button>
                 </div>
               </div>
@@ -119,124 +117,131 @@ export default function RegistrationPage({ onNavigateHome, onUnstopRedirect }) {
               {/* EXPANDABLE DETAILS BODY */}
               <div className="event-card-details">
                 
-                {/* Team Rules & Disqualification Grid */}
-                <div className="details-grid">
-                  
-                  {/* Team Rules */}
-                  <div className="detail-box">
-                    <h4 className="detail-heading">
-                      <Users size={16} /> Team Formation Rules
-                    </h4>
-                    <ul className="detail-list">
-                      <li><strong>Team Participation:</strong> Interdisciplinary collaboration encouraged</li>
-                      <li><strong>Team Size:</strong> Exactly 5 members</li>
-                      <li><strong>Gender Inclusion Rule:</strong> Team leader must be a girl, OR team must have at least 2 girl members</li>
-                      <li className="rule-alert">Teams not fulfilling this criterion will not be eligible for registration/participation</li>
-                    </ul>
-                  </div>
-
-                  {/* Disqualification */}
-                  <div className="detail-box warning-box">
-                    <h4 className="detail-heading">
-                      <ShieldAlert size={16} /> Disqualification Criteria
-                    </h4>
-                    <ul className="detail-list">
-                      <li>Submissions copied, plagiarized, or AI-generated without originality</li>
-                      <li>Failure to adhere to deadlines or submission guidelines</li>
-                      <li>Failure to meet team size (5 members) or gender inclusion rules</li>
-                      <li>Misconduct during the event (academic dishonesty, disruptive behavior)</li>
-                    </ul>
-                  </div>
-
+                {/* UNSTOP PROBLEM STATEMENTS NOTICE */}
+                <div className="unstop-ps-notice-bar animate-slide-right">
+                  <Sparkles size={16} />
+                  <span>Problem statements will be displayed on <strong>Unstop</strong>.</span>
                 </div>
 
-                {/* UNSTOP NOTICE BANNER */}
-                <div className="unstop-notice-pill">
-                  <Info size={16} />
-                  <span><strong>Problem statements will be displayed on Unstop.</strong></span>
-                </div>
-
-                {/* CREATIVE VISUAL DELIVERABLES ROADMAP & PRIZE PODIUM */}
-                <div className="visual-deliverables-wrapper">
-                  
-                  {/* Visual Roadmap */}
-                  <div className="roadmap-container">
-                    <h4 className="visual-section-title">
-                      <Layers size={18} /> Project Rounds & Deliverables Roadmap
-                    </h4>
-                    <div className="roadmap-steps-grid">
-                      
-                      <div className="roadmap-step-card free-step">
-                        <div className="step-badge">Round 1</div>
-                        <h5 className="step-title">PPT Idea Submission</h5>
-                        <p className="step-desc">PPT-based idea submission on portal.</p>
-                        <div className="step-tag free-tag">FREE — 250 Teams Shortlisted</div>
+                {/* VISUAL TIMELINE FOR PROJECT ROUNDS */}
+                <div className="details-visual-section">
+                  <h4 className="visual-section-heading">
+                    <Calendar size={18} /> Event Journey & Project Rounds
+                  </h4>
+                  <div className="rounds-timeline-stepper">
+                    
+                    {/* Step 1 */}
+                    <div className="timeline-step">
+                      <div className="step-circle">1</div>
+                      <div className="step-content">
+                        <span className="step-tag free-tag">FREE ENTRY</span>
+                        <h5 className="step-title">Round 1: Idea Pitch</h5>
+                        <p className="step-desc">PPT-based idea submission on Unstop. <strong>250 teams shortlisted.</strong></p>
                       </div>
-
-                      <div className="roadmap-step-card paid-step">
-                        <div className="step-badge">Round 2</div>
-                        <h5 className="step-title">Online Pitch</h5>
-                        <p className="step-desc">Online presentation before expert panel.</p>
-                        <div className="step-tag price-tag">₹500 for shortlisted teams</div>
-                      </div>
-
-                      <div className="roadmap-step-card final-step">
-                        <div className="step-badge">Round 3</div>
-                        <h5 className="step-title">Final Prototype & Pitch</h5>
-                        <p className="step-desc">Working prototype showcase & final pitch.</p>
-                        <div className="step-tag final-tag">Grand Finale Showcase</div>
-                      </div>
-
                     </div>
+
+                    <div className="timeline-connector"></div>
+
+                    {/* Step 2 */}
+                    <div className="timeline-step">
+                      <div className="step-circle">2</div>
+                      <div className="step-content">
+                        <span className="step-tag fee-tag">₹500 FEE</span>
+                        <h5 className="step-title">Round 2: Online Pitch</h5>
+                        <p className="step-desc">Online presentation & Q&A evaluation before judges.</p>
+                      </div>
+                    </div>
+
+                    <div className="timeline-connector"></div>
+
+                    {/* Step 3 */}
+                    <div className="timeline-step">
+                      <div className="step-circle final-circle">3</div>
+                      <div className="step-content">
+                        <span className="step-tag finale-tag">GRAND FINALE</span>
+                        <h5 className="step-title">Round 3: Prototype Showcase</h5>
+                        <p className="step-desc">Working prototype demo & final pitch on campus stage.</p>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+
+                {/* PRIZE & TEAM RULES GRID */}
+                <div className="rules-prize-flex-grid" style={{ marginTop: '24px' }}>
+                  
+                  {/* Team Rules Box */}
+                  <div className="visual-rule-card">
+                    <h4 className="detail-heading">
+                      <Users size={18} /> Team Formation Rules
+                    </h4>
+                    <ul className="detail-list">
+                      <li><strong>Team Size:</strong> Exactly 5 members (Interdisciplinary collaboration encouraged).</li>
+                      <li><strong>Gender Inclusion Rule:</strong> The team leader must be a girl, <em>OR</em> the team must have at least 2 girl members.</li>
+                      <li className="rule-alert-text">Teams not fulfilling this criterion will not be eligible for registration/participation.</li>
+                    </ul>
                   </div>
 
-                  {/* Visual Prize Podium */}
-                  <div className="prize-visual-container">
-                    <h4 className="visual-section-title">
-                      <Trophy size={18} /> Prize Pool Breakdown
+                  {/* Visual Prize Badge Box */}
+                  <div className="visual-prize-card">
+                    <h4 className="detail-heading">
+                      <Trophy size={18} /> Prize Breakdown (₹50,000 Pool)
                     </h4>
-                    <div className="prize-podium-cards">
-                      <div className="podium-card runner-up">
-                        <div className="podium-rank">1st Runner Up</div>
-                        <div className="podium-amount">₹20,000</div>
-                        <div className="podium-perks">Cash Prize + National Certificate</div>
+                    <div className="prize-visual-strip">
+                      <div className="prize-podium winner">
+                        <span className="podium-rank">🏆 WINNER</span>
+                        <span className="podium-amount">₹30,000</span>
+                        <span className="podium-sub">Cash Prize + Trophy</span>
                       </div>
-                      <div className="podium-card winner">
-                        <div className="podium-crown">🏆 WINNER</div>
-                        <div className="podium-amount">₹30,000</div>
-                        <div className="podium-perks">Cash Prize + Mentorship + Pilot Opportunity</div>
+                      <div className="prize-podium runner">
+                        <span className="podium-rank">🥈 1ST RUNNER UP</span>
+                        <span className="podium-amount">₹20,000</span>
+                        <span className="podium-sub">Cash Prize + Trophy</span>
                       </div>
                     </div>
                   </div>
 
+                </div>
+
+                {/* Disqualification List */}
+                <div className="visual-disqualification-card" style={{ marginTop: '20px' }}>
+                  <h4 className="detail-heading danger">
+                    <ShieldAlert size={18} /> Disqualification Criteria
+                  </h4>
+                  <ul className="disqualification-chips-list">
+                    <li>Copied, plagiarized, or AI-generated submissions without originality</li>
+                    <li>Non-adherence to deadlines or submission guidelines</li>
+                    <li>Failure to meet team size (5 members) or gender inclusion criteria</li>
+                    <li>Misconduct during event (academic dishonesty, disruptive behavior)</li>
+                  </ul>
                 </div>
 
                 <div className="card-bottom-cta">
                   <button 
-                    className="btn btn-primary btn-compact"
+                    className="btn btn-primary btn-compact-lg"
                     onClick={() => handleUnstopClick('Sociothon')}
                   >
-                    <span>Register Team for Sociothon on Unstop</span>
-                    <ExternalLink size={15} />
+                    <span>Register Team on Unstop</span>
+                    <ExternalLink size={16} />
                   </button>
                 </div>
               </div>
             </div>
 
             {/* 2. IDEATHON (SOCIAL TRACK) */}
-            <div className={`reg-event-card card-clean ${expandedTrack === 'ideathon' ? 'expanded' : ''}`} style={{ marginTop: '20px' }}>
+            <div className={`reg-event-card card-clean ${expandedTrack === 'ideathon' ? 'expanded' : ''}`} style={{ marginTop: '24px' }}>
               <div className="event-card-header" onClick={() => setExpandedTrack(expandedTrack === 'ideathon' ? null : 'ideathon')}>
                 <div className="event-title-group">
                   <div className="event-icon-box blue">
-                    <Lightbulb size={22} />
+                    <Lightbulb size={24} />
                   </div>
                   <div>
                     <div className="event-meta-badges">
                       <span className="badge-pill">SOCIAL TRACK</span>
                       <span className="badge-outline">₹17,000 PRIZE POOL</span>
                     </div>
-                    <h2 className="event-card-title">Ideathon — Social Track</h2>
-                    <p className="text-muted" style={{ fontSize: '0.88rem' }}>
+                    <h2 className="heading-2 event-card-title">Ideathon — Social Track</h2>
+                    <p className="text-muted" style={{ fontSize: '0.9rem' }}>
                       Formulate domain-wise social impact proposals & sustainability action frameworks.
                     </p>
                   </div>
@@ -253,123 +258,128 @@ export default function RegistrationPage({ onNavigateHome, onUnstopRedirect }) {
                     <span>Register on Unstop</span>
                     <ExternalLink size={14} />
                   </button>
-                  <button className="expand-toggle-btn">
-                    {expandedTrack === 'ideathon' ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
+                  <button className="expand-toggle-btn" aria-label="Toggle details">
+                    {expandedTrack === 'ideathon' ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
                   </button>
                 </div>
               </div>
 
               {/* EXPANDABLE DETAILS BODY */}
               <div className="event-card-details">
-                <div className="details-grid">
-                  
-                  {/* Team Rules */}
-                  <div className="detail-box">
-                    <h4 className="detail-heading">
-                      <Users size={16} /> Team Formation Rules
-                    </h4>
-                    <ul className="detail-list">
-                      <li><strong>Team Participation:</strong> Team-based (Social Impact & Sustainability focus)</li>
-                      <li><strong>Team Size:</strong> Minimum 2 – Maximum 3 members</li>
-                      <li><strong>Target Domain:</strong> Domain-wise social problem statements</li>
-                    </ul>
-                  </div>
-
-                  {/* Disqualification */}
-                  <div className="detail-box warning-box">
-                    <h4 className="detail-heading">
-                      <ShieldAlert size={16} /> Disqualification Criteria
-                    </h4>
-                    <ul className="detail-list">
-                      <li>Submissions copied, plagiarized, or AI-generated without originality</li>
-                      <li>Failure to adhere to deadlines or submission guidelines</li>
-                      <li>Failure to meet the team size criteria (2–3 members)</li>
-                      <li>Misconduct during the event (academic dishonesty, disruptive behavior)</li>
-                    </ul>
-                  </div>
-
+                
+                {/* UNSTOP PROBLEM STATEMENTS NOTICE */}
+                <div className="unstop-ps-notice-bar animate-slide-right">
+                  <Sparkles size={16} />
+                  <span>Problem statements will be displayed on <strong>Unstop</strong>.</span>
                 </div>
 
-                {/* UNSTOP NOTICE BANNER */}
-                <div className="unstop-notice-pill">
-                  <Info size={16} />
-                  <span><strong>Problem statements will be displayed on Unstop.</strong></span>
-                </div>
-
-                {/* CREATIVE VISUAL DELIVERABLES ROADMAP & PRIZE PODIUM FOR IDEATHON */}
-                <div className="visual-deliverables-wrapper">
-                  
-                  {/* Visual Roadmap */}
-                  <div className="roadmap-container">
-                    <h4 className="visual-section-title">
-                      <Layers size={18} /> Project Rounds & Deliverables Roadmap
-                    </h4>
-                    <div className="roadmap-steps-grid two-steps">
-                      
-                      <div className="roadmap-step-card free-step">
-                        <div className="step-badge">Round 1</div>
-                        <h5 className="step-title">PPT Idea Submission</h5>
-                        <p className="step-desc">PPT-based idea submission on portal.</p>
-                        <div className="step-tag free-tag">FREE — 100 Teams Shortlisted</div>
+                {/* VISUAL TIMELINE FOR PROJECT ROUNDS */}
+                <div className="details-visual-section">
+                  <h4 className="visual-section-heading">
+                    <Calendar size={18} /> Event Journey & Project Rounds
+                  </h4>
+                  <div className="rounds-timeline-stepper two-steps">
+                    
+                    {/* Step 1 */}
+                    <div className="timeline-step">
+                      <div className="step-circle">1</div>
+                      <div className="step-content">
+                        <span className="step-tag free-tag">FREE ENTRY</span>
+                        <h5 className="step-title">Round 1: Idea Pitch</h5>
+                        <p className="step-desc">PPT-based idea submission on Unstop. <strong>100 teams shortlisted.</strong></p>
                       </div>
-
-                      <div className="roadmap-step-card paid-step">
-                        <div className="step-badge">Round 2</div>
-                        <h5 className="step-title">Offline Pitch Presentation</h5>
-                        <p className="step-desc">Pitch before evaluation jury panel.</p>
-                        <div className="step-tag price-tag">₹180 fee (Winner & Runner-up)</div>
-                      </div>
-
                     </div>
+
+                    <div className="timeline-connector"></div>
+
+                    {/* Step 2 */}
+                    <div className="timeline-step">
+                      <div className="step-circle final-circle">2</div>
+                      <div className="step-content">
+                        <span className="step-tag fee-tag">₹180 FEE</span>
+                        <h5 className="step-title">Round 2: Offline Pitch Presentation</h5>
+                        <p className="step-desc">In-person pitch presentation for Winner & Runner-up titles.</p>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+
+                {/* PRIZE & TEAM RULES GRID */}
+                <div className="rules-prize-flex-grid" style={{ marginTop: '24px' }}>
+                  
+                  {/* Team Rules Box */}
+                  <div className="visual-rule-card">
+                    <h4 className="detail-heading">
+                      <Users size={18} /> Team Formation Rules
+                    </h4>
+                    <ul className="detail-list">
+                      <li><strong>Team Participation:</strong> Team-based (Social Impact & Sustainability focus).</li>
+                      <li><strong>Team Size:</strong> Minimum 2 – Maximum 3 members.</li>
+                      <li>Open to all interested Bachelor's degree students.</li>
+                    </ul>
                   </div>
 
-                  {/* Visual Prize Podium */}
-                  <div className="prize-visual-container">
-                    <h4 className="visual-section-title">
-                      <Trophy size={18} /> Prize Pool Breakdown
+                  {/* Visual Prize Badge Box */}
+                  <div className="visual-prize-card">
+                    <h4 className="detail-heading">
+                      <Trophy size={18} /> Prize Breakdown (₹17,000 Pool)
                     </h4>
-                    <div className="prize-podium-cards">
-                      <div className="podium-card runner-up">
-                        <div className="podium-rank">1st Runner Up</div>
-                        <div className="podium-amount">₹6,000</div>
-                        <div className="podium-perks">Cash Prize + National Certificate</div>
+                    <div className="prize-visual-strip">
+                      <div className="prize-podium winner">
+                        <span className="podium-rank">🏆 WINNER</span>
+                        <span className="podium-amount">₹11,000</span>
+                        <span className="podium-sub">Cash Prize + Trophy</span>
                       </div>
-                      <div className="podium-card winner">
-                        <div className="podium-crown">🏆 WINNER</div>
-                        <div className="podium-amount">₹11,000</div>
-                        <div className="podium-perks">Cash Prize + Mentorship & NGO Network</div>
+                      <div className="prize-podium runner">
+                        <span className="podium-rank">🥈 1ST RUNNER UP</span>
+                        <span className="podium-amount">₹6,000</span>
+                        <span className="podium-sub">Cash Prize + Trophy</span>
                       </div>
                     </div>
                   </div>
 
+                </div>
+
+                {/* Disqualification List */}
+                <div className="visual-disqualification-card" style={{ marginTop: '20px' }}>
+                  <h4 className="detail-heading danger">
+                    <ShieldAlert size={18} /> Disqualification Criteria
+                  </h4>
+                  <ul className="disqualification-chips-list">
+                    <li>Copied, plagiarized, or AI-generated submissions without originality</li>
+                    <li>Non-adherence to deadlines or submission guidelines</li>
+                    <li>Failure to meet team size criteria (2–3 members)</li>
+                    <li>Misconduct during event (academic dishonesty, disruptive behavior)</li>
+                  </ul>
                 </div>
 
                 <div className="card-bottom-cta">
                   <button 
-                    className="btn btn-primary btn-compact"
+                    className="btn btn-primary btn-compact-lg"
                     onClick={() => handleUnstopClick('Ideathon')}
                   >
-                    <span>Register Team for Ideathon on Unstop</span>
-                    <ExternalLink size={15} />
+                    <span>Register Team on Unstop</span>
+                    <ExternalLink size={16} />
                   </button>
                 </div>
               </div>
             </div>
 
             {/* 3. KALA-KRITI (CULTURAL SHOWCASE) */}
-            <div className={`reg-event-card card-clean ${expandedTrack === 'kalakriti' ? 'expanded' : ''}`} style={{ marginTop: '20px' }}>
+            <div className={`reg-event-card card-clean ${expandedTrack === 'kalakriti' ? 'expanded' : ''}`} style={{ marginTop: '24px' }}>
               <div className="event-card-header" onClick={() => setExpandedTrack(expandedTrack === 'kalakriti' ? null : 'kalakriti')}>
                 <div className="event-title-group">
                   <div className="event-icon-box navy">
-                    <Music size={22} />
+                    <Music size={24} />
                   </div>
                   <div>
                     <div className="event-meta-badges">
                       <span className="badge-pill">CULTURAL SHOWCASE</span>
                       <span className="badge-outline">STAGE PERFORMANCES</span>
                     </div>
-                    <h2 className="event-card-title">Kala-Kriti — Cultural Showcase</h2>
-                    <p className="text-muted" style={{ fontSize: '0.88rem' }}>
+                    <h2 className="heading-2 event-card-title">Kala-Kriti — Cultural Showcase</h2>
+                    <p className="text-muted" style={{ fontSize: '0.9rem' }}>
                       Celebrate creative expression through music, dance, and live artistic performances.
                     </p>
                   </div>
@@ -386,36 +396,36 @@ export default function RegistrationPage({ onNavigateHome, onUnstopRedirect }) {
                     <span>Register Now</span>
                     <ArrowRight size={14} />
                   </button>
-                  <button className="expand-toggle-btn">
-                    {expandedTrack === 'kalakriti' ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
+                  <button className="expand-toggle-btn" aria-label="Toggle details">
+                    {expandedTrack === 'kalakriti' ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
                   </button>
                 </div>
               </div>
 
               {/* EXPANDABLE DETAILS BODY */}
               <div className="event-card-details">
-                <div className="details-grid">
+                <div className="details-grid-simple">
                   
-                  <div className="detail-box">
+                  <div className="visual-rule-card">
                     <h4 className="detail-heading">
-                      <Sparkles size={16} /> Performance Categories
+                      <Sparkles size={18} /> Performance Categories
                     </h4>
                     <ul className="detail-list">
                       <li>Dance performances</li>
                       <li>Vocal & Instrumental Music</li>
                       <li>Other Performances</li>
-                      <li>Auditions apply</li>
+                      <li><em>Auditions apply</em></li>
                     </ul>
                   </div>
 
-                  <div className="detail-box">
+                  <div className="visual-rule-card">
                     <h4 className="detail-heading">
-                      <CheckCircle2 size={16} /> Participant Benefits
+                      <CheckCircle2 size={18} /> Participant Benefits
                     </h4>
                     <ul className="detail-list">
-                      <li>Main stage performance slot at PRISM '26</li>
-                      <li>Official Participation Certificates</li>
-                      <li>Trophy & Recognition for top performers</li>
+                      <li>Main stage slot at PRISM '26 Cultural Evening</li>
+                      <li>Participation Certificate for all artists</li>
+                      <li>National campus recognition & trophies</li>
                     </ul>
                   </div>
 
@@ -423,11 +433,11 @@ export default function RegistrationPage({ onNavigateHome, onUnstopRedirect }) {
 
                 <div className="card-bottom-cta">
                   <button 
-                    className="btn btn-primary btn-compact"
+                    className="btn btn-primary btn-compact-lg"
                     onClick={() => handleUnstopClick('Kala-Kriti')}
                   >
-                    <span>Register for Kala-Kriti Showcase</span>
-                    <ArrowRight size={15} />
+                    <span>Register for Kala-Kriti</span>
+                    <ArrowRight size={16} />
                   </button>
                 </div>
               </div>
@@ -438,11 +448,11 @@ export default function RegistrationPage({ onNavigateHome, onUnstopRedirect }) {
 
         {/* TAB 2: STUDENT EVENT PASSES */}
         {activeTab === 'passes' && (
-          <div className="passes-registration-view animate-fade-up">
-            <div className="section-header" style={{ marginBottom: '24px' }}>
+          <div className="passes-registration-view animate-fade-in">
+            <div className="section-header" style={{ marginBottom: '28px' }}>
               <span className="section-tag">FOR COLLEGE STUDENTS</span>
               <h2 className="heading-1">Event Ticket Passes</h2>
-              <p className="text-muted" style={{ fontSize: '0.92rem' }}>
+              <p className="text-muted">
                 Select your pass to gain access to keynote sessions, TechTalks, Vishwakhyan, and cultural showcases.
               </p>
             </div>
@@ -452,61 +462,65 @@ export default function RegistrationPage({ onNavigateHome, onUnstopRedirect }) {
               {/* Pass 1: Day 1 + Day 2 Combo Pass */}
               <div className="pass-card card-clean highlight-pass">
                 <div className="pass-tag-strip">
-                  <span className="badge-pill">STUDENT COMBO PASS</span>
+                  <span className="badge-pill">STUDENT COMBO ACCESS</span>
                 </div>
-                <h3 className="pass-title">Combo Pass (Day 1 + Day 2)</h3>
-                <p className="text-muted" style={{ fontSize: '0.88rem' }}>
-                  Student ticket combo access to all events across both days.
+                <h3 className="heading-2 pass-title">Combo Pass (Day 1 + Day 2)</h3>
+                <p className="text-muted" style={{ fontSize: '0.875rem', marginBottom: '12px' }}>
+                  Full combo access across all PRISM '26 events and sessions.
                 </p>
+                
                 <div className="pass-price-box">
                   <span className="price-currency">₹</span>
                   <span className="price-amount">300</span>
                   <span className="price-period">/ Student</span>
                 </div>
 
-                {/* UPDATED EXACT COMBO PASS CONTENT AS REQUESTED */}
+                {/* EXACT SPECIFIED COMBO PASS CONTENT */}
                 <ul className="pass-features-list">
-                  <li><Check size={16} className="check-icon" /> Access to inspiring NGO Talks and Guest Sessions</li>
-                  <li><Check size={16} className="check-icon" /> Full access to TechTalks & Vishwakhyan</li>
-                  <li><Check size={16} className="check-icon" /> Entry to Kala-Kriti Cultural Evening</li>
-                  <li><Check size={16} className="check-icon" /> Exposure to social innovation, sustainability, and real-world problem-solving</li>
-                  <li><Check size={16} className="check-icon" /> Certificates of participation for all attendees</li>
+                  <li><CheckCircle2 size={16} /> Access to inspiring NGO Talks and Guest Sessions</li>
+                  <li><CheckCircle2 size={16} /> Full access to TechTalks & Vishwakhyan</li>
+                  <li><CheckCircle2 size={16} /> Entry to Kala-Kriti Cultural Evening</li>
+                  <li><CheckCircle2 size={16} /> Exposure to social innovation, sustainability, and real-world problem-solving</li>
+                  <li><CheckCircle2 size={16} /> Certificates of participation for all attendees</li>
                 </ul>
 
                 <button 
-                  className="btn btn-primary btn-compact pass-btn"
+                  className="btn btn-primary btn-compact-lg pass-btn"
                   onClick={() => handleUnstopClick('Combo Pass')}
                 >
                   <span>Register Now</span>
-                  <ArrowRight size={15} />
+                  <ArrowRight size={16} />
                 </button>
               </div>
 
               {/* Pass 2: Only Day 2 Pass */}
               <div className="pass-card card-clean">
                 <div className="pass-tag-strip">
-                  <span className="badge-outline">ONLY DAY 2</span>
+                  <span className="badge-outline">DAY 2 ONLY</span>
                 </div>
-                <h3 className="pass-title">Day 2 Pass</h3>
-                <p className="text-muted" style={{ fontSize: '0.88rem' }}>
-                  TechTalks + Vishwakhyan session pass for Day 2.
+                <h3 className="heading-2 pass-title">Day 2 Pass</h3>
+                <p className="text-muted" style={{ fontSize: '0.875rem', marginBottom: '12px' }}>
+                  Dedicated access to Day 2 keynote addresses and technical sessions.
                 </p>
+                
                 <div className="pass-price-box">
                   <span className="price-currency">₹</span>
                   <span className="price-amount">200</span>
                   <span className="price-period">/ Student</span>
                 </div>
+
                 <ul className="pass-features-list">
-                  <li><Check size={16} className="check-icon" /> Full access to TechTalks & Vishwakhyan</li>
-                  <li><Check size={16} className="check-icon" /> Entry to Final Pitch & Award Showcase</li>
-                  <li><Check size={16} className="check-icon" /> Certificate of Participation</li>
+                  <li><CheckCircle2 size={16} /> Access to TechTalks & Vishwakhyan</li>
+                  <li><CheckCircle2 size={16} /> Entry to Final Pitch & Award Showcase</li>
+                  <li><CheckCircle2 size={16} /> Certificate of Participation</li>
                 </ul>
+
                 <button 
-                  className="btn btn-outline btn-compact pass-btn"
+                  className="btn btn-outline btn-compact-lg pass-btn"
                   onClick={() => handleUnstopClick('Day 2 Pass')}
                 >
                   <span>Register Now</span>
-                  <ArrowRight size={15} />
+                  <ArrowRight size={16} />
                 </button>
               </div>
 
@@ -516,12 +530,12 @@ export default function RegistrationPage({ onNavigateHome, onUnstopRedirect }) {
 
         {/* TAB 3: BENEFITS AND PERKS */}
         {activeTab === 'perks' && (
-          <div className="perks-view animate-fade-up">
-            <div className="section-header" style={{ marginBottom: '24px' }}>
+          <div className="perks-view animate-fade-in">
+            <div className="section-header" style={{ marginBottom: '28px' }}>
               <span className="section-tag">DELEGATE REWARDS</span>
-              <h2 className="heading-1">Benefits & Perks</h2>
-              <p className="text-muted" style={{ fontSize: '0.92rem' }}>
-                Key benefits and opportunities for PRISM '26 participants.
+              <h2 className="heading-1">Benefits & Perks Summary</h2>
+              <p className="text-muted">
+                Key opportunities, networking exposure, and prize pools for all PRISM '26 participants.
               </p>
             </div>
 
@@ -534,15 +548,15 @@ export default function RegistrationPage({ onNavigateHome, onUnstopRedirect }) {
                     <Code2 size={22} />
                   </div>
                   <div>
-                    <h3 className="heading-3">Sociothon</h3>
-                    <span className="badge-outline">PRIZE POOL ₹50,000</span>
+                    <h3 className="heading-3">Sociothon Perks</h3>
+                    <span className="badge-outline">₹50,000 PRIZE POOL</span>
                   </div>
                 </div>
                 <ul className="perks-list">
                   <li>Certificates for all participants</li>
                   <li>National-level exposure & networking with NGOs, experts, and academicians</li>
                   <li>Recognition, mentorship, and learning opportunities through the PRISM platform</li>
-                  <li>Prize Pool worth ₹50,000 (₹30,000 – Winner | ₹20,000 – First Runner Up)</li>
+                  <li><strong>Prize Pool worth ₹50,000</strong> (₹30,000 – Winner | ₹20,000 – First Runner Up)</li>
                 </ul>
               </div>
 
@@ -553,37 +567,37 @@ export default function RegistrationPage({ onNavigateHome, onUnstopRedirect }) {
                     <Lightbulb size={22} />
                   </div>
                   <div>
-                    <h3 className="heading-3">Ideathon</h3>
-                    <span className="badge-outline">PRIZE POOL ₹17,000</span>
+                    <h3 className="heading-3">Ideathon Perks</h3>
+                    <span className="badge-outline">₹17,000 PRIZE POOL</span>
                   </div>
                 </div>
                 <ul className="perks-list">
                   <li>Certificates for all participants</li>
                   <li>National-level exposure & networking with NGOs, experts, and academicians</li>
                   <li>Recognition, mentorship, and learning opportunities through the PRISM platform</li>
-                  <li>Prize Pool worth ₹17,000 (₹11,000 – Winner | ₹6,000 – First Runner Up)</li>
+                  <li><strong>Prize Pool worth ₹17,000</strong> (₹11,000 – Winner | ₹6,000 – First Runner Up)</li>
                 </ul>
               </div>
 
             </div>
 
-            {/* Overall Delegate Benefits Summary */}
-            <div className="overall-perks-banner card-accent" style={{ marginTop: '24px' }}>
-              <h3 className="heading-2" style={{ color: 'var(--primary-navy)', fontSize: '1.25rem' }}>
-                Cumulative PRISM '26 Perks
+            {/* Overall Perks Banner */}
+            <div className="overall-perks-banner card-accent" style={{ marginTop: '28px' }}>
+              <h3 className="heading-2" style={{ color: 'var(--primary-navy)', fontSize: '1.4rem' }}>
+                Cumulative PRISM '26 Perks Across All Events
               </h3>
               <div className="summary-badges-grid">
                 <div className="summary-badge-item">
                   <Trophy size={18} />
-                  <span>₹67,000 Total Prize Pool</span>
+                  <span>₹67,000 Combined Prize Pool</span>
                 </div>
                 <div className="summary-badge-item">
                   <Award size={18} />
-                  <span>National-Level Certification</span>
+                  <span>National Certificates for All</span>
                 </div>
                 <div className="summary-badge-item">
                   <Users size={18} />
-                  <span>NGO & Industry Exposure</span>
+                  <span>NGO & Industry Networking</span>
                 </div>
               </div>
             </div>
@@ -601,14 +615,14 @@ export default function RegistrationPage({ onNavigateHome, onUnstopRedirect }) {
 
         .reg-hero-banner {
           background-color: #EAF2F8;
-          border-bottom: 2px solid var(--light-blue);
+          border-bottom: 3px solid var(--light-blue);
           padding-top: 155px;
           padding-bottom: var(--space-xl);
           text-align: center;
         }
 
         .reg-hero-content {
-          max-width: 820px;
+          max-width: 850px;
           margin: 0 auto;
           display: flex;
           flex-direction: column;
@@ -619,81 +633,50 @@ export default function RegistrationPage({ onNavigateHome, onUnstopRedirect }) {
         .realtime-announcement-bar {
           display: inline-flex;
           align-items: center;
-          gap: 10px;
+          gap: 8px;
           background: #FFFFFF;
           border: 1.5px solid var(--medium-blue);
-          padding: 6px 16px;
+          padding: 6px 18px;
           border-radius: var(--radius-pill);
-          box-shadow: 0 4px 12px rgba(10, 25, 49, 0.08);
           margin-bottom: 14px;
-          animation: floatGlow 3s ease-in-out infinite alternate;
-        }
-
-        @keyframes floatGlow {
-          0% { box-shadow: 0 4px 12px rgba(10, 25, 49, 0.08); }
-          100% { box-shadow: 0 6px 18px rgba(74, 127, 167, 0.3); }
-        }
-
-        .live-pulse-ring {
-          position: relative;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          width: 10px;
-          height: 10px;
-        }
-
-        .pulse-dot {
-          width: 8px;
-          height: 8px;
-          background-color: #22c55e;
-          border-radius: 50%;
-          box-shadow: 0 0 8px #22c55e;
-          animation: pulse 1.6s infinite;
-        }
-
-        @keyframes pulse {
-          0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); }
-          70% { transform: scale(1.15); box-shadow: 0 0 0 8px rgba(34, 197, 94, 0); }
-          100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
-        }
-
-        .announcement-tag {
-          font-family: var(--font-heading);
-          font-size: 0.75rem;
-          font-weight: 800;
-          color: var(--primary-navy);
-          background-color: var(--light-blue);
-          padding: 2px 8px;
-          border-radius: var(--radius-sm);
-          letter-spacing: 0.5px;
-        }
-
-        .announcement-text {
-          font-family: var(--font-body);
+          box-shadow: 0 4px 15px rgba(74, 127, 167, 0.15);
           font-size: 0.85rem;
-          font-weight: 600;
+          color: var(--primary-navy);
+        }
+
+        .live-indicator-pulse {
+          width: 9px;
+          height: 9px;
+          border-radius: 50%;
+          background-color: #10B981;
+          box-shadow: 0 0 8px #10B981;
+          animation: pulseGreen 1.6s infinite ease-in-out;
+        }
+
+        @keyframes pulseGreen {
+          0%, 100% { transform: scale(1); opacity: 1; }
+          50% { transform: scale(1.3); opacity: 0.6; }
+        }
+
+        .zap-icon {
           color: var(--deep-blue);
         }
 
-        /* SINGLE LINE HEADING WITH REDUCED FONT SIZE */
+        /* MAIN HEADING FIT IN SINGLE LINE */
         .reg-main-title {
-          font-family: var(--font-heading);
-          font-size: clamp(1.8rem, 3.8vw, 2.5rem);
-          font-weight: 800;
+          font-size: clamp(1.8rem, 3.8vw, 2.75rem);
+          white-space: nowrap;
           color: var(--primary-navy);
           margin-bottom: 8px;
-          white-space: nowrap;
-          letter-spacing: -0.5px;
+          letter-spacing: -0.02em;
         }
 
         .reg-hero-sub {
           font-family: var(--font-body);
-          font-size: 0.95rem;
+          font-size: 1rem;
           color: var(--deep-blue);
           line-height: 1.5;
           margin-bottom: var(--space-lg);
-          max-width: 650px;
         }
 
         .reg-tab-controls {
@@ -719,54 +702,51 @@ export default function RegistrationPage({ onNavigateHome, onUnstopRedirect }) {
           background: transparent;
           color: var(--deep-blue);
           font-family: var(--font-heading);
-          font-size: 0.88rem;
+          font-size: 0.875rem;
           font-weight: 700;
           cursor: pointer;
-          transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+          transition: all 0.2s ease;
         }
 
         .reg-tab-btn:hover {
           color: var(--primary-navy);
           background-color: rgba(179, 207, 229, 0.25);
-          transform: translateY(-1px);
         }
 
         .reg-tab-btn.active {
           background-color: var(--primary-navy);
           color: var(--white);
-          box-shadow: 0 4px 12px rgba(10, 25, 49, 0.25);
+          box-shadow: var(--shadow-sm);
         }
 
         .reg-body-container {
           padding-top: var(--space-xl);
         }
 
-        /* COMPACT BUTTON STYLING */
+        /* COMPACT BUTTON STYLES */
         .btn-compact {
-          padding: 8px 16px !important;
+          padding: 7px 15px !important;
           font-size: 0.85rem !important;
           border-radius: var(--radius-pill) !important;
           gap: 6px !important;
-          transition: all 0.25s ease !important;
         }
 
-        .btn-compact:hover {
-          transform: translateY(-2px) scale(1.02);
-          box-shadow: 0 6px 16px rgba(10, 25, 49, 0.25);
+        .btn-compact-lg {
+          padding: 9px 20px !important;
+          font-size: 0.875rem !important;
+          border-radius: var(--radius-pill) !important;
+          gap: 8px !important;
         }
 
         /* EVENT CARDS */
         .reg-event-card {
           overflow: hidden;
-          transition: all 0.3s ease;
-          border: 1.5px solid var(--light-blue);
-          border-radius: var(--radius-lg);
-          background: var(--white);
+          transition: transform 0.25s ease, box-shadow 0.25s ease;
         }
 
         .reg-event-card:hover {
-          border-color: var(--medium-blue);
-          box-shadow: 0 8px 24px rgba(10, 25, 49, 0.08);
+          transform: translateY(-2px);
+          box-shadow: 0 10px 30px rgba(10, 25, 49, 0.08);
         }
 
         .event-card-header {
@@ -775,18 +755,17 @@ export default function RegistrationPage({ onNavigateHome, onUnstopRedirect }) {
           justify-content: space-between;
           cursor: pointer;
           gap: var(--space-md);
-          padding: var(--space-md) var(--space-lg);
         }
 
         .event-title-group {
           display: flex;
           align-items: center;
-          gap: var(--space-md);
+          gap: 14px;
         }
 
         .event-icon-box {
-          width: 46px;
-          height: 46px;
+          width: 48px;
+          height: 48px;
           border-radius: var(--radius-md);
           display: flex;
           align-items: center;
@@ -812,11 +791,9 @@ export default function RegistrationPage({ onNavigateHome, onUnstopRedirect }) {
         }
 
         .event-card-title {
-          font-family: var(--font-heading);
-          font-size: 1.25rem;
-          font-weight: 800;
           color: var(--primary-navy);
           margin-bottom: 2px;
+          font-size: 1.35rem;
         }
 
         .event-header-actions {
@@ -836,59 +813,176 @@ export default function RegistrationPage({ onNavigateHome, onUnstopRedirect }) {
           align-items: center;
           justify-content: center;
           cursor: pointer;
-          transition: background 0.2s ease;
+          transition: background-color 0.2s;
         }
 
         .expand-toggle-btn:hover {
-          background: var(--light-blue);
-          color: var(--primary-navy);
+          background-color: var(--light-blue);
         }
 
-        /* DETAILS GRID */
         .event-card-details {
           display: none;
-          padding: var(--space-md) var(--space-lg) var(--space-lg);
+          padding-top: var(--space-lg);
+          margin-top: var(--space-md);
           border-top: 1.5px solid var(--light-blue);
-          background-color: rgba(246, 250, 253, 0.5);
         }
 
         .reg-event-card.expanded .event-card-details {
           display: block;
-          animation: fadeIn 0.3s ease;
         }
 
-        @keyframes fadeIn {
-          from { opacity: 0; transform: translateY(4px); }
-          to { opacity: 1; transform: translateY(0); }
+        /* UNSTOP PROBLEM STATEMENTS NOTICE BAR */
+        .unstop-ps-notice-bar {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          background: linear-gradient(135deg, #EAF2F8 0%, #FFFFFF 100%);
+          border: 1.5px solid var(--medium-blue);
+          padding: 10px 18px;
+          border-radius: var(--radius-md);
+          font-size: 0.9rem;
+          color: var(--primary-navy);
+          margin-bottom: var(--space-lg);
         }
 
-        .details-grid {
+        /* VISUAL TIMELINE STEPPER FOR ROUNDS */
+        .details-visual-section {
+          background: var(--white);
+          border: 1px solid var(--light-blue);
+          border-radius: var(--radius-md);
+          padding: var(--space-lg);
+        }
+
+        .visual-section-heading {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          font-family: var(--font-heading);
+          font-size: 1rem;
+          font-weight: 700;
+          color: var(--primary-navy);
+          margin-bottom: var(--space-md);
+        }
+
+        .rounds-timeline-stepper {
+          display: flex;
+          align-items: flex-start;
+          justify-content: space-between;
+          position: relative;
+          gap: 12px;
+        }
+
+        .timeline-step {
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          text-align: center;
+          position: relative;
+          z-index: 2;
+        }
+
+        .step-circle {
+          width: 36px;
+          height: 36px;
+          border-radius: 50%;
+          background: var(--primary-navy);
+          color: var(--white);
+          font-family: var(--font-heading);
+          font-weight: 800;
+          font-size: 0.95rem;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-bottom: 10px;
+          box-shadow: 0 4px 12px rgba(10, 25, 49, 0.2);
+          transition: transform 0.2s ease;
+        }
+
+        .step-circle.final-circle {
+          background: var(--deep-blue);
+          box-shadow: 0 4px 14px rgba(26, 61, 99, 0.3);
+        }
+
+        .timeline-step:hover .step-circle {
+          transform: scale(1.12);
+        }
+
+        .timeline-connector {
+          flex: 0 0 40px;
+          height: 3px;
+          background: var(--light-blue);
+          margin-top: 17px;
+        }
+
+        .step-tag {
+          display: inline-block;
+          font-size: 0.7rem;
+          font-weight: 800;
+          padding: 2px 8px;
+          border-radius: var(--radius-pill);
+          margin-bottom: 4px;
+        }
+
+        .free-tag {
+          background: rgba(16, 185, 129, 0.15);
+          color: #065F46;
+          border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .fee-tag {
+          background: rgba(74, 127, 167, 0.15);
+          color: var(--primary-navy);
+          border: 1px solid var(--medium-blue);
+        }
+
+        .finale-tag {
+          background: rgba(26, 61, 99, 0.15);
+          color: var(--deep-blue);
+          border: 1px solid var(--deep-blue);
+        }
+
+        .step-title {
+          font-family: var(--font-heading);
+          font-size: 0.925rem;
+          font-weight: 700;
+          color: var(--primary-navy);
+          margin-bottom: 4px;
+        }
+
+        .step-desc {
+          font-size: 0.825rem;
+          color: var(--deep-blue);
+          line-height: 1.35;
+        }
+
+        /* RULES & VISUAL PRIZE FLEX GRID */
+        .rules-prize-flex-grid {
           display: grid;
           grid-template-columns: repeat(2, 1fr);
-          gap: var(--space-md);
+          gap: var(--space-lg);
         }
 
-        .detail-box {
-          background-color: var(--white);
+        .visual-rule-card {
+          background-color: var(--very-light-bg);
           border: 1px solid var(--light-blue);
           border-radius: var(--radius-md);
           padding: var(--space-md);
         }
 
-        .detail-box.warning-box {
-          background-color: rgba(26, 61, 99, 0.03);
-          border-color: rgba(26, 61, 99, 0.18);
-        }
-
         .detail-heading {
           display: flex;
           align-items: center;
-          gap: 6px;
+          gap: 8px;
           font-family: var(--font-heading);
-          font-size: 0.95rem;
-          font-weight: 800;
+          font-size: 0.975rem;
+          font-weight: 700;
           color: var(--primary-navy);
-          margin-bottom: 8px;
+          margin-bottom: var(--space-sm);
+        }
+
+        .detail-heading.danger {
+          color: var(--primary-navy);
         }
 
         .detail-list {
@@ -896,207 +990,96 @@ export default function RegistrationPage({ onNavigateHome, onUnstopRedirect }) {
           display: flex;
           flex-direction: column;
           gap: 6px;
-          font-size: 0.86rem;
+          font-size: 0.875rem;
           color: var(--deep-blue);
         }
 
-        .rule-alert {
+        .rule-alert-text {
           color: var(--primary-navy);
           font-weight: 700;
-          background-color: rgba(179, 207, 229, 0.3);
-          padding: 4px 8px;
+          background: rgba(179, 207, 229, 0.3);
+          padding: 6px 10px;
           border-radius: var(--radius-sm);
+          margin-top: 4px;
         }
 
-        /* UNSTOP NOTICE PILL */
-        .unstop-notice-pill {
-          display: flex;
-          align-items: center;
-          gap: 8px;
-          background: rgba(74, 127, 167, 0.1);
-          border: 1px solid var(--medium-blue);
-          color: var(--primary-navy);
-          padding: 8px 14px;
-          border-radius: var(--radius-sm);
-          font-size: 0.86rem;
-          margin-top: 14px;
-          margin-bottom: 18px;
-        }
-
-        /* CREATIVE VISUAL DELIVERABLES & PRIZE PODIUM */
-        .visual-deliverables-wrapper {
-          display: grid;
-          grid-template-columns: 1.4fr 1fr;
-          gap: var(--space-md);
-          margin-top: 16px;
-        }
-
-        .visual-section-title {
-          display: flex;
-          align-items: center;
-          gap: 6px;
-          font-family: var(--font-heading);
-          font-size: 0.95rem;
-          font-weight: 800;
-          color: var(--primary-navy);
-          margin-bottom: 12px;
-        }
-
-        .roadmap-container, .prize-visual-container {
-          background: var(--white);
-          border: 1px solid var(--light-blue);
+        /* VISUAL PRIZE CARD */
+        .visual-prize-card {
+          background: linear-gradient(135deg, #F6FAFD 0%, #EAF2F8 100%);
+          border: 1.5px solid var(--medium-blue);
           border-radius: var(--radius-md);
           padding: var(--space-md);
         }
 
-        .roadmap-steps-grid {
-          display: grid;
-          grid-template-columns: repeat(3, 1fr);
-          gap: 10px;
-          position: relative;
+        .prize-visual-strip {
+          display: flex;
+          gap: 12px;
+          margin-top: 8px;
         }
 
-        .roadmap-steps-grid.two-steps {
-          grid-template-columns: repeat(2, 1fr);
-        }
-
-        .roadmap-step-card {
-          background-color: var(--very-light-bg);
+        .prize-podium {
+          flex: 1;
+          background: var(--white);
           border: 1px solid var(--light-blue);
           border-radius: var(--radius-sm);
           padding: 10px;
           display: flex;
           flex-direction: column;
-          justify-content: space-between;
-          position: relative;
-          transition: transform 0.25s ease, border-color 0.25s ease;
-        }
-
-        .roadmap-step-card:hover {
-          transform: translateY(-3px);
-          border-color: var(--medium-blue);
-        }
-
-        .step-badge {
-          font-family: var(--font-heading);
-          font-size: 0.7rem;
-          font-weight: 800;
-          color: var(--white);
-          background-color: var(--primary-navy);
-          padding: 2px 6px;
-          border-radius: 4px;
-          align-self: flex-start;
-          margin-bottom: 4px;
-        }
-
-        .step-title {
-          font-family: var(--font-heading);
-          font-size: 0.88rem;
-          font-weight: 700;
-          color: var(--primary-navy);
-          margin-bottom: 2px;
-        }
-
-        .step-desc {
-          font-size: 0.78rem;
-          color: var(--deep-blue);
-          line-height: 1.3;
-          margin-bottom: 8px;
-        }
-
-        .step-tag {
-          font-size: 0.72rem;
-          font-weight: 700;
-          padding: 3px 6px;
-          border-radius: 4px;
-          text-align: center;
-        }
-
-        .free-tag {
-          background: #dcfce7;
-          color: #15803d;
-        }
-
-        .price-tag {
-          background: #e0f2fe;
-          color: #0369a1;
-        }
-
-        .final-tag {
-          background: #fef3c7;
-          color: #b45309;
-        }
-
-        /* PRIZE PODIUM VISUAL */
-        .prize-podium-cards {
-          display: grid;
-          grid-template-columns: repeat(2, 1fr);
-          gap: 10px;
-        }
-
-        .podium-card {
-          border-radius: var(--radius-sm);
-          padding: 12px 10px;
-          text-align: center;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
           align-items: center;
-          transition: transform 0.25s ease;
+          text-align: center;
+          box-shadow: var(--shadow-sm);
         }
 
-        .podium-card:hover {
-          transform: scale(1.03);
-        }
-
-        .podium-card.winner {
-          background: linear-gradient(135deg, #0A1931 0%, #1A3D63 100%);
-          color: var(--white);
-          border: 1.5px solid var(--medium-blue);
-          box-shadow: 0 4px 14px rgba(10, 25, 49, 0.2);
-        }
-
-        .podium-card.runner-up {
-          background: var(--very-light-bg);
-          color: var(--primary-navy);
-          border: 1.5px solid var(--light-blue);
-        }
-
-        .podium-crown {
-          font-family: var(--font-heading);
-          font-size: 0.72rem;
-          font-weight: 800;
-          color: #f59e0b;
-          letter-spacing: 0.5px;
-          margin-bottom: 2px;
+        .prize-podium.winner {
+          border-color: var(--medium-blue);
+          background: rgba(255, 255, 255, 0.95);
         }
 
         .podium-rank {
-          font-family: var(--font-heading);
-          font-size: 0.72rem;
-          font-weight: 700;
-          color: var(--medium-blue);
+          font-size: 0.75rem;
+          font-weight: 800;
+          color: var(--primary-navy);
           margin-bottom: 2px;
         }
 
         .podium-amount {
           font-family: var(--font-heading);
-          font-size: 1.35rem;
+          font-size: 1.4rem;
           font-weight: 800;
-          margin-bottom: 2px;
+          color: var(--primary-navy);
         }
 
-        .podium-card.winner .podium-amount {
-          color: #ffffff;
+        .podium-sub {
+          font-size: 0.75rem;
+          color: var(--deep-blue);
         }
 
-        .podium-perks {
-          font-size: 0.72rem;
-          opacity: 0.9;
+        /* DISQUALIFICATION CHIPS */
+        .visual-disqualification-card {
+          background-color: rgba(26, 61, 99, 0.04);
+          border: 1px solid rgba(26, 61, 99, 0.18);
+          border-radius: var(--radius-md);
+          padding: var(--space-md);
+        }
+
+        .disqualification-chips-list {
+          list-style: disc;
+          padding-left: 18px;
+          display: flex;
+          flex-direction: column;
+          gap: 6px;
+          font-size: 0.85rem;
+          color: var(--deep-blue);
+        }
+
+        .details-grid-simple {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: var(--space-lg);
         }
 
         .card-bottom-cta {
-          margin-top: 16px;
+          margin-top: var(--space-lg);
           display: flex;
           justify-content: flex-end;
         }
@@ -1113,22 +1096,11 @@ export default function RegistrationPage({ onNavigateHome, onUnstopRedirect }) {
           flex-direction: column;
           justify-content: space-between;
           position: relative;
-          border: 1.5px solid var(--light-blue);
-          border-radius: var(--radius-lg);
-          padding: var(--space-lg);
-          background: var(--white);
-          transition: transform 0.25s ease, border-color 0.25s ease;
-        }
-
-        .pass-card:hover {
-          transform: translateY(-3px);
-          border-color: var(--medium-blue);
-          box-shadow: 0 10px 30px rgba(10, 25, 49, 0.1);
         }
 
         .pass-card.highlight-pass {
-          border-color: var(--primary-navy);
-          border-width: 2px;
+          border-color: var(--deep-blue);
+          border-width: 2.5px;
         }
 
         .pass-tag-strip {
@@ -1136,18 +1108,16 @@ export default function RegistrationPage({ onNavigateHome, onUnstopRedirect }) {
         }
 
         .pass-title {
-          font-family: var(--font-heading);
-          font-size: 1.3rem;
-          font-weight: 800;
           color: var(--primary-navy);
           margin-bottom: 4px;
+          font-size: 1.35rem;
         }
 
         .pass-price-box {
           display: flex;
           align-items: baseline;
-          margin-top: 10px;
-          margin-bottom: 14px;
+          margin-top: 6px;
+          margin-bottom: var(--space-md);
         }
 
         .price-currency {
@@ -1159,7 +1129,7 @@ export default function RegistrationPage({ onNavigateHome, onUnstopRedirect }) {
 
         .price-amount {
           font-family: var(--font-heading);
-          font-size: 2.6rem;
+          font-size: 2.75rem;
           font-weight: 800;
           color: var(--primary-navy);
           line-height: 1;
@@ -1177,7 +1147,7 @@ export default function RegistrationPage({ onNavigateHome, onUnstopRedirect }) {
           flex-direction: column;
           gap: 10px;
           margin-bottom: var(--space-lg);
-          font-size: 0.88rem;
+          font-size: 0.9rem;
           color: var(--deep-blue);
         }
 
@@ -1188,15 +1158,8 @@ export default function RegistrationPage({ onNavigateHome, onUnstopRedirect }) {
           line-height: 1.4;
         }
 
-        .check-icon {
-          color: var(--primary-navy);
-          flex-shrink: 0;
-          margin-top: 2px;
-        }
-
         .pass-btn {
           width: 100%;
-          justify-content: center;
         }
 
         /* PERKS GRID */
@@ -1219,7 +1182,7 @@ export default function RegistrationPage({ onNavigateHome, onUnstopRedirect }) {
           display: flex;
           flex-direction: column;
           gap: 8px;
-          font-size: 0.88rem;
+          font-size: 0.9rem;
           color: var(--deep-blue);
         }
 
@@ -1241,7 +1204,7 @@ export default function RegistrationPage({ onNavigateHome, onUnstopRedirect }) {
         .summary-badge-item {
           display: flex;
           align-items: center;
-          gap: 6px;
+          gap: 8px;
           font-family: var(--font-heading);
           font-size: 0.9rem;
           font-weight: 700;
@@ -1252,15 +1215,45 @@ export default function RegistrationPage({ onNavigateHome, onUnstopRedirect }) {
           border: 1px solid var(--light-blue);
         }
 
+        .animate-fade-in {
+          animation: fadeIn 0.4s ease-out forwards;
+        }
+
+        .animate-slide-right {
+          animation: slideRight 0.4s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+          from { opacity: 0; transform: translateY(8px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideRight {
+          from { opacity: 0; transform: translateX(-12px); }
+          to { opacity: 1; transform: translateX(0); }
+        }
+
         @media (max-width: 900px) {
           .reg-main-title {
             white-space: normal;
           }
-          .details-grid, .passes-grid, .perks-grid, .visual-deliverables-wrapper {
+          .rules-prize-flex-grid, .details-grid-simple, .passes-grid, .perks-grid {
             grid-template-columns: 1fr;
           }
-          .roadmap-steps-grid {
-            grid-template-columns: 1fr;
+          .rounds-timeline-stepper {
+            flex-direction: column;
+            align-items: flex-start;
+          }
+          .timeline-connector {
+            width: 3px;
+            height: 24px;
+            margin-left: 16px;
+            margin-top: 0;
+          }
+          .timeline-step {
+            flex-direction: row;
+            text-align: left;
+            gap: 12px;
           }
           .event-card-header {
             flex-direction: column;
