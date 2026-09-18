@@ -83,45 +83,9 @@ export default function EventTracks({ onTrackClick, onQuizClick }) {
           </div>
         </div>
 
-        {/* Filter Pills */}
-        <div className="experience-filter-pills">
-          <button
-            className={`filter-pill ${activeFilter === 'all' ? 'active' : ''}`}
-            onClick={() => setActiveFilter('all')}
-          >
-            All Experiences
-          </button>
-          <button
-            className={`filter-pill ${activeFilter === 'innovation' ? 'active' : ''}`}
-            onClick={() => setActiveFilter('innovation')}
-          >
-            Innovation
-          </button>
-          <button
-            className={`filter-pill ${activeFilter === 'leadership' ? 'active' : ''}`}
-            onClick={() => setActiveFilter('leadership')}
-          >
-            Leadership
-          </button>
-
-          <button
-            className={`filter-pill ${activeFilter === 'community' ? 'active' : ''}`}
-            onClick={() => setActiveFilter('community')}
-          >
-            Community
-          </button>
-
-          <button
-            className={`filter-pill ${activeFilter === 'sustainability' ? 'active' : ''}`}
-            onClick={() => setActiveFilter('sustainability')}
-          >
-            Sustainability
-          </button>
-        </div>
-
         {/* Experience Cards Grid */}
         <div className="experience-cards-grid">
-          {filtered.map(item => (
+          {experiences.map(item => (
             <div key={item.id} className="experience-card card-clean">
               <div className="exp-card-header">
                 <div className="exp-icon-box">

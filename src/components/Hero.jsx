@@ -94,11 +94,6 @@ export default function Hero({ onExploreClick, onVisionClick, onQuizClick }) {
               <HelpCircle size={20} />
               <span>Take PRISM Quiz</span>
             </button>
-
-            <button className="btn btn-outline btn-lg" onClick={onVisionClick}>
-              <Compass size={20} />
-              <span>Committee Mission</span>
-            </button>
           </div>
 
           <div className="hero-proof-bar">
@@ -127,7 +122,7 @@ export default function Hero({ onExploreClick, onVisionClick, onQuizClick }) {
                 className="photo-main-img-huge" 
               />
               <div className="photo-text-overlay-huge">
-                <span className="badge-pill photo-overlay-tag">GLIMPSES OF PRISM '25</span>
+                <h4 className="photo-title-huge">Glimpses of PRISM '25</h4>
               </div>
             </div>
 
