@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { 
   Users, Award, Trophy, Sparkles, CheckCircle2, ArrowRight, 
-  ExternalLink, Landmark, FileText, Heart, Shield, Zap, ChevronDown
+  ExternalLink, Landmark, FileText, Heart, Shield, Zap, ChevronDown, Star
 } from 'lucide-react';
 
 export default function NSSPage({ onNavigateHome, onRegisterRedirect }) {
@@ -96,7 +96,7 @@ export default function NSSPage({ onNavigateHome, onRegisterRedirect }) {
       {/* MAIN CONTENT BODY */}
       <div className="container-inner nss-body-container" id="nss-body-section">
         
-        {/* TAB 1: CONCISE UNIT REGISTRATION */}
+        {/* TAB 1: CONCISE UNIT REGISTRATION & BENEFITS */}
         {activeSection === 'registration' && (
           <div className="nss-view-section animate-fade-in">
             
@@ -128,11 +128,6 @@ export default function NSSPage({ onNavigateHome, onRegisterRedirect }) {
                   </div>
                   <div className="fact-divider"></div>
                   <div className="fact-item">
-                    <span className="fact-title">₹500 Fee</span>
-                    <span className="fact-sub">Per Group</span>
-                  </div>
-                  <div className="fact-divider"></div>
-                  <div className="fact-item">
                     <span className="fact-title">4 Members</span>
                     <span className="fact-sub">Per Group</span>
                   </div>
@@ -143,27 +138,63 @@ export default function NSSPage({ onNavigateHome, onRegisterRedirect }) {
                   </div>
                 </div>
 
-                {/* CONCISE PARTICIPATION GUIDELINES */}
-                <div className="nss-guidelines-box" style={{ marginTop: '20px' }}>
-                  <h4 className="guidelines-heading">
-                    <CheckCircle2 size={16} /> Key Participation Guidelines
-                  </h4>
-                  <ul className="nss-bullet-list">
-                    <li><strong>Group Size:</strong> Exactly 4 members in each registered group.</li>
-                    <li><strong>Youth Floor Entry:</strong> One member from each group will represent the unit in <em>The Youth Floor (Youth Parliament)</em>.</li>
-                    <li>Open to recognized NSS volunteers and campus social organizations.</li>
-                  </ul>
+                {/* GUIDELINES & BENEFITS 2-COLUMN GRID */}
+                <div className="nss-info-grid" style={{ marginTop: '22px' }}>
+                  
+                  {/* Guidelines Box */}
+                  <div className="nss-guidelines-box">
+                    <h4 className="guidelines-heading">
+                      <CheckCircle2 size={16} /> Key Participation Guidelines
+                    </h4>
+                    <ul className="nss-bullet-list">
+                      <li><strong>Group Size:</strong> Exactly 4 members in each registered group.</li>
+                      <li><strong>Youth Floor Entry:</strong> One member from each group will represent the unit in <em>The Youth Floor (Youth Parliament)</em>.</li>
+                      <li>Open to recognized NSS volunteers and campus social organizations.</li>
+                    </ul>
+                  </div>
+
+                  {/* Benefits Box */}
+                  <div className="nss-benefits-box">
+                    <h4 className="guidelines-heading">
+                      <Sparkles size={16} /> Unit Benefits & Privileges
+                    </h4>
+                    <ul className="nss-bullet-list">
+                      <li>Exclusive participation in NGO Talks by national-level organizations (<strong>NAAM Foundation, Teach for India, Vanarai, 1M1B</strong>)</li>
+                      <li>Opportunity to present annual tenure activities and achievements</li>
+                      <li>Networking with multiple NSS units across Maharashtra</li>
+                      <li>Certificates of participation and appreciation from SWDC, VIT Pune</li>
+                    </ul>
+                  </div>
+
                 </div>
 
-                {/* FEATURED AWARD: SEVASRUJAN AWARD (EMBEDDED IN MAIN TAB) */}
-                <div className="sevasrujan-embedded-banner" style={{ marginTop: '20px' }}>
-                  <div className="embedded-award-header">
-                    <Trophy size={20} className="award-trophy-icon" />
+                {/* FEATURED HIGHLIGHTED AWARD: SEVASRUJAN AWARD */}
+                <div className="sevasrujan-highlight-card" style={{ marginTop: '24px' }}>
+                  <div className="award-card-header">
+                    <div className="award-trophy-badge">
+                      <Trophy size={26} />
+                    </div>
                     <div>
-                      <h4 className="embedded-award-title">The Sevasrujan Award</h4>
-                      <p className="embedded-award-desc">
-                        Presented by the <strong>Social Welfare & Development (SWD) Committee</strong> to the <em>best overall NSS unit</em> among all 40+ registered teams based on community service & societal impact. No separate registration required.
-                      </p>
+                      <div className="award-top-tag">
+                        <Star size={14} fill="currentColor" /> HIGHEST SOCIAL HONOR AT PRISM '26
+                      </div>
+                      <h3 className="award-title">The Sevasrujan Award</h3>
+                    </div>
+                  </div>
+
+                  <p className="award-description">
+                    Presented by the <strong>Social Welfare & Development (SWD) Committee</strong> to the <em>best overall NSS unit</em> among all 40+ registered units based on community service, tenure accomplishments, and societal impact.
+                  </p>
+
+                  <div className="award-highlights-row">
+                    <div className="award-pill">
+                      <CheckCircle2 size={15} /> Awarded to Best Unit among 40+ Registered Teams
+                    </div>
+                    <div className="award-pill">
+                      <CheckCircle2 size={15} /> Automatic Candidacy upon Unit Registration
+                    </div>
+                    <div className="award-pill">
+                      <CheckCircle2 size={15} /> Official Trophy & Citation by SWDC, VIT Pune
                     </div>
                   </div>
                 </div>
@@ -185,7 +216,7 @@ export default function NSSPage({ onNavigateHome, onRegisterRedirect }) {
           </div>
         )}
 
-        {/* TAB 2: NSS UNIT EVENTS (RENAMED & CONCISE) */}
+        {/* TAB 2: NSS UNIT EVENTS */}
         {activeSection === 'events' && (
           <div className="nss-view-section animate-fade-in">
             <div className="section-header" style={{ marginBottom: '24px' }}>
@@ -299,7 +330,7 @@ export default function NSSPage({ onNavigateHome, onRegisterRedirect }) {
 
         .nss-hero-sub {
           font-family: var(--font-body);
-          font-size: 1.05rem;
+          font-size: 1.1rem;
           color: var(--deep-blue);
           line-height: 1.6;
           margin-bottom: 38px;
@@ -374,7 +405,7 @@ export default function NSSPage({ onNavigateHome, onRegisterRedirect }) {
         .nss-facts-strip {
           display: flex;
           align-items: center;
-          justify-content: space-between;
+          justify-content: space-around;
           background: var(--very-light-bg);
           border: 1px solid var(--light-blue);
           border-radius: var(--radius-md);
@@ -411,12 +442,23 @@ export default function NSSPage({ onNavigateHome, onRegisterRedirect }) {
           background-color: var(--light-blue);
         }
 
-        /* GUIDELINES BOX */
-        .nss-guidelines-box {
-          background: var(--white);
+        /* 2-COLUMN INFO GRID */
+        .nss-info-grid {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: var(--space-lg);
+        }
+
+        .nss-guidelines-box, .nss-benefits-box {
+          background: var(--very-light-bg);
           border: 1px solid var(--light-blue);
           border-radius: var(--radius-md);
           padding: 18px 20px;
+        }
+
+        .nss-benefits-box {
+          background: rgba(179, 207, 229, 0.15);
+          border-color: var(--medium-blue);
         }
 
         .guidelines-heading {
@@ -435,43 +477,98 @@ export default function NSSPage({ onNavigateHome, onRegisterRedirect }) {
           padding-left: 18px;
           display: flex;
           flex-direction: column;
-          gap: 6px;
+          gap: 8px;
           font-size: 0.875rem;
           color: var(--deep-blue);
         }
 
-        /* EMBEDDED SEVASRUJAN AWARD BANNER */
-        .sevasrujan-embedded-banner {
-          background: linear-gradient(135deg, #F6FAFD 0%, #EAF2F8 100%);
-          border: 1.5px solid var(--medium-blue);
-          border-radius: var(--radius-md);
-          padding: 16px 20px;
+        /* FEATURED HIGHLIGHTED SEVASRUJAN AWARD CARD */
+        .sevasrujan-highlight-card {
+          background: linear-gradient(135deg, var(--primary-navy) 0%, var(--deep-blue) 100%);
+          border: 2px solid var(--medium-blue);
+          border-radius: var(--radius-lg);
+          padding: 24px;
+          color: var(--white);
+          box-shadow: 0 10px 30px rgba(10, 25, 49, 0.25);
+          position: relative;
+          overflow: hidden;
         }
 
-        .embedded-award-header {
+        .sevasrujan-highlight-card::before {
+          content: '';
+          position: absolute;
+          top: -50px;
+          right: -50px;
+          width: 150px;
+          height: 150px;
+          background: rgba(179, 207, 229, 0.1);
+          border-radius: 50%;
+          pointer-events: none;
+        }
+
+        .award-card-header {
           display: flex;
-          align-items: flex-start;
-          gap: 14px;
+          align-items: center;
+          gap: 16px;
+          margin-bottom: 12px;
         }
 
-        .award-trophy-icon {
-          color: var(--primary-navy);
-          margin-top: 2px;
+        .award-trophy-badge {
+          width: 54px;
+          height: 54px;
+          border-radius: 50%;
+          background: rgba(255, 255, 255, 0.15);
+          border: 2px solid var(--light-blue);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: #FBBF24; /* Gold trophy color */
           flex-shrink: 0;
         }
 
-        .embedded-award-title {
-          font-family: var(--font-heading);
-          font-size: 1.05rem;
+        .award-top-tag {
+          display: inline-flex;
+          align-items: center;
+          gap: 4px;
+          font-size: 0.725rem;
           font-weight: 800;
-          color: var(--primary-navy);
+          letter-spacing: 0.05em;
+          color: #FBBF24;
           margin-bottom: 4px;
         }
 
-        .embedded-award-desc {
-          font-size: 0.85rem;
-          color: var(--deep-blue);
-          line-height: 1.45;
+        .award-title {
+          font-family: var(--font-heading);
+          font-size: 1.5rem;
+          font-weight: 800;
+          color: var(--white);
+        }
+
+        .award-description {
+          font-size: 0.925rem;
+          color: var(--light-blue);
+          line-height: 1.55;
+          margin-bottom: 16px;
+        }
+
+        .award-highlights-row {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          flex-wrap: wrap;
+        }
+
+        .award-pill {
+          display: flex;
+          align-items: center;
+          gap: 6px;
+          background: rgba(255, 255, 255, 0.12);
+          border: 1px solid rgba(179, 207, 229, 0.3);
+          padding: 6px 14px;
+          border-radius: var(--radius-pill);
+          font-size: 0.8rem;
+          font-weight: 700;
+          color: var(--white);
         }
 
         /* EVENTS GRID */
@@ -524,10 +621,14 @@ export default function NSSPage({ onNavigateHome, onRegisterRedirect }) {
             width: 80%;
             height: 1px;
           }
-          .nss-events-grid {
+          .nss-info-grid, .nss-events-grid {
             grid-template-columns: 1fr;
           }
           .nss-card-header {
+            flex-direction: column;
+            align-items: flex-start;
+          }
+          .award-highlights-row {
             flex-direction: column;
             align-items: flex-start;
           }
