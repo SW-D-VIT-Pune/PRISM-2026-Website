@@ -6,6 +6,8 @@ import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import AboutSection from './components/AboutSection';
 import KeyEventsSection from './components/KeyEventsSection';
+import GuestsSection from './components/GuestsSection';
+import NGOsSection from './components/NGOsSection';
 import EventTracks from './components/EventTracks';
 import CommunitySection from './components/TimelineSection';
 import HighlightCTA from './components/HighlightCTA';
@@ -61,6 +63,29 @@ export default function App() {
     handleNavClick({ id: 'quiz', label: 'Quiz' });
   };
 
+  const handleEventRegister = (target) => {
+    if (target === 'sociothon' || target === 'ideathon' || target === 'kalakriti') {
+      setActiveTab('registration');
+      setTimeout(() => {
+        const el = document.getElementById(`track-${target}`);
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    } else if (target === 'unit') {
+      setActiveTab('nss');
+      setTimeout(() => {
+        const el = document.getElementById('nss-hero');
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    } else {
+      setActiveTab('registration');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
   return (
     <div className="prism-app-wrapper">
       {/* 1. FINAL RESPONSIVE NAVBAR */}
@@ -91,9 +116,15 @@ export default function App() {
           />
 
           {/* SECTION 2: KEY EVENTS & TIMELINE HIGHLIGHTS */}
-          <KeyEventsSection />
+          <KeyEventsSection onEventRegister={handleEventRegister} />
 
-          {/* SECTION 3: CALL TO ACTION */}
+          {/* SECTION 3: EMINENT GUESTS & KEYNOTE SPEAKERS */}
+          <GuestsSection />
+
+          {/* SECTION 4: PARTNER NGOs & ORGANIZATIONS */}
+          <NGOsSection />
+
+          {/* SECTION 5: CALL TO ACTION */}
           <HighlightCTA 
             onUpcomingClick={() => handleNavClick({ id: 'registration', label: 'Registration' })}
           />

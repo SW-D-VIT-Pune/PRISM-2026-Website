@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { 
   Landmark, Lightbulb, Mic2, Sparkles, Music2, Theater, 
-  CheckCircle2, Star, ShieldCheck, ArrowRight, Zap, Calendar, Users
+  CheckCircle2, ArrowRight, Zap, Calendar, Users
 } from 'lucide-react';
 
-export default function KeyEventsSection() {
+export default function KeyEventsSection({ onEventRegister }) {
   const [selectedEventId, setSelectedEventId] = useState('youth-floor');
 
   const keyEvents = [
@@ -13,99 +13,116 @@ export default function KeyEventsSection() {
       num: '01',
       title: 'The Youth Floor',
       tag: 'YOUTH PARLIAMENT',
-      isExclusive: true,
       day: 'Day 1',
-      audience: 'Youth & Social Units Only',
-      desc: 'Youth parliament simulation where registered Youth & Social Units debate pressing civic, social, and public policy issues in a mock-parliamentary format.',
+      audience: 'Registered Youth & Social Units',
+      regTarget: 'unit',
+      desc: 'Youth parliament simulation exercise where registered Youth & Social Units debate civic, social, and public policy issues in a mock-parliamentary format.',
       highlights: [
-        'Mock parliamentary debates & policy resolution drafting',
-        'Direct evaluation by policy experts & civic mentors',
-        'Exclusive to registered Youth & Social Units'
+        'Mock parliamentary debate & policy resolution drafting',
+        'Direct evaluation by policy experts & domain mentors',
+        'Open specifically to registered Youth & Social Units'
       ],
       icon: <Landmark size={22} />,
-      accentColor: '#F59E0B'
+      accentColor: '#4A7FA7'
     },
     {
-      id: 'sociothon-ideathon',
+      id: 'ngo-talks-tenure',
       num: '02',
-      title: 'Sociothon & Ideathon',
-      tag: 'INNOVATION HACKATHON',
-      isExclusive: false,
-      day: 'Day 1 & Day 2',
-      audience: 'Open to All College Delegates',
-      desc: 'Two-day multi-track social innovation hackathon & idea pitching platform solving real-world community challenges with grant opportunities.',
+      title: 'NGO Talks / Tenure Presentation',
+      tag: 'FIELD INSIGHTS & SHOWCASE',
+      day: 'Day 1',
+      audience: 'All Attendees & Registered Units',
+      regTarget: null,
+      desc: 'Representatives from leading NGOs (NAAM Foundation, Teach for India, Vanarai, 1M1B) share field insights alongside unit tenure presentations.',
       highlights: [
-        'Multi-track PPT & prototype submission rounds',
-        'Direct interaction with domain mentors & NGOs',
-        'Cash prizes & seed funding support'
+        'Impact stories & grassroots field realities',
+        'Tenure achievements showcase by registered NSS units',
+        'Interactive panel Q&A with social entrepreneurs'
       ],
-      icon: <Lightbulb size={22} />,
-      accentColor: '#3B82F6'
+      icon: <Users size={22} />,
+      accentColor: '#1A3D63'
     },
     {
-      id: 'tedx-ngo-talks',
+      id: 'open-mind',
       num: '03',
-      title: 'TEDx Talks & NGO Sessions',
-      tag: 'KEYNOTE & FIELD INSIGHTS',
-      isExclusive: false,
-      day: 'Day 2',
-      audience: 'All Event Pass Holders',
-      desc: 'Curated speaker sessions featuring TEDx speakers, social pioneers, and leading NGOs sharing lived field experiences.',
-      highlights: [
-        'Speakers from NAAM Foundation, Teach for India, Vanarai, 1M1B',
-        'Real-world grassroots impact stories',
-        'Interactive Q&A & networking opportunities'
-      ],
-      icon: <Mic2 size={22} />,
-      accentColor: '#6366F1'
-    },
-    {
-      id: 'conclave-openmind',
-      num: '04',
-      title: 'Conclave / Open Mind',
+      title: 'Open Mind',
       tag: 'OPEN THOUGHT EXCHANGE',
-      isExclusive: false,
-      day: 'Day 1 & Day 2',
-      audience: 'Open Participation',
-      desc: 'An interactive, open-floor dialogue platform for participants to voice perspectives on civic awareness, ethics, and social change.',
+      day: 'Day 1',
+      audience: 'Open Floor Dialogue',
+      regTarget: null,
+      desc: 'An open-floor thought-exchange platform where participants from all backgrounds voice perspectives on social, civic, and innovation themes.',
       highlights: [
-        'Unfiltered student-led open floor discussions',
-        'Topics spanning civic reform, sustainability, & tech ethics',
-        'Inclusive facilitated sessions'
+        'Facilitated open-floor dialogue without rigid formality',
+        'Youth perspectives on civic governance & ethics',
+        'Inclusive student & mentor interaction'
       ],
       icon: <Sparkles size={22} />,
       accentColor: '#10B981'
     },
     {
       id: 'kala-kriti',
-      num: '05',
+      num: '04',
       title: 'Kala-Kriti',
       tag: 'CULTURAL SHOWCASE',
-      isExclusive: false,
-      day: 'Day 1 Evening',
-      audience: 'All Attendees',
-      desc: 'Vibrant cultural showcase highlighting student talent through dance, music performances, and creative artistic expression.',
+      day: 'Day 1',
+      audience: 'All Registered Delegates',
+      regTarget: 'kalakriti',
+      desc: 'Vibrant cultural showcase of dance, music performances, and creative artistic expression celebrating student talent.',
       highlights: [
-        'Live student musical & dance ensembles',
-        'Celebration of creative youth expression',
+        'Live dance and music stage showcases',
+        'Celebration of Marathi & Indian cultural heritage',
         'Energetic evening delegate gathering'
       ],
       icon: <Music2 size={22} />,
       accentColor: '#EC4899'
     },
     {
-      id: 'vishwa-akhyan',
+      id: 'sociothon-ideathon',
+      num: '05',
+      title: 'Sociothon & Ideathon',
+      tag: 'INNOVATION TRACKS',
+      day: 'Day 2',
+      audience: 'Competition Delegates',
+      regTarget: 'sociothon',
+      desc: 'Multi-track social innovation hackathon & idea pitching platform running across Day 2 with prototype rounds and mentorship.',
+      highlights: [
+        'Sociothon Technical Track & Ideathon PPT pitches',
+        'Direct evaluation by domain mentors & seed grant judges',
+        '₹67,000 cash prize pool & trophy showcase'
+      ],
+      icon: <Lightbulb size={22} />,
+      accentColor: '#3B82F6'
+    },
+    {
+      id: 'ted-x-talks',
       num: '06',
+      title: 'TED-x Talks',
+      tag: 'CURATED SPEAKERS',
+      day: 'Day 2',
+      audience: 'All Event Pass Holders',
+      regTarget: null,
+      desc: 'Curated speaker sessions running alongside Day 2 competition tracks featuring practitioners, changemakers, and domain experts.',
+      highlights: [
+        'Inspirational talks by domain experts & changemakers',
+        'Actionable insights on technology & social impact',
+        'Accessible via Student Event Passes'
+      ],
+      icon: <Mic2 size={22} />,
+      accentColor: '#E11D48'
+    },
+    {
+      id: 'vishwa-akhyan',
+      num: '07',
       title: 'Vishwa Akhyan',
       tag: 'GRAND CLOSING SHOWCASE',
-      isExclusive: false,
-      day: 'Day 2 Closing',
+      day: 'Day 2',
       audience: 'All Attendees',
-      desc: 'The flagship closing segment celebrating Maharashtra’s rich heritage through Marathi music, theatrical narration, and awards ceremony.',
+      regTarget: null,
+      desc: 'The flagship closing segment celebrating Maharashtra’s heritage through Marathi music, theatrical narration, drama, and awards.',
       highlights: [
-        'Traditional Marathi music & dramatic narration',
-        'Prize distribution & felicitation ceremony',
-        'Memorable PRISM ’26 valedictory conclusion'
+        'Traditional Marathi music, narration, & drama',
+        'Valedictory felicitation & award distribution',
+        'Memorable conclusion to PRISM ’26'
       ],
       icon: <Theater size={22} />,
       accentColor: '#8B5CF6'
@@ -121,13 +138,13 @@ export default function KeyEventsSection() {
         {/* Header */}
         <div className="section-header text-center" style={{ marginBottom: '44px' }}>
           <span className="section-tag glow-tag">
-            <Zap size={14} /> PROGRAMME CIRCUIT &amp; TIMELINE
+            <Zap size={14} /> PROGRAMME LINEUP &amp; TIMELINE
           </span>
           <h2 className="heading-1 events-section-title">
             Key Events &amp; Highlights
           </h2>
           <p className="text-muted events-section-sub">
-            Explore the flagship programme pipeline for PRISM ’26. Tap any event node on the pathway to view details.
+            Explore the flagship programme lineup across Day 1 and Day 2. Tap any event node on the pathway to view details.
           </p>
         </div>
 
@@ -145,7 +162,7 @@ export default function KeyEventsSection() {
 
                   <button
                     type="button"
-                    className={`circuit-node-capsule ${isSelected ? 'active-node' : ''} ${item.isExclusive ? 'exclusive-node' : ''}`}
+                    className={`circuit-node-capsule ${isSelected ? 'active-node' : ''}`}
                     onClick={() => setSelectedEventId(item.id)}
                     aria-label={`Select ${item.title}`}
                   >
@@ -161,11 +178,6 @@ export default function KeyEventsSection() {
                     </div>
 
                     <div className="node-right-group">
-                      {item.isExclusive && (
-                        <span className="node-exclusive-badge">
-                          <Star size={12} /> EXCLUSIVE
-                        </span>
-                      )}
                       <span className="node-day-pill">{item.day}</span>
                     </div>
                   </button>
@@ -181,16 +193,11 @@ export default function KeyEventsSection() {
               <div className="focus-header">
                 <div className="focus-badge-strip">
                   <span className="badge-pill focus-num-pill">
-                    EVENT {selectedEvent.num} OF 06
+                    EVENT {selectedEvent.num} OF 07
                   </span>
                   <span className="badge-outline focus-tag-pill">
                     {selectedEvent.tag}
                   </span>
-                  {selectedEvent.isExclusive && (
-                    <span className="badge-pill focus-gold-badge">
-                      <Star size={13} /> YOUTH &amp; SOCIAL UNIT EXCLUSIVE
-                    </span>
-                  )}
                 </div>
 
                 <h3 className="heading-1 focus-event-title">{selectedEvent.title}</h3>
@@ -217,33 +224,31 @@ export default function KeyEventsSection() {
                 </ul>
               </div>
 
+              {/* Registration Connection Action Footer */}
               <div className="focus-footer-cta">
-                <span className="cta-note">Ready to join this track at PRISM '26?</span>
-                <a href="#registration" className="focus-action-btn">
-                  <span>View Registration Passes</span>
-                  <ArrowRight size={16} />
-                </a>
+                {selectedEvent.regTarget ? (
+                  <>
+                    <span className="cta-note">Registration open for {selectedEvent.title}!</span>
+                    <button 
+                      type="button" 
+                      className="focus-action-btn"
+                      onClick={() => onEventRegister && onEventRegister(selectedEvent.regTarget)}
+                    >
+                      <span>Register for {selectedEvent.title}</span>
+                      <ArrowRight size={16} />
+                    </button>
+                  </>
+                ) : (
+                  <div className="session-pass-info-pill">
+                    <CheckCircle2 size={16} />
+                    <span>Access included with Student Event Passes / General Delegate Entry</span>
+                  </div>
+                )}
               </div>
 
             </div>
           </div>
 
-        </div>
-
-        {/* Youth & Social Unit Exclusives Floating Ribbon */}
-        <div className="unit-exclusives-ribbon">
-          <div className="ribbon-glow-mark">
-            <ShieldCheck size={26} />
-          </div>
-          <div className="ribbon-text-body">
-            <span className="ribbon-tag">SPECIAL NOTE FOR DELEGATE UNITS</span>
-            <h4 className="ribbon-heading">
-              Youth &amp; Social Unit-Exclusive Events
-            </h4>
-            <p className="ribbon-copy">
-              <strong>The Youth Floor</strong> (Day 1 Youth Parliament simulation) and <strong>Tenure Presentations</strong> (Day 1 annual tenure activities showcase) are open specifically to registered Youth &amp; Social Units.
-            </p>
-          </div>
         </div>
 
       </div>
@@ -282,7 +287,7 @@ export default function KeyEventsSection() {
           grid-template-columns: 1.05fr 0.95fr;
           gap: 32px;
           align-items: flex-start;
-          margin-bottom: 38px;
+          margin-bottom: 20px;
         }
 
         /* LEFT COLUMN PATHWAY */
@@ -337,15 +342,6 @@ export default function KeyEventsSection() {
           transform: translateX(8px);
           box-shadow: 0 10px 30px rgba(10, 25, 49, 0.25);
           border-radius: 40px 14px 40px 14px;
-        }
-
-        .circuit-node-capsule.exclusive-node {
-          border-color: rgba(217, 119, 6, 0.4);
-        }
-
-        .circuit-node-capsule.exclusive-node.active-node {
-          background: linear-gradient(135deg, var(--primary-navy) 0%, #1E293B 100%);
-          border-color: #F59E0B;
         }
 
         .node-left-group {
@@ -421,19 +417,6 @@ export default function KeyEventsSection() {
           gap: 8px;
         }
 
-        .node-exclusive-badge {
-          display: inline-flex;
-          align-items: center;
-          gap: 4px;
-          font-family: var(--font-heading);
-          font-size: 0.65rem;
-          font-weight: 800;
-          color: #B45309;
-          background: #FEF3C7;
-          padding: 3px 9px;
-          border-radius: var(--radius-pill);
-        }
-
         .node-day-pill {
           font-family: var(--font-heading);
           font-size: 0.72rem;
@@ -495,17 +478,10 @@ export default function KeyEventsSection() {
           font-size: 0.75rem;
         }
 
-        .focus-gold-badge {
-          background: #FEF3C7;
-          color: #B45309;
-          font-weight: 800;
-          font-size: 0.75rem;
-        }
-
         .focus-event-title {
           color: var(--primary-navy);
           margin-bottom: 10px;
-          font-size: clamp(1.6rem, 3vw, 2.2rem);
+          font-size: clamp(1.5rem, 2.8vw, 2.1rem);
         }
 
         .focus-meta-strip {
@@ -601,7 +577,8 @@ export default function KeyEventsSection() {
           font-family: var(--font-heading);
           font-size: 0.85rem;
           font-weight: 700;
-          text-decoration: none;
+          border: none;
+          cursor: pointer;
           transition: background-color 0.2s ease, transform 0.2s ease;
         }
 
@@ -610,56 +587,18 @@ export default function KeyEventsSection() {
           transform: translateY(-2px);
         }
 
-        /* RIBBON BANNER FOR EXCLUSIVES */
-        .unit-exclusives-ribbon {
-          display: flex;
+        .session-pass-info-pill {
+          display: inline-flex;
           align-items: center;
-          gap: 20px;
-          background: linear-gradient(135deg, var(--primary-navy) 0%, #1E293B 100%);
-          border: 2px solid var(--medium-blue);
-          border-radius: var(--radius-lg);
-          padding: 24px 30px;
-          color: var(--white);
-          box-shadow: 0 12px 35px rgba(10, 25, 49, 0.2);
-        }
-
-        .ribbon-glow-mark {
-          width: 56px;
-          height: 56px;
-          border-radius: 50%;
-          background: rgba(255, 255, 255, 0.12);
-          border: 1.5px solid rgba(179, 207, 229, 0.4);
-          color: #F59E0B;
-          display: grid;
-          place-items: center;
-          flex-shrink: 0;
-        }
-
-        .ribbon-tag {
+          gap: 8px;
+          background: rgba(179, 207, 229, 0.25);
+          color: var(--primary-navy);
+          padding: 8px 16px;
+          border-radius: var(--radius-pill);
           font-family: var(--font-heading);
-          font-size: 0.72rem;
-          font-weight: 800;
-          color: var(--light-blue);
-          letter-spacing: 0.08em;
-        }
-
-        .ribbon-heading {
-          font-family: var(--font-heading);
-          font-size: 1.15rem;
-          font-weight: 800;
-          color: var(--white);
-          margin: 2px 0 4px 0;
-        }
-
-        .ribbon-copy {
-          font-size: 0.93rem;
-          color: var(--light-blue);
-          margin: 0;
-          line-height: 1.5;
-        }
-
-        .ribbon-copy strong {
-          color: var(--white);
+          font-size: 0.82rem;
+          font-weight: 700;
+          width: 100%;
         }
 
         @media (max-width: 960px) {
@@ -678,11 +617,6 @@ export default function KeyEventsSection() {
             gap: 10px;
             padding: 14px;
             border-radius: var(--radius-md);
-          }
-          .unit-exclusives-ribbon {
-            flex-direction: column;
-            align-items: flex-start;
-            padding: 20px;
           }
         }
       `}</style>
