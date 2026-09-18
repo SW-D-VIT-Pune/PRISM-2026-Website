@@ -18,7 +18,7 @@ export default function Navbar({ activeTab, onNavClick }) {
     { id: 'about', label: 'About', isFunctional: false },
     { id: 'registration', label: 'Registration', isFunctional: true },
     { id: 'nss', label: 'NSS', isFunctional: true },
-    { id: 'contacts', label: 'Contacts', isFunctional: false }
+    { id: 'contacts', label: 'Contacts', isFunctional: true }
   ];
 
   const handleItemClick = (item) => {

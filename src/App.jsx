@@ -12,6 +12,7 @@ import CommunitySection from './components/TimelineSection';
 import HighlightCTA from './components/HighlightCTA';
 import RegistrationPage from './components/RegistrationPage';
 import NSSPage from './components/NSSPage';
+import ContactPage from './components/ContactPage';
 import Footer from './components/Footer';
 
 import { Clock } from 'lucide-react';
@@ -29,6 +30,9 @@ export default function App() {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } else if (item.id === 'nss') {
       setActiveTab('nss');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else if (item.id === 'contacts') {
+      setActiveTab('contacts');
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
       // Trigger polished Upcoming interaction notification for unfinished sub-pages
@@ -151,6 +155,8 @@ export default function App() {
           onRegisterRedirect={handleUnstopRedirect}
         />
       )}
+
+      {activeTab === 'contacts' && <ContactPage />}
 
       {/* SECTION 8: FOOTER */}
       <Footer onNavClick={handleNavClick} />

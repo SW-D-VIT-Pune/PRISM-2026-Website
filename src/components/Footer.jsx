@@ -45,7 +45,7 @@ export default function Footer({ onNavClick }) {
                     onClick={() => onNavClick(item)}
                   >
                     {item.label}
-                    {item.id !== 'home' && <span className="footer-soon-tag">Coming Soon</span>}
+                    {item.id !== 'home' && item.id !== 'contacts' && <span className="footer-soon-tag">Coming Soon</span>}
                   </button>
                 </li>
               ))}
