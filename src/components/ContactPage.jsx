@@ -182,7 +182,7 @@ export default function ContactPage() {
 
       <style>{`
         .contact-page { background: var(--very-light-bg); overflow: hidden; }
-        .contact-hero { min-height: 570px; display: flex; align-items: center; padding: 210px 0 92px; background: url('/images/prism_photo_1.jpg') center/cover no-repeat; color: var(--very-light-bg); position: relative; overflow: hidden; }
+        .contact-hero { min-height: 570px; display: flex; align-items: center; padding: 210px 0 92px; background: url('/images/Prism_IMG1.jpg') center/cover no-repeat; color: var(--very-light-bg); position: relative; overflow: hidden; }
         .contact-hero::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(10, 25, 49, 0.72) 0%, rgba(26, 61, 99, 0.82) 100%); backdrop-filter: blur(2px); z-index: 0; }
         .contact-hero-inner { position: relative; z-index: 1; max-width: 1280px; }
         .contact-eyebrow { display: inline-flex; align-items: center; gap: 9px; color: var(--light-blue); font: 800 var(--font-size-caption) var(--font-heading); letter-spacing: .12em; }
