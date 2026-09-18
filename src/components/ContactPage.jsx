@@ -70,8 +70,8 @@ export default function ContactPage() {
         <div className="container-inner">
           <div className="contact-section-heading" data-reveal>
             <span className="section-tag">DIRECT CONTACT</span>
-            <h2 className="heading-1" id="contact-people-heading">Speak with the PRISM team</h2>
-            <p className="text-muted">Our coordinators are here to help you find the right point of contact.</p>
+            <h2 className="heading-1" id="contact-people-heading">Contact Us</h2>
+            <p className="text-muted">Our team is here to help you.</p>
           </div>
           <div className="contact-people-grid">
             {contactPeople.map((person, index) => (
@@ -182,8 +182,8 @@ export default function ContactPage() {
 
       <style>{`
         .contact-page { background: var(--very-light-bg); overflow: hidden; }
-        .contact-hero { min-height: 570px; display: flex; align-items: center; padding: 210px 0 92px; background: linear-gradient(135deg, var(--primary-navy), var(--deep-blue)); color: var(--very-light-bg); position: relative; }
-        .contact-hero::after { content: ''; width: min(45vw, 590px); height: min(45vw, 590px); border: 1px solid rgba(179, 207, 229, .34); border-radius: 50%; position: absolute; right: -11vw; bottom: -27vw; }
+        .contact-hero { min-height: 570px; display: flex; align-items: center; padding: 210px 0 92px; background: url('/images/prism_photo_1.jpg') center/cover no-repeat; color: var(--very-light-bg); position: relative; overflow: hidden; }
+        .contact-hero::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(10, 25, 49, 0.72) 0%, rgba(26, 61, 99, 0.82) 100%); backdrop-filter: blur(2px); z-index: 0; }
         .contact-hero-inner { position: relative; z-index: 1; max-width: 1280px; }
         .contact-eyebrow { display: inline-flex; align-items: center; gap: 9px; color: var(--light-blue); font: 800 var(--font-size-caption) var(--font-heading); letter-spacing: .12em; }
         .contact-title { color: var(--very-light-bg); max-width: 820px; margin: 18px 0; font-size: clamp(2.2rem, 4.2vw, 3.25rem); animation: contact-rise .65s both; }
