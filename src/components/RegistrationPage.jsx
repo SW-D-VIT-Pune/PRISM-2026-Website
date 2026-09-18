@@ -504,7 +504,7 @@ export default function RegistrationPage({ onNavigateHome, onUnstopRedirect }) {
               <span className="section-tag">FOR COLLEGE STUDENTS</span>
               <h2 className="heading-1">Event Ticket Passes</h2>
               <p className="text-muted">
-                Select your pass to gain access to keynote sessions, TechTalks, Vishwakhyan, and cultural showcases.
+                Select your pass to gain access to keynote sessions, TEDx Talk, Vishwakhyan, and cultural showcases.
               </p>
             </div>
 
@@ -529,7 +529,7 @@ export default function RegistrationPage({ onNavigateHome, onUnstopRedirect }) {
                 {/* EXACT SPECIFIED COMBO PASS CONTENT */}
                 <ul className="pass-features-list">
                   <li><CheckCircle2 size={16} /> Access to inspiring NGO Talks and Guest Sessions</li>
-                  <li><CheckCircle2 size={16} /> Full access to TechTalks & Vishwakhyan</li>
+                  <li><CheckCircle2 size={16} /> Full access to TEDx Talk & Vishwakhyan</li>
                   <li><CheckCircle2 size={16} /> Entry to Kala-Kriti Cultural Evening</li>
                   <li><CheckCircle2 size={16} /> Exposure to social innovation, sustainability, and real-world problem-solving</li>
                   <li><CheckCircle2 size={16} /> Certificates of participation for all attendees</li>
@@ -561,7 +561,7 @@ export default function RegistrationPage({ onNavigateHome, onUnstopRedirect }) {
                 </div>
 
                 <ul className="pass-features-list">
-                  <li><CheckCircle2 size={16} /> Access to TechTalks & Vishwakhyan</li>
+                  <li><CheckCircle2 size={16} /> Access to TEDx Talk & Vishwakhyan</li>
                   <li><CheckCircle2 size={16} /> Entry to Final Pitch & Award Showcase</li>
                   <li><CheckCircle2 size={16} /> Certificate of Participation</li>
                 </ul>
