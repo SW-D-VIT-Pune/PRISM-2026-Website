@@ -110,7 +110,6 @@ export default function NSSPage({ onNavigateHome, onRegisterRedirect }) {
                 <div>
                   <div className="event-meta-badges">
                     <span className="badge-pill">DELEGATION</span>
-                    <span className="badge-outline">₹500 REG FEE</span>
                   </div>
                   <h2 className="heading-2 nss-card-title">Registration for NSS Units</h2>
                   <p className="text-muted" style={{ fontSize: '0.9rem' }}>
@@ -175,7 +174,7 @@ export default function NSSPage({ onNavigateHome, onRegisterRedirect }) {
                     className="btn btn-primary btn-compact-lg"
                     onClick={handleRegisterClick}
                   >
-                    <span>Register NSS Unit (₹500)</span>
+                    <span>Register NSS Unit</span>
                     <ExternalLink size={16} />
                   </button>
                 </div>
