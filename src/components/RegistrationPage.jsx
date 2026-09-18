@@ -50,7 +50,7 @@ export default function RegistrationPage({ onNavigateHome, onUnstopRedirect }) {
   return (
     <div className="registration-page-wrapper">
       
-      {/* HEADER BANNER */}
+      {/* HEADER BANNER - FULL FIRST VIEW */}
       <div className="reg-hero-banner">
         <div className="container-inner">
           <div className="reg-hero-content animate-fade-in">
@@ -79,24 +79,34 @@ export default function RegistrationPage({ onNavigateHome, onUnstopRedirect }) {
                 className={`reg-tab-btn ${activeTab === 'tracks' ? 'active' : ''}`}
                 onClick={() => handleTabClick('tracks')}
               >
-                <Trophy size={16} />
+                <Trophy size={17} />
                 <span>Event Tracks</span>
               </button>
               <button 
                 className={`reg-tab-btn ${activeTab === 'passes' ? 'active' : ''}`}
                 onClick={() => handleTabClick('passes')}
               >
-                <Ticket size={16} />
+                <Ticket size={17} />
                 <span>Student Event Passes</span>
               </button>
               <button 
                 className={`reg-tab-btn ${activeTab === 'perks' ? 'active' : ''}`}
                 onClick={() => handleTabClick('perks')}
               >
-                <Award size={16} />
+                <Award size={17} />
                 <span>Benefits & Perks</span>
               </button>
             </div>
+
+            {/* Subtle Scroll Hint */}
+            <div 
+              className="hero-scroll-hint animate-bounce-soft"
+              onClick={() => scrollToTarget('reg-content-section')}
+            >
+              <span>Explore Details Below</span>
+              <ChevronDown size={18} />
+            </div>
+
           </div>
         </div>
       </div>
@@ -654,12 +664,18 @@ export default function RegistrationPage({ onNavigateHome, onUnstopRedirect }) {
           padding-bottom: var(--space-3xl);
         }
 
+        /* HERO BANNER - ELEGANT FULL FIRST VIEW WITH GENERATIVE VERTICAL RHYTHM */
         .reg-hero-banner {
-          background-color: #EAF2F8;
-          border-bottom: 3px solid var(--light-blue);
-          padding-top: 155px;
-          padding-bottom: var(--space-xl);
+          background: linear-gradient(180deg, #F0F6FA 0%, #EAF2F8 100%);
+          border-bottom: 2px solid var(--light-blue);
+          padding-top: 175px;
+          padding-bottom: 75px;
+          min-height: calc(100vh - 138px);
+          display: flex;
+          align-items: center;
+          justify-content: center;
           text-align: center;
+          position: relative;
         }
 
         .reg-hero-content {
@@ -668,48 +684,49 @@ export default function RegistrationPage({ onNavigateHome, onUnstopRedirect }) {
           display: flex;
           flex-direction: column;
           align-items: center;
+          width: 100%;
         }
 
         /* REALTIME CURRENT ANNOUNCEMENT BAR */
         .realtime-announcement-bar {
           display: inline-flex;
           align-items: center;
-          gap: 8px;
+          gap: 10px;
           background: #FFFFFF;
           border: 1.5px solid var(--medium-blue);
-          padding: 6px 18px;
+          padding: 8px 24px;
           border-radius: var(--radius-pill);
-          margin-bottom: 14px;
-          box-shadow: 0 4px 15px rgba(74, 127, 167, 0.15);
-          font-size: 0.85rem;
+          margin-bottom: 28px;
+          box-shadow: 0 6px 20px rgba(74, 127, 167, 0.15);
+          font-size: 0.875rem;
           color: var(--primary-navy);
-          max-width: 90%;
+          max-width: 92%;
         }
 
         .live-indicator-pulse {
-          width: 9px;
-          height: 9px;
+          width: 10px;
+          height: 10px;
           border-radius: 50%;
           background-color: #10B981;
-          box-shadow: 0 0 8px #10B981;
+          box-shadow: 0 0 10px #10B981;
           animation: pulseGreen 1.6s infinite ease-in-out;
         }
 
         @keyframes pulseGreen {
           0%, 100% { transform: scale(1); opacity: 1; }
-          50% { transform: scale(1.3); opacity: 0.6; }
+          50% { transform: scale(1.35); opacity: 0.55; }
         }
 
         .zap-icon {
           color: var(--deep-blue);
         }
 
-        /* MAIN HEADING - LARGER FONT SIZE, FITS IN SINGLE LINE ON DESKTOP & LAPTOP */
+        /* MAIN HEADING - GENEROUS VERTICAL MARGIN, FITS SINGLE LINE ON DESKTOP & LAPTOP */
         .reg-main-title {
-          font-size: clamp(2.2rem, 4.8vw, 3.25rem);
+          font-size: clamp(2.3rem, 5vw, 3.4rem);
           white-space: nowrap;
           color: var(--primary-navy);
-          margin-bottom: 10px;
+          margin-bottom: 20px;
           letter-spacing: -0.025em;
           font-weight: 800;
           text-shadow: 0 2px 10px rgba(10, 25, 49, 0.05);
@@ -717,22 +734,22 @@ export default function RegistrationPage({ onNavigateHome, onUnstopRedirect }) {
 
         .reg-hero-sub {
           font-family: var(--font-body);
-          font-size: 1.05rem;
+          font-size: 1.1rem;
           color: var(--deep-blue);
-          line-height: 1.5;
-          margin-bottom: var(--space-lg);
-          max-width: 720px;
+          line-height: 1.6;
+          margin-bottom: 38px;
+          max-width: 760px;
         }
 
         .reg-tab-controls {
           display: flex;
           align-items: center;
-          gap: 10px;
+          gap: 12px;
           background: var(--white);
-          padding: 6px;
+          padding: 8px;
           border-radius: var(--radius-pill);
           border: 1.5px solid var(--light-blue);
-          box-shadow: var(--shadow-sm);
+          box-shadow: 0 6px 24px rgba(10, 25, 49, 0.06);
           flex-wrap: wrap;
           justify-content: center;
         }
@@ -741,17 +758,17 @@ export default function RegistrationPage({ onNavigateHome, onUnstopRedirect }) {
           display: flex;
           align-items: center;
           gap: 8px;
-          padding: 10px 22px;
+          padding: 11px 24px;
           border-radius: var(--radius-pill);
           border: none;
           background: transparent;
           color: var(--deep-blue);
           font-family: var(--font-heading);
-          font-size: 0.925rem;
+          font-size: 0.95rem;
           font-weight: 700;
           cursor: pointer;
           transition: all 0.2s ease;
-          min-height: 44px;
+          min-height: 46px;
         }
 
         .reg-tab-btn:hover {
@@ -765,8 +782,35 @@ export default function RegistrationPage({ onNavigateHome, onUnstopRedirect }) {
           box-shadow: var(--shadow-sm);
         }
 
+        /* HERO SCROLL HINT */
+        .hero-scroll-hint {
+          display: flex;
+          align-items: center;
+          gap: 6px;
+          margin-top: 40px;
+          color: var(--medium-blue);
+          font-family: var(--font-heading);
+          font-size: 0.85rem;
+          font-weight: 700;
+          cursor: pointer;
+          transition: color 0.2s ease;
+        }
+
+        .hero-scroll-hint:hover {
+          color: var(--primary-navy);
+        }
+
+        .animate-bounce-soft {
+          animation: bounceSoft 2s infinite ease-in-out;
+        }
+
+        @keyframes bounceSoft {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(6px); }
+        }
+
         .reg-body-container {
-          padding-top: var(--space-xl);
+          padding-top: var(--space-2xl);
         }
 
         /* COMPACT BUTTON STYLES */
@@ -1287,6 +1331,11 @@ export default function RegistrationPage({ onNavigateHome, onUnstopRedirect }) {
           .reg-main-title {
             font-size: clamp(2rem, 4.2vw, 2.75rem);
             white-space: normal;
+          }
+          .reg-hero-banner {
+            min-height: auto;
+            padding-top: 155px;
+            padding-bottom: 50px;
           }
         }
 
