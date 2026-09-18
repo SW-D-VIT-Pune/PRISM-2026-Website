@@ -1,0 +1,100 @@
+/* ==========================================================================
+   PRISM '26 WEBSITE - HANDCRAFTED EDITORIAL DESIGN SYSTEM
+   Clean Architectural Navy & Crisp Light Surfaces (NO Artificial AI Glows)
+   STRICT 6-COLOR PALETTE ONLY
+   ========================================================================== */
+
+:root {
+  /* --- STRICT COLOR PALETTE (APPROVED HEX VALUES) --- */
+  --primary-navy: #0A1931;
+  --deep-blue: #1A3D63;
+  --medium-blue: #4A7FA7;
+  --light-blue: #B3CFE5;
+  --very-light-bg: #F6FAFD;
+  --white: #FFFFFF;
+
+  /* Transparent Derivations */
+  --navy-alpha-80: rgba(10, 25, 49, 0.85);
+  --navy-alpha-95: rgba(10, 25, 49, 0.95);
+  --deep-blue-alpha-20: rgba(26, 61, 99, 0.20);
+  --medium-blue-alpha-25: rgba(74, 127, 167, 0.25);
+  --light-blue-alpha-30: rgba(179, 207, 229, 0.30);
+  --light-blue-alpha-50: rgba(179, 207, 229, 0.50);
+
+  /* Semantic Mapping */
+  --bg-page: var(--very-light-bg);
+  --bg-hero: var(--primary-navy);
+  --text-primary: var(--primary-navy);
+  --text-light: var(--white);
+  --text-muted: var(--deep-blue);
+  --border-light: var(--light-blue-alpha-50);
+
+  /* --- TYPOGRAPHY (EDITORIAL & CRISP) --- */
+  --font-heading: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+
+  --font-size-display: clamp(3.4rem, 6.5vw, 5.2rem);
+  --font-size-h1: clamp(2.4rem, 4vw, 3.2rem);
+  --font-size-h2: clamp(1.8rem, 3vw, 2.4rem);
+  --font-size-h3: clamp(1.35rem, 2vw, 1.75rem);
+  --font-size-h4: clamp(1.15rem, 1.4vw, 1.35rem);
+  --font-size-body-lg: 1.1875rem;
+  --font-size-body: 1.0625rem;
+  --font-size-sm: 0.9375rem;
+  --font-size-caption: 0.8125rem;
+
+  /* --- SPACING SCALE --- */
+  --space-2xs: 0.5rem;
+  --space-xs: 0.875rem;
+  --space-sm: 1.25rem;
+  --space-md: 1.75rem;
+  --space-lg: 2.5rem;
+  --space-xl: 3.75rem;
+  --space-2xl: 5.5rem;
+  --space-3xl: 7.5rem;
+
+  /* --- BORDER RADIUS --- */
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --radius-pill: 9999px;
+
+  /* --- SHADOWS (CLEAN & SUBTLE) --- */
+  --shadow-sm: 0 4px 12px rgba(10, 25, 49, 0.05);
+  --shadow-md: 0 8px 24px rgba(10, 25, 49, 0.08);
+  --shadow-lg: 0 16px 40px rgba(10, 25, 49, 0.12);
+
+  /* --- TRANSITIONS --- */
+  --transition-fast: 150ms ease;
+  --transition-base: 250ms ease;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-family: var(--font-body);
+  background-color: var(--bg-page);
+  color: var(--text-primary);
+  scroll-behavior: smooth;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  min-height: 100vh;
+  overflow-x: hidden;
+  background-color: var(--very-light-bg);
+  line-height: 1.65;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
