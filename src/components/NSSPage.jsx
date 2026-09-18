@@ -102,6 +102,21 @@ export default function NSSPage({ onNavigateHome, onRegisterRedirect }) {
             
             <div className="nss-main-card card-clean">
               
+              {/* NSS UNIT FEATURED IMAGE SHOWCASE BANNER */}
+              <div className="nss-unit-banner-frame">
+                <img 
+                  src="/images/NSS_unit.jpg" 
+                  alt="NSS Unit Delegation" 
+                  className="nss-unit-banner-img"
+                  onError={(e) => {
+                    e.target.src = '/Images/NSS_unit.jpg';
+                  }}
+                />
+                <div className="nss-banner-overlay">
+                  <span className="badge-pill">NSS DELEGATION SHOWCASE</span>
+                </div>
+              </div>
+
               {/* Header Group */}
               <div className="nss-card-header">
                 <div className="event-icon-box navy">
@@ -401,6 +416,39 @@ export default function NSSPage({ onNavigateHome, onRegisterRedirect }) {
         .nss-main-card {
           padding: var(--space-xl);
           background: var(--white);
+        }
+
+        .nss-unit-banner-frame {
+          width: 100%;
+          height: 280px;
+          border-radius: var(--radius-md);
+          overflow: hidden;
+          position: relative;
+          border: 1.5px solid var(--light-blue);
+          box-shadow: 0 8px 24px rgba(10, 25, 49, 0.12);
+          margin-bottom: var(--space-lg);
+        }
+
+        .nss-unit-banner-img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          object-position: center;
+          transition: transform 0.4s ease;
+        }
+
+        .nss-unit-banner-frame:hover .nss-unit-banner-img {
+          transform: scale(1.03);
+        }
+
+        .nss-banner-overlay {
+          position: absolute;
+          bottom: 16px;
+          left: 16px;
+          background: rgba(10, 25, 49, 0.85);
+          backdrop-filter: blur(8px);
+          padding: 6px 16px;
+          border-radius: var(--radius-pill);
         }
 
         .nss-card-header {
