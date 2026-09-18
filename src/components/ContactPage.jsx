@@ -4,7 +4,7 @@ import { AtSign, Camera, ExternalLink, Globe2, HeartHandshake, MapPin, Navigatio
 const contactPeople = [
   { name: 'Amit Jain', phone: '+91 90210 65817', href: 'tel:+919021065817' },
   { name: 'Falguni Chaudhari', phone: '+91 97630 07984', href: 'tel:+919763007984' },
-  { name: 'Kuldeep Dukare', phone: '+91 93733 2969', href: 'tel:+91937332969' },
+  { name: 'Kuldeep Dukare', phone: '+91 93733 32969', href: 'tel:+91937332969' },
   { name: 'Aditya Chiparikar', phone: '+91 70570 70071', href: 'tel:+917057070071' },
 ];
 
@@ -108,7 +108,7 @@ export default function ContactPage() {
                 <strong>@vitsocials</strong>
               </a>
               
-              <a className="contact-detail-card" href="https://www.swd.vit.edu" target="_blank" rel="noreferrer">
+              <a className="contact-detail-card" href="https://swd.vit.edu/" target="_blank" rel="noreferrer">
                 <span className="contact-detail-icon"><Globe2 size={22} /></span>
                 <span className="contact-detail-label">Website</span>
                 <strong>www.swd.vit.edu <ExternalLink size={14} /></strong>
@@ -161,6 +161,20 @@ export default function ContactPage() {
             <div>
               <h2 className="heading-2">Bring your questions, ideas, and energy.</h2>
               <p>PRISM ’26 is built around people who care enough to take the next step. We look forward to hearing from you.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="contact-thank-you-section" aria-labelledby="thank-you-heading">
+        <div className="container-inner">
+          <div className="contact-thank-you-card" data-reveal>
+            <span className="section-tag contact-thank-you-tag"><HeartHandshake size={16} aria-hidden="true" /> PRISM ’26</span>
+            <h2 className="heading-1" id="thank-you-heading">Thank You<span className="contact-thank-you-mark">!</span></h2>
+            <div className="contact-thank-you-copy">
+              <p>We hope this platform offers valuable insights into PRISM 2026 and creates opportunities for meaningful collaboration.</p>
+              <p>The PRISM team at VIT Pune looks forward to connecting with your organisation and working together to create a meaningful impact.</p>
+              <p>We would be happy to discuss potential collaborations and answer any questions.</p>
             </div>
           </div>
         </div>
@@ -226,11 +240,19 @@ export default function ContactPage() {
         .contact-closing-card > svg { flex: 0 0 auto; color: var(--deep-blue); }
         .contact-closing-card .heading-2 { color: var(--primary-navy); font-size: 1.35rem; margin-bottom: 4px; }
         .contact-closing-card p { color: var(--deep-blue); font-size: var(--font-size-sm); }
+        .contact-thank-you-section { padding: 0 0 var(--space-3xl); }
+        .contact-thank-you-card { max-width: 920px; margin: 0 auto; padding: clamp(32px, 6vw, 62px); text-align: center; background: var(--primary-navy); border: 1px solid var(--medium-blue); border-radius: var(--radius-xl); box-shadow: var(--shadow-lg); }
+        .contact-thank-you-card .section-tag { color: var(--light-blue); }
+        .contact-thank-you-tag { align-items: center; gap: 7px; }
+        .contact-thank-you-card .heading-1 { color: var(--very-light-bg); margin: 8px 0 22px; }
+        .contact-thank-you-mark { color: var(--very-light-bg); }
+        .contact-thank-you-copy { max-width: 720px; margin: 0 auto; display: grid; gap: 14px; }
+        .contact-thank-you-copy p { color: var(--light-blue); font-size: var(--font-size-body); line-height: 1.7; }
         @keyframes contact-rise { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
         @media (max-width: 1050px) { .contact-people-grid { grid-template-columns: repeat(2, 1fr); } .contact-details-layout { grid-template-columns: 1fr; gap: var(--space-lg); } }
         @media (max-width: 800px) { .contact-map-layout { grid-template-columns: 1fr; } .contact-map-frame { min-height: 380px; border-top: 1px solid var(--medium-blue); border-left: 0; } .contact-map-frame iframe { min-height: 380px; } }
         @media (max-width: 760px) { .contact-hero { min-height: 530px; padding-top: 155px; padding-bottom: 70px; } .contact-title { font-size: clamp(2.55rem, 12vw, 4rem); } .contact-section { padding: var(--space-2xl) 0; } .contact-details-grid { grid-template-columns: 1fr; } .contact-detail-card { min-height: auto; } .contact-location-card { gap: 16px; } }
-        @media (max-width: 520px) { .contact-people-grid { grid-template-columns: 1fr; } .contact-person-card { min-height: 190px; } .contact-closing-card { align-items: flex-start; padding: 24px; } }
+        @media (max-width: 520px) { .contact-people-grid { grid-template-columns: 1fr; } .contact-person-card { min-height: 190px; } .contact-closing-card { align-items: flex-start; padding: 24px; } .contact-thank-you-card { padding: 32px 24px; } }
         @media (prefers-reduced-motion: reduce) { [data-reveal] { opacity: 1; transform: none; transition: none; } .contact-title, .contact-hero [data-reveal] { animation: none; } }
       `}</style>
     </main>
