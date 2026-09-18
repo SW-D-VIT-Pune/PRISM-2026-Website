@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { 
   Users, Award, Trophy, Sparkles, CheckCircle2, ArrowRight, 
-  ExternalLink, MessageSquare, Landmark, FileText, Heart, Shield, Zap, ChevronDown
+  ExternalLink, Landmark, FileText, Heart, Shield, Zap, ChevronDown
 } from 'lucide-react';
 
 export default function NSSPage({ onNavigateHome, onRegisterRedirect }) {
-  const [activeSection, setActiveSection] = useState('registration'); // 'registration' | 'events' | 'awards'
+  const [activeSection, setActiveSection] = useState('registration'); // 'registration' | 'events'
 
   const scrollToTarget = (targetId) => {
     setTimeout(() => {
@@ -49,7 +49,7 @@ export default function NSSPage({ onNavigateHome, onRegisterRedirect }) {
               <span className="live-indicator-pulse"></span>
               <Zap size={15} className="zap-icon" />
               <span className="announcement-text">
-                <strong>NSS REGISTRATIONS:</strong> 40+ NSS Teams • ₹500 Registration Fee • Youth Parliament Entry
+                <strong>ANNOUNCEMENT:</strong> Stay tuned registration will open soon! • 40+ NSS Teams
               </span>
             </div>
 
@@ -59,10 +59,10 @@ export default function NSSPage({ onNavigateHome, onRegisterRedirect }) {
             </h1>
 
             <p className="nss-hero-sub">
-              Empowering National Service Scheme units and student social organizations to debate, present, and inspire societal change.
+              Empowering National Service Scheme units and student social organizations to debate, present, and compete for top honors.
             </p>
 
-            {/* Sub-Tabs */}
+            {/* Concise Sub-Tabs */}
             <div className="nss-tab-controls">
               <button 
                 className={`nss-tab-btn ${activeSection === 'registration' ? 'active' : ''}`}
@@ -76,14 +76,7 @@ export default function NSSPage({ onNavigateHome, onRegisterRedirect }) {
                 onClick={() => handleTabClick('events')}
               >
                 <Landmark size={17} />
-                <span>Youth Floor & Events</span>
-              </button>
-              <button 
-                className={`nss-tab-btn ${activeSection === 'awards' ? 'active' : ''}`}
-                onClick={() => handleTabClick('awards')}
-              >
-                <Award size={17} />
-                <span>Sevasrujan Award</span>
+                <span>NSS Unit Events</span>
               </button>
             </div>
 
@@ -92,7 +85,7 @@ export default function NSSPage({ onNavigateHome, onRegisterRedirect }) {
               className="hero-scroll-hint animate-bounce-soft"
               onClick={() => scrollToTarget('nss-body-section')}
             >
-              <span>Explore NSS Guidelines Below</span>
+              <span>Explore Guidelines Below</span>
               <ChevronDown size={18} />
             </div>
 
@@ -103,90 +96,86 @@ export default function NSSPage({ onNavigateHome, onRegisterRedirect }) {
       {/* MAIN CONTENT BODY */}
       <div className="container-inner nss-body-container" id="nss-body-section">
         
-        {/* SECTION 1: UNIT REGISTRATION */}
+        {/* TAB 1: CONCISE UNIT REGISTRATION */}
         {activeSection === 'registration' && (
           <div className="nss-view-section animate-fade-in">
             
-            {/* MAIN REGISTRATION HIGHLIGHT CARD */}
             <div className="nss-main-card card-clean">
+              
+              {/* Header Group */}
               <div className="nss-card-header">
                 <div className="event-icon-box navy">
-                  <Shield size={26} />
+                  <Shield size={24} />
                 </div>
                 <div>
                   <div className="event-meta-badges">
-                    <span className="badge-pill">OFFICIAL DELEGATION</span>
-                    <span className="badge-outline">40+ TEAMS CAPACITY</span>
+                    <span className="badge-pill">DELEGATION</span>
+                    <span className="badge-outline">₹500 REG FEE</span>
                   </div>
-                  <h2 className="heading-2 nss-card-title">Registration for NSS & Youth Units</h2>
-                  <p className="text-muted" style={{ fontSize: '0.925rem' }}>
-                    Open to all recognized National Service Scheme (NSS) units and youth social organizations across campuses.
+                  <h2 className="heading-2 nss-card-title">Registration for NSS Units</h2>
+                  <p className="text-muted" style={{ fontSize: '0.9rem' }}>
+                    Register your official NSS or student social unit to participate in PRISM '26 campus events.
                   </p>
                 </div>
               </div>
 
               <div className="nss-card-body">
                 
-                {/* 4 HIGHLIGHT BADGES / STATS */}
-                <div className="nss-stats-grid">
-                  <div className="nss-stat-card">
-                    <span className="stat-label">MAX CAPACITY</span>
-                    <span className="stat-val">40+</span>
-                    <span className="stat-sub">NSS Teams</span>
+                {/* 4 CLEAN KEY FACTS PILLS */}
+                <div className="nss-facts-strip">
+                  <div className="fact-item">
+                    <span className="fact-title">40+ Teams</span>
+                    <span className="fact-sub">Max Capacity</span>
                   </div>
-                  <div className="nss-stat-card">
-                    <span className="stat-label">REGISTRATION FEE</span>
-                    <span className="stat-val">₹500</span>
-                    <span className="stat-sub">Per Group / Team</span>
+                  <div className="fact-divider"></div>
+                  <div className="fact-item">
+                    <span className="fact-title">₹500 Fee</span>
+                    <span className="fact-sub">Per Group</span>
                   </div>
-                  <div className="nss-stat-card">
-                    <span className="stat-label">GROUP SIZE</span>
-                    <span className="stat-val">4</span>
-                    <span className="stat-sub">Members per Group</span>
+                  <div className="fact-divider"></div>
+                  <div className="fact-item">
+                    <span className="fact-title">4 Members</span>
+                    <span className="fact-sub">Per Group</span>
                   </div>
-                  <div className="nss-stat-card highlight">
-                    <span className="stat-label">YOUTH FLOOR ENTRY</span>
-                    <span className="stat-val">1 Member</span>
-                    <span className="stat-sub">Represents in Parliament</span>
+                  <div className="fact-divider"></div>
+                  <div className="fact-item highlight">
+                    <span className="fact-title">Youth Floor</span>
+                    <span className="fact-sub">1 Rep per Group</span>
                   </div>
                 </div>
 
-                {/* RULES & PARTICIPATION GUIDELINES */}
-                <div className="nss-details-grid" style={{ marginTop: '24px' }}>
-                  
-                  {/* Rule 1 */}
-                  <div className="visual-rule-card">
-                    <h4 className="detail-heading">
-                      <Users size={18} /> Team Composition Rules
-                    </h4>
-                    <ul className="detail-list">
-                      <li><strong>Group Size:</strong> Exactly 4 members in each NSS registered team.</li>
-                      <li><strong>Eligibility:</strong> Recognized NSS Volunteers, Social Units & eligible student delegates.</li>
-                      <li>Inter-college NSS team participation allowed as per unit guidelines.</li>
-                    </ul>
-                  </div>
-
-                  {/* Rule 2 */}
-                  <div className="visual-rule-card">
-                    <h4 className="detail-heading">
-                      <Landmark size={18} /> Youth Floor Delegation
-                    </h4>
-                    <ul className="detail-list">
-                      <li><strong>Youth Floor Participation:</strong> 1 member from each group will represent the unit in <em>The Youth Floor (Youth Parliament)</em>.</li>
-                      <li>Remaining 3 members participate in Conclave, Tenure Presentations & social summits.</li>
-                      <li>Full delegate kits provided to all 4 members upon arrival.</li>
-                    </ul>
-                  </div>
-
+                {/* CONCISE PARTICIPATION GUIDELINES */}
+                <div className="nss-guidelines-box" style={{ marginTop: '20px' }}>
+                  <h4 className="guidelines-heading">
+                    <CheckCircle2 size={16} /> Key Participation Guidelines
+                  </h4>
+                  <ul className="nss-bullet-list">
+                    <li><strong>Group Size:</strong> Exactly 4 members in each registered group.</li>
+                    <li><strong>Youth Floor Entry:</strong> One member from each group will represent the unit in <em>The Youth Floor (Youth Parliament)</em>.</li>
+                    <li>Open to recognized NSS volunteers and campus social organizations.</li>
+                  </ul>
                 </div>
 
-                {/* CTA BUTTON */}
-                <div className="card-bottom-cta">
+                {/* FEATURED AWARD: SEVASRUJAN AWARD (EMBEDDED IN MAIN TAB) */}
+                <div className="sevasrujan-embedded-banner" style={{ marginTop: '20px' }}>
+                  <div className="embedded-award-header">
+                    <Trophy size={20} className="award-trophy-icon" />
+                    <div>
+                      <h4 className="embedded-award-title">The Sevasrujan Award</h4>
+                      <p className="embedded-award-desc">
+                        Presented by the <strong>Social Welfare & Development (SWD) Committee</strong> to the <em>best overall NSS unit</em> among all 40+ registered teams based on community service & societal impact. No separate registration required.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* SINGLE CTA BUTTON */}
+                <div className="card-bottom-cta" style={{ marginTop: '24px' }}>
                   <button 
                     className="btn btn-primary btn-compact-lg"
                     onClick={handleRegisterClick}
                   >
-                    <span>Register NSS Unit Now (₹500)</span>
+                    <span>Register NSS Unit (₹500)</span>
                     <ExternalLink size={16} />
                   </button>
                 </div>
@@ -197,14 +186,14 @@ export default function NSSPage({ onNavigateHome, onRegisterRedirect }) {
           </div>
         )}
 
-        {/* SECTION 2: YOUTH FLOOR & EVENTS */}
+        {/* TAB 2: NSS UNIT EVENTS (RENAMED & CONCISE) */}
         {activeSection === 'events' && (
           <div className="nss-view-section animate-fade-in">
-            <div className="section-header" style={{ marginBottom: '28px' }}>
-              <span className="section-tag">PARLIAMENT & CONCLAVE</span>
-              <h2 className="heading-1">NSS Event Highlights</h2>
+            <div className="section-header" style={{ marginBottom: '24px' }}>
+              <span className="section-tag">COMPETITIVE FORUMS</span>
+              <h2 className="heading-1">NSS Unit Events</h2>
               <p className="text-muted">
-                Key competitive and discussion forums exclusive to registered Youth & Social Units.
+                Official competitive events open to registered Youth & Social Units.
               </p>
             </div>
 
@@ -214,26 +203,23 @@ export default function NSSPage({ onNavigateHome, onRegisterRedirect }) {
               <div className="nss-event-card card-clean highlight-border">
                 <div className="nss-event-header">
                   <div className="event-icon-box navy">
-                    <Landmark size={24} />
+                    <Landmark size={22} />
                   </div>
                   <div>
                     <span className="badge-pill">MOCK PARLIAMENT</span>
-                    <h3 className="heading-2" style={{ color: 'var(--primary-navy)', margin: '4px 0 2px 0' }}>
+                    <h3 className="heading-2" style={{ color: 'var(--primary-navy)', margin: '2px 0' }}>
                       The Youth Floor (Youth Parliament)
                     </h3>
                   </div>
                 </div>
 
-                <p className="text-muted" style={{ fontSize: '0.9rem', marginBottom: '16px' }}>
-                  A youth parliament exercise where Youth & Social Units debate civic, legislative, and policy issues in a structured mock-parliamentary format, sharpening public speaking and democratic engagement.
+                <p className="text-muted" style={{ fontSize: '0.875rem', marginBottom: '14px' }}>
+                  A youth parliament simulation where representatives debate civic & policy issues in a mock-parliamentary format, sharpening public speaking and democratic engagement.
                 </p>
 
                 <div className="nss-event-meta">
                   <div className="meta-item">
-                    <strong>Team Size:</strong> 4 Members (1 speaker selected on floor)
-                  </div>
-                  <div className="meta-item">
-                    <strong>Eligibility:</strong> Youth & Social Units and eligible student teams
+                    <strong>Team Size:</strong> 4 Members (1 member represents on floor)
                   </div>
                   <div className="meta-item">
                     <strong>Awards:</strong> Best Speaker, Best Team, Overall Winners
@@ -245,115 +231,28 @@ export default function NSSPage({ onNavigateHome, onRegisterRedirect }) {
               <div className="nss-event-card card-clean">
                 <div className="nss-event-header">
                   <div className="event-icon-box blue">
-                    <FileText size={24} />
+                    <FileText size={22} />
                   </div>
                   <div>
                     <span className="badge-outline">ANNUAL SHOWCASE</span>
-                    <h3 className="heading-2" style={{ color: 'var(--primary-navy)', margin: '4px 0 2px 0' }}>
+                    <h3 className="heading-2" style={{ color: 'var(--primary-navy)', margin: '2px 0' }}>
                       Tenure Presentations
                     </h3>
                   </div>
                 </div>
 
-                <p className="text-muted" style={{ fontSize: '0.9rem', marginBottom: '16px' }}>
-                  Exclusive platform for registered Youth & Social Units to present their annual tenure achievements, community outreach campaigns, adoption village projects, and social impact metrics.
+                <p className="text-muted" style={{ fontSize: '0.875rem', marginBottom: '14px' }}>
+                  Exclusive presentation platform for registered Youth & Social Units to showcase annual tenure achievements, adoption village projects, and social impact metrics as per programme guidelines.
                 </p>
 
                 <div className="nss-event-meta">
                   <div className="meta-item">
-                    <strong>Format:</strong> PPT & Impact Dossier Presentation
-                  </div>
-                  <div className="meta-item">
                     <strong>Eligibility:</strong> Registered Youth & Social Units only
                   </div>
                   <div className="meta-item">
-                    <strong>Guidelines:</strong> As per PRISM '26 programme schedule
+                    <strong>Format:</strong> PPT & Impact Dossier Presentation
                   </div>
                 </div>
-              </div>
-
-              {/* Event 3: Conclave / Open Mind */}
-              <div className="nss-event-card card-clean" style={{ gridColumn: '1 / -1' }}>
-                <div className="nss-event-header">
-                  <div className="event-icon-box navy">
-                    <MessageSquare size={24} />
-                  </div>
-                  <div>
-                    <span className="badge-pill">THOUGHT EXCHANGE</span>
-                    <h3 className="heading-2" style={{ color: 'var(--primary-navy)', margin: '4px 0 2px 0' }}>
-                      Conclave & Open Mind
-                    </h3>
-                  </div>
-                </div>
-
-                <p className="text-muted" style={{ fontSize: '0.9rem', marginBottom: '16px' }}>
-                  An open-floor thought-exchange platform where participants from all social backgrounds voice perspectives on civic innovation, grassroots reform, and sustainability themes without rigid formality.
-                </p>
-
-                <div className="summary-badges-grid" style={{ justifyContent: 'flex-start', marginTop: '12px' }}>
-                  <div className="summary-badge-item">
-                    <CheckCircle2 size={16} /> Inclusive Dialogue
-                  </div>
-                  <div className="summary-badge-item">
-                    <CheckCircle2 size={16} /> NGO & Expert Panels
-                  </div>
-                  <div className="summary-badge-item">
-                    <CheckCircle2 size={16} /> Policy Recommendations
-                  </div>
-                </div>
-              </div>
-
-            </div>
-          </div>
-        )}
-
-        {/* SECTION 3: SEVASRUJAN AWARD */}
-        {activeSection === 'awards' && (
-          <div className="nss-view-section animate-fade-in">
-            <div className="nss-award-banner card-accent">
-              
-              <div className="award-icon-circle">
-                <Heart size={36} />
-              </div>
-
-              <span className="badge-pill" style={{ marginBottom: '8px' }}>
-                HIGHEST SOCIAL HONOR
-              </span>
-
-              <h2 className="heading-1" style={{ color: 'var(--primary-navy)', marginBottom: '12px' }}>
-                The Sevasrujan Award
-              </h2>
-
-              <p className="award-desc">
-                Presented by the <strong>Social Welfare & Development (SWD) Committee</strong> to the team demonstrating outstanding commitment to social causes, community service, and meaningful societal impact.
-              </p>
-
-              <div className="award-criteria-grid">
-                <div className="criteria-card">
-                  <Trophy size={20} className="crit-icon" />
-                  <h4>Community Impact</h4>
-                  <p>Measurable reach and sustainable grassroots transformation in adopted villages or communities.</p>
-                </div>
-                <div className="criteria-card">
-                  <Award size={20} className="crit-icon" />
-                  <h4>Innovation in Service</h4>
-                  <p>Novel approaches to solving public health, literacy, environmental, or social inequality issues.</p>
-                </div>
-                <div className="criteria-card">
-                  <Sparkles size={20} className="crit-icon" />
-                  <h4>Team Dedication</h4>
-                  <p>Exemplary discipline, volunteer engagement, and leadership throughout the tenure.</p>
-                </div>
-              </div>
-
-              <div className="card-bottom-cta" style={{ justifyContent: 'center', marginTop: '32px' }}>
-                <button 
-                  className="btn btn-primary btn-compact-lg"
-                  onClick={handleRegisterClick}
-                >
-                  <span>Register Unit for Sevasrujan Award Candidacy</span>
-                  <ArrowRight size={16} />
-                </button>
               </div>
 
             </div>
@@ -401,7 +300,7 @@ export default function NSSPage({ onNavigateHome, onRegisterRedirect }) {
 
         .nss-hero-sub {
           font-family: var(--font-body);
-          font-size: 1.1rem;
+          font-size: 1.05rem;
           color: var(--deep-blue);
           line-height: 1.6;
           margin-bottom: 38px;
@@ -453,9 +352,10 @@ export default function NSSPage({ onNavigateHome, onRegisterRedirect }) {
           padding-top: var(--space-2xl);
         }
 
-        /* MAIN CARD */
+        /* MAIN CARD - CLEAN & SPACIOUS */
         .nss-main-card {
           padding: var(--space-xl);
+          background: var(--white);
         }
 
         .nss-card-header {
@@ -467,59 +367,112 @@ export default function NSSPage({ onNavigateHome, onRegisterRedirect }) {
 
         .nss-card-title {
           color: var(--primary-navy);
-          font-size: 1.6rem;
+          font-size: 1.5rem;
           margin-bottom: 2px;
         }
 
-        /* STATS GRID */
-        .nss-stats-grid {
-          display: grid;
-          grid-template-columns: repeat(4, 1fr);
-          gap: 16px;
+        /* CLEAN FACTS STRIP */
+        .nss-facts-strip {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          background: var(--very-light-bg);
+          border: 1px solid var(--light-blue);
+          border-radius: var(--radius-md);
+          padding: 16px 24px;
         }
 
-        .nss-stat-card {
-          background: var(--very-light-bg);
-          border: 1.5px solid var(--light-blue);
-          border-radius: var(--radius-md);
-          padding: 16px;
+        .fact-item {
           display: flex;
           flex-direction: column;
           align-items: center;
           text-align: center;
         }
 
-        .nss-stat-card.highlight {
-          background: rgba(179, 207, 229, 0.2);
-          border-color: var(--medium-blue);
+        .fact-item.highlight {
+          color: var(--primary-navy);
         }
 
-        .stat-label {
-          font-size: 0.725rem;
+        .fact-title {
+          font-family: var(--font-heading);
+          font-size: 1.2rem;
           font-weight: 800;
-          color: var(--medium-blue);
-          letter-spacing: 0.05em;
+          color: var(--primary-navy);
+        }
+
+        .fact-sub {
+          font-size: 0.775rem;
+          color: var(--deep-blue);
+          margin-top: 2px;
+        }
+
+        .fact-divider {
+          width: 1px;
+          height: 36px;
+          background-color: var(--light-blue);
+        }
+
+        /* GUIDELINES BOX */
+        .nss-guidelines-box {
+          background: var(--white);
+          border: 1px solid var(--light-blue);
+          border-radius: var(--radius-md);
+          padding: 18px 20px;
+        }
+
+        .guidelines-heading {
+          display: flex;
+          align-items: center;
+          gap: 6px;
+          font-family: var(--font-heading);
+          font-size: 0.95rem;
+          font-weight: 700;
+          color: var(--primary-navy);
+          margin-bottom: 10px;
+        }
+
+        .nss-bullet-list {
+          list-style: disc;
+          padding-left: 18px;
+          display: flex;
+          flex-direction: column;
+          gap: 6px;
+          font-size: 0.875rem;
+          color: var(--deep-blue);
+        }
+
+        /* EMBEDDED SEVASRUJAN AWARD BANNER */
+        .sevasrujan-embedded-banner {
+          background: linear-gradient(135deg, #F6FAFD 0%, #EAF2F8 100%);
+          border: 1.5px solid var(--medium-blue);
+          border-radius: var(--radius-md);
+          padding: 16px 20px;
+        }
+
+        .embedded-award-header {
+          display: flex;
+          align-items: flex-start;
+          gap: 14px;
+        }
+
+        .award-trophy-icon {
+          color: var(--primary-navy);
+          margin-top: 2px;
+          flex-shrink: 0;
+        }
+
+        .embedded-award-title {
+          font-family: var(--font-heading);
+          font-size: 1.05rem;
+          font-weight: 800;
+          color: var(--primary-navy);
           margin-bottom: 4px;
         }
 
-        .stat-val {
-          font-family: var(--font-heading);
-          font-size: 1.85rem;
-          font-weight: 800;
-          color: var(--primary-navy);
-          line-height: 1.1;
-        }
-
-        .stat-sub {
-          font-size: 0.8rem;
+        .embedded-award-desc {
+          font-size: 0.85rem;
           color: var(--deep-blue);
-          margin-top: 4px;
-        }
-
-        .nss-details-grid {
-          display: grid;
-          grid-template-columns: repeat(2, 1fr);
-          gap: var(--space-lg);
+          line-height: 1.45;
         }
 
         /* EVENTS GRID */
@@ -540,88 +493,20 @@ export default function NSSPage({ onNavigateHome, onRegisterRedirect }) {
         .nss-event-header {
           display: flex;
           align-items: center;
-          gap: 14px;
-          margin-bottom: 12px;
+          gap: 12px;
+          margin-bottom: 10px;
         }
 
         .nss-event-meta {
           background: var(--very-light-bg);
           border: 1px solid var(--light-blue);
           border-radius: var(--radius-sm);
-          padding: 12px;
+          padding: 10px 14px;
           display: flex;
           flex-direction: column;
-          gap: 6px;
-          font-size: 0.875rem;
+          gap: 4px;
+          font-size: 0.85rem;
           color: var(--deep-blue);
-        }
-
-        /* AWARD BANNER */
-        .nss-award-banner {
-          padding: var(--space-2xl);
-          text-align: center;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          border-radius: var(--radius-lg);
-        }
-
-        .award-icon-circle {
-          width: 72px;
-          height: 72px;
-          border-radius: 50%;
-          background: var(--primary-navy);
-          color: var(--white);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          margin-bottom: 16px;
-          box-shadow: 0 8px 24px rgba(10, 25, 49, 0.25);
-        }
-
-        .award-desc {
-          font-size: 1.1rem;
-          color: var(--deep-blue);
-          max-width: 780px;
-          line-height: 1.6;
-          margin-bottom: 32px;
-        }
-
-        .award-criteria-grid {
-          display: grid;
-          grid-template-columns: repeat(3, 1fr);
-          gap: var(--space-lg);
-          width: 100%;
-        }
-
-        .criteria-card {
-          background: var(--white);
-          border: 1px solid var(--light-blue);
-          border-radius: var(--radius-md);
-          padding: var(--space-lg);
-          text-align: center;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-        }
-
-        .crit-icon {
-          color: var(--primary-navy);
-          margin-bottom: 10px;
-        }
-
-        .criteria-card h4 {
-          font-family: var(--font-heading);
-          font-size: 1.1rem;
-          font-weight: 700;
-          color: var(--primary-navy);
-          margin-bottom: 6px;
-        }
-
-        .criteria-card p {
-          font-size: 0.875rem;
-          color: var(--deep-blue);
-          line-height: 1.4;
         }
 
         @media (max-width: 1024px) {
@@ -629,13 +514,18 @@ export default function NSSPage({ onNavigateHome, onRegisterRedirect }) {
             font-size: clamp(2rem, 4.2vw, 2.75rem);
             white-space: normal;
           }
-          .nss-stats-grid {
-            grid-template-columns: repeat(2, 1fr);
-          }
         }
 
         @media (max-width: 850px) {
-          .nss-details-grid, .nss-events-grid, .award-criteria-grid {
+          .nss-facts-strip {
+            flex-direction: column;
+            gap: 14px;
+          }
+          .fact-divider {
+            width: 80%;
+            height: 1px;
+          }
+          .nss-events-grid {
             grid-template-columns: 1fr;
           }
           .nss-card-header {
