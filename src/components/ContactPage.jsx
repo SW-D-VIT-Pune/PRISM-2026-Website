@@ -186,7 +186,7 @@ export default function ContactPage() {
         .contact-hero::after { content: ''; width: min(45vw, 590px); height: min(45vw, 590px); border: 1px solid rgba(179, 207, 229, .34); border-radius: 50%; position: absolute; right: -11vw; bottom: -27vw; }
         .contact-hero-inner { position: relative; z-index: 1; max-width: 1280px; }
         .contact-eyebrow { display: inline-flex; align-items: center; gap: 9px; color: var(--light-blue); font: 800 var(--font-size-caption) var(--font-heading); letter-spacing: .12em; }
-        .contact-title { color: var(--very-light-bg); max-width: 820px; margin: 18px 0; animation: contact-rise .65s both; }
+        .contact-title { color: var(--very-light-bg); max-width: 820px; margin: 18px 0; font-size: clamp(2.2rem, 4.2vw, 3.25rem); animation: contact-rise .65s both; }
         .contact-hero-copy { max-width: 625px; color: var(--light-blue); font-size: var(--font-size-body-lg); line-height: 1.7; }
         .contact-hero-action { display: inline-flex; align-items: center; gap: 9px; margin-top: 30px; padding: 13px 20px; color: var(--primary-navy); background: var(--light-blue); border: 1px solid var(--light-blue); border-radius: var(--radius-pill); font: 700 var(--font-size-sm) var(--font-heading); text-decoration: none; transition: transform var(--transition-base), background-color var(--transition-base); }
         .contact-hero-action:hover { background: var(--very-light-bg); transform: translateY(-3px); }
