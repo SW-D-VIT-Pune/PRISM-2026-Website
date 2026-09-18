@@ -182,14 +182,14 @@ export default function ContactPage() {
 
       <style>{`
         .contact-page { background: var(--very-light-bg); overflow: hidden; }
-        .contact-hero { min-height: 570px; display: flex; align-items: center; padding: 210px 0 92px; background: url('/images/Prism_IMG1.jpg') center/cover no-repeat; color: var(--very-light-bg); position: relative; overflow: hidden; }
-        .contact-hero::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(10, 25, 49, 0.72) 0%, rgba(26, 61, 99, 0.82) 100%); backdrop-filter: blur(2px); z-index: 0; }
+        .contact-hero { min-height: 570px; display: flex; align-items: center; padding: 210px 0 92px; background: url('/images/Prism_IMG1.jpg') center/cover no-repeat; color: #ffffff; position: relative; overflow: hidden; }
+        .contact-hero::before { content: ''; position: absolute; inset: 0; background: rgba(0, 0, 0, 0.15); backdrop-filter: blur(1.5px); -webkit-backdrop-filter: blur(1.5px); z-index: 0; }
         .contact-hero-inner { position: relative; z-index: 1; max-width: 1280px; }
-        .contact-eyebrow { display: inline-flex; align-items: center; gap: 9px; color: var(--light-blue); font: 800 var(--font-size-caption) var(--font-heading); letter-spacing: .12em; }
-        .contact-title { color: var(--very-light-bg); max-width: 820px; margin: 18px 0; font-size: clamp(2.2rem, 4.2vw, 3.25rem); animation: contact-rise .65s both; }
-        .contact-hero-copy { max-width: 625px; color: var(--light-blue); font-size: var(--font-size-body-lg); line-height: 1.7; }
-        .contact-hero-action { display: inline-flex; align-items: center; gap: 9px; margin-top: 30px; padding: 13px 20px; color: var(--primary-navy); background: var(--light-blue); border: 1px solid var(--light-blue); border-radius: var(--radius-pill); font: 700 var(--font-size-sm) var(--font-heading); text-decoration: none; transition: transform var(--transition-base), background-color var(--transition-base); }
-        .contact-hero-action:hover { background: var(--very-light-bg); transform: translateY(-3px); }
+        .contact-eyebrow { display: inline-flex; align-items: center; gap: 9px; color: #e2f1ff; font: 800 var(--font-size-caption) var(--font-heading); letter-spacing: .12em; text-shadow: 0 2px 8px rgba(0,0,0,0.85); }
+        .contact-title { color: #ffffff; max-width: 820px; margin: 18px 0; font-size: clamp(2.2rem, 4.2vw, 3.25rem); animation: contact-rise .65s both; text-shadow: 0 3px 14px rgba(0,0,0,0.9); }
+        .contact-hero-copy { max-width: 625px; color: #ffffff; font-size: var(--font-size-body-lg); line-height: 1.7; font-weight: 600; text-shadow: 0 2px 10px rgba(0,0,0,0.85); }
+        .contact-hero-action { display: inline-flex; align-items: center; gap: 9px; margin-top: 30px; padding: 13px 20px; color: var(--primary-navy); background: #ffffff; border: 1px solid #ffffff; border-radius: var(--radius-pill); font: 700 var(--font-size-sm) var(--font-heading); text-decoration: none; box-shadow: 0 4px 15px rgba(0,0,0,0.35); transition: transform var(--transition-base), background-color var(--transition-base); }
+        .contact-hero-action:hover { background: var(--light-blue); transform: translateY(-3px); }
         .contact-section { padding: var(--space-3xl) 0; }
         [data-reveal] { opacity: 0; transform: translateY(22px); transition: opacity 600ms ease, transform 600ms cubic-bezier(.2, .75, .3, 1); }
         [data-reveal].is-visible { opacity: 1; transform: translateY(0); }
