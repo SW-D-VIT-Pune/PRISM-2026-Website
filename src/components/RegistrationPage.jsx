@@ -9,6 +9,36 @@ export default function RegistrationPage({ onNavigateHome, onUnstopRedirect }) {
   const [activeTab, setActiveTab] = useState('tracks'); // 'tracks' | 'passes' | 'perks'
   const [expandedTrack, setExpandedTrack] = useState('sociothon'); // 'sociothon' | 'ideathon' | 'kalakriti'
 
+  // AUTOMATIC PULL UP / SMOOTH SCROLL HANDLER
+  const scrollToTarget = (targetId) => {
+    setTimeout(() => {
+      const el = document.getElementById(targetId);
+      if (el) {
+        const navHeight = 145; // Accounts for top navbar height
+        const elementPosition = el.getBoundingClientRect().top + window.pageYOffset;
+        const offsetPosition = elementPosition - navHeight;
+
+        window.scrollTo({
+          top: Math.max(0, offsetPosition),
+          behavior: 'smooth'
+        });
+      }
+    }, 60);
+  };
+
+  const handleTabClick = (tabName) => {
+    setActiveTab(tabName);
+    scrollToTarget('reg-content-section');
+  };
+
+  const handleTrackToggle = (trackKey) => {
+    const nextState = expandedTrack === trackKey ? null : trackKey;
+    setExpandedTrack(nextState);
+    if (nextState) {
+      scrollToTarget(`track-${trackKey}`);
+    }
+  };
+
   const handleUnstopClick = (eventName) => {
     if (onUnstopRedirect) {
       onUnstopRedirect(eventName);
@@ -34,7 +64,7 @@ export default function RegistrationPage({ onNavigateHome, onUnstopRedirect }) {
               </span>
             </div>
 
-            {/* MAIN TITLE (Single Line Fit) */}
+            {/* MAIN TITLE (Single Line Fit on Desktop & Laptop, Prominent Size) */}
             <h1 className="heading-display reg-main-title">
               Participate & Innovate
             </h1>
@@ -47,21 +77,21 @@ export default function RegistrationPage({ onNavigateHome, onUnstopRedirect }) {
             <div className="reg-tab-controls">
               <button 
                 className={`reg-tab-btn ${activeTab === 'tracks' ? 'active' : ''}`}
-                onClick={() => setActiveTab('tracks')}
+                onClick={() => handleTabClick('tracks')}
               >
                 <Trophy size={16} />
                 <span>Event Tracks</span>
               </button>
               <button 
                 className={`reg-tab-btn ${activeTab === 'passes' ? 'active' : ''}`}
-                onClick={() => setActiveTab('passes')}
+                onClick={() => handleTabClick('passes')}
               >
                 <Ticket size={16} />
                 <span>Student Event Passes</span>
               </button>
               <button 
                 className={`reg-tab-btn ${activeTab === 'perks' ? 'active' : ''}`}
-                onClick={() => setActiveTab('perks')}
+                onClick={() => handleTabClick('perks')}
               >
                 <Award size={16} />
                 <span>Benefits & Perks</span>
@@ -71,16 +101,19 @@ export default function RegistrationPage({ onNavigateHome, onUnstopRedirect }) {
         </div>
       </div>
 
-      {/* MAIN REGISTRATION CONTENT CONTAINER */}
-      <div className="container-inner reg-body-container">
+      {/* MAIN REGISTRATION CONTENT CONTAINER (PULL UP TARGET) */}
+      <div className="container-inner reg-body-container" id="reg-content-section">
         
         {/* TAB 1: EVENT TRACKS (Sociothon, Ideathon, Kala-Kriti) */}
         {activeTab === 'tracks' && (
           <div className="tracks-registration-view animate-fade-in">
             
             {/* 1. SOCIOTHON (TECHNICAL TRACK) */}
-            <div className={`reg-event-card card-clean ${expandedTrack === 'sociothon' ? 'expanded' : ''}`}>
-              <div className="event-card-header" onClick={() => setExpandedTrack(expandedTrack === 'sociothon' ? null : 'sociothon')}>
+            <div 
+              id="track-sociothon"
+              className={`reg-event-card card-clean ${expandedTrack === 'sociothon' ? 'expanded' : ''}`}
+            >
+              <div className="event-card-header" onClick={() => handleTrackToggle('sociothon')}>
                 <div className="event-title-group">
                   <div className="event-icon-box navy">
                     <Code2 size={24} />
@@ -229,8 +262,12 @@ export default function RegistrationPage({ onNavigateHome, onUnstopRedirect }) {
             </div>
 
             {/* 2. IDEATHON (SOCIAL TRACK) */}
-            <div className={`reg-event-card card-clean ${expandedTrack === 'ideathon' ? 'expanded' : ''}`} style={{ marginTop: '24px' }}>
-              <div className="event-card-header" onClick={() => setExpandedTrack(expandedTrack === 'ideathon' ? null : 'ideathon')}>
+            <div 
+              id="track-ideathon"
+              className={`reg-event-card card-clean ${expandedTrack === 'ideathon' ? 'expanded' : ''}`} 
+              style={{ marginTop: '24px' }}
+            >
+              <div className="event-card-header" onClick={() => handleTrackToggle('ideathon')}>
                 <div className="event-title-group">
                   <div className="event-icon-box blue">
                     <Lightbulb size={24} />
@@ -367,8 +404,12 @@ export default function RegistrationPage({ onNavigateHome, onUnstopRedirect }) {
             </div>
 
             {/* 3. KALA-KRITI (CULTURAL SHOWCASE) */}
-            <div className={`reg-event-card card-clean ${expandedTrack === 'kalakriti' ? 'expanded' : ''}`} style={{ marginTop: '24px' }}>
-              <div className="event-card-header" onClick={() => setExpandedTrack(expandedTrack === 'kalakriti' ? null : 'kalakriti')}>
+            <div 
+              id="track-kalakriti"
+              className={`reg-event-card card-clean ${expandedTrack === 'kalakriti' ? 'expanded' : ''}`} 
+              style={{ marginTop: '24px' }}
+            >
+              <div className="event-card-header" onClick={() => handleTrackToggle('kalakriti')}>
                 <div className="event-title-group">
                   <div className="event-icon-box navy">
                     <Music size={24} />
@@ -622,7 +663,7 @@ export default function RegistrationPage({ onNavigateHome, onUnstopRedirect }) {
         }
 
         .reg-hero-content {
-          max-width: 850px;
+          max-width: 950px;
           margin: 0 auto;
           display: flex;
           flex-direction: column;
@@ -642,6 +683,7 @@ export default function RegistrationPage({ onNavigateHome, onUnstopRedirect }) {
           box-shadow: 0 4px 15px rgba(74, 127, 167, 0.15);
           font-size: 0.85rem;
           color: var(--primary-navy);
+          max-width: 90%;
         }
 
         .live-indicator-pulse {
@@ -662,21 +704,24 @@ export default function RegistrationPage({ onNavigateHome, onUnstopRedirect }) {
           color: var(--deep-blue);
         }
 
-        /* MAIN HEADING FIT IN SINGLE LINE */
+        /* MAIN HEADING - LARGER FONT SIZE, FITS IN SINGLE LINE ON DESKTOP & LAPTOP */
         .reg-main-title {
-          font-size: clamp(1.8rem, 3.8vw, 2.75rem);
+          font-size: clamp(2.2rem, 4.8vw, 3.25rem);
           white-space: nowrap;
           color: var(--primary-navy);
-          margin-bottom: 8px;
-          letter-spacing: -0.02em;
+          margin-bottom: 10px;
+          letter-spacing: -0.025em;
+          font-weight: 800;
+          text-shadow: 0 2px 10px rgba(10, 25, 49, 0.05);
         }
 
         .reg-hero-sub {
           font-family: var(--font-body);
-          font-size: 1rem;
+          font-size: 1.05rem;
           color: var(--deep-blue);
           line-height: 1.5;
           margin-bottom: var(--space-lg);
+          max-width: 720px;
         }
 
         .reg-tab-controls {
@@ -695,17 +740,18 @@ export default function RegistrationPage({ onNavigateHome, onUnstopRedirect }) {
         .reg-tab-btn {
           display: flex;
           align-items: center;
-          gap: 6px;
-          padding: 8px 18px;
+          gap: 8px;
+          padding: 10px 22px;
           border-radius: var(--radius-pill);
           border: none;
           background: transparent;
           color: var(--deep-blue);
           font-family: var(--font-heading);
-          font-size: 0.875rem;
+          font-size: 0.925rem;
           font-weight: 700;
           cursor: pointer;
           transition: all 0.2s ease;
+          min-height: 44px;
         }
 
         .reg-tab-btn:hover {
@@ -725,14 +771,14 @@ export default function RegistrationPage({ onNavigateHome, onUnstopRedirect }) {
 
         /* COMPACT BUTTON STYLES */
         .btn-compact {
-          padding: 7px 15px !important;
+          padding: 8px 16px !important;
           font-size: 0.85rem !important;
           border-radius: var(--radius-pill) !important;
           gap: 6px !important;
         }
 
         .btn-compact-lg {
-          padding: 9px 20px !important;
+          padding: 10px 22px !important;
           font-size: 0.875rem !important;
           border-radius: var(--radius-pill) !important;
           gap: 8px !important;
@@ -742,6 +788,7 @@ export default function RegistrationPage({ onNavigateHome, onUnstopRedirect }) {
         .reg-event-card {
           overflow: hidden;
           transition: transform 0.25s ease, box-shadow 0.25s ease;
+          scroll-margin-top: 150px;
         }
 
         .reg-event-card:hover {
@@ -764,8 +811,8 @@ export default function RegistrationPage({ onNavigateHome, onUnstopRedirect }) {
         }
 
         .event-icon-box {
-          width: 48px;
-          height: 48px;
+          width: 50px;
+          height: 50px;
           border-radius: var(--radius-md);
           display: flex;
           align-items: center;
@@ -793,7 +840,7 @@ export default function RegistrationPage({ onNavigateHome, onUnstopRedirect }) {
         .event-card-title {
           color: var(--primary-navy);
           margin-bottom: 2px;
-          font-size: 1.35rem;
+          font-size: 1.4rem;
         }
 
         .event-header-actions {
@@ -807,17 +854,18 @@ export default function RegistrationPage({ onNavigateHome, onUnstopRedirect }) {
           border: 1px solid var(--light-blue);
           color: var(--deep-blue);
           border-radius: 50%;
-          width: 32px;
-          height: 32px;
+          width: 36px;
+          height: 36px;
           display: flex;
           align-items: center;
           justify-content: center;
           cursor: pointer;
-          transition: background-color 0.2s;
+          transition: background-color 0.2s, transform 0.2s;
         }
 
         .expand-toggle-btn:hover {
           background-color: var(--light-blue);
+          transform: scale(1.05);
         }
 
         .event-card-details {
@@ -838,11 +886,12 @@ export default function RegistrationPage({ onNavigateHome, onUnstopRedirect }) {
           gap: 10px;
           background: linear-gradient(135deg, #EAF2F8 0%, #FFFFFF 100%);
           border: 1.5px solid var(--medium-blue);
-          padding: 10px 18px;
+          padding: 12px 20px;
           border-radius: var(--radius-md);
-          font-size: 0.9rem;
+          font-size: 0.925rem;
           color: var(--primary-navy);
           margin-bottom: var(--space-lg);
+          box-shadow: var(--shadow-sm);
         }
 
         /* VISUAL TIMELINE STEPPER FOR ROUNDS */
@@ -858,7 +907,7 @@ export default function RegistrationPage({ onNavigateHome, onUnstopRedirect }) {
           align-items: center;
           gap: 8px;
           font-family: var(--font-heading);
-          font-size: 1rem;
+          font-size: 1.05rem;
           font-weight: 700;
           color: var(--primary-navy);
           margin-bottom: var(--space-md);
@@ -883,14 +932,14 @@ export default function RegistrationPage({ onNavigateHome, onUnstopRedirect }) {
         }
 
         .step-circle {
-          width: 36px;
-          height: 36px;
+          width: 38px;
+          height: 38px;
           border-radius: 50%;
           background: var(--primary-navy);
           color: var(--white);
           font-family: var(--font-heading);
           font-weight: 800;
-          font-size: 0.95rem;
+          font-size: 1rem;
           display: flex;
           align-items: center;
           justify-content: center;
@@ -912,16 +961,16 @@ export default function RegistrationPage({ onNavigateHome, onUnstopRedirect }) {
           flex: 0 0 40px;
           height: 3px;
           background: var(--light-blue);
-          margin-top: 17px;
+          margin-top: 18px;
         }
 
         .step-tag {
           display: inline-block;
-          font-size: 0.7rem;
+          font-size: 0.725rem;
           font-weight: 800;
-          padding: 2px 8px;
+          padding: 3px 9px;
           border-radius: var(--radius-pill);
-          margin-bottom: 4px;
+          margin-bottom: 6px;
         }
 
         .free-tag {
@@ -944,16 +993,16 @@ export default function RegistrationPage({ onNavigateHome, onUnstopRedirect }) {
 
         .step-title {
           font-family: var(--font-heading);
-          font-size: 0.925rem;
+          font-size: 0.95rem;
           font-weight: 700;
           color: var(--primary-navy);
           margin-bottom: 4px;
         }
 
         .step-desc {
-          font-size: 0.825rem;
+          font-size: 0.85rem;
           color: var(--deep-blue);
-          line-height: 1.35;
+          line-height: 1.4;
         }
 
         /* RULES & VISUAL PRIZE FLEX GRID */
@@ -975,7 +1024,7 @@ export default function RegistrationPage({ onNavigateHome, onUnstopRedirect }) {
           align-items: center;
           gap: 8px;
           font-family: var(--font-heading);
-          font-size: 0.975rem;
+          font-size: 1rem;
           font-weight: 700;
           color: var(--primary-navy);
           margin-bottom: var(--space-sm);
@@ -989,8 +1038,8 @@ export default function RegistrationPage({ onNavigateHome, onUnstopRedirect }) {
           list-style: none;
           display: flex;
           flex-direction: column;
-          gap: 6px;
-          font-size: 0.875rem;
+          gap: 8px;
+          font-size: 0.9rem;
           color: var(--deep-blue);
         }
 
@@ -998,7 +1047,7 @@ export default function RegistrationPage({ onNavigateHome, onUnstopRedirect }) {
           color: var(--primary-navy);
           font-weight: 700;
           background: rgba(179, 207, 229, 0.3);
-          padding: 6px 10px;
+          padding: 8px 12px;
           border-radius: var(--radius-sm);
           margin-top: 4px;
         }
@@ -1022,7 +1071,7 @@ export default function RegistrationPage({ onNavigateHome, onUnstopRedirect }) {
           background: var(--white);
           border: 1px solid var(--light-blue);
           border-radius: var(--radius-sm);
-          padding: 10px;
+          padding: 12px;
           display: flex;
           flex-direction: column;
           align-items: center;
@@ -1036,7 +1085,7 @@ export default function RegistrationPage({ onNavigateHome, onUnstopRedirect }) {
         }
 
         .podium-rank {
-          font-size: 0.75rem;
+          font-size: 0.775rem;
           font-weight: 800;
           color: var(--primary-navy);
           margin-bottom: 2px;
@@ -1044,13 +1093,13 @@ export default function RegistrationPage({ onNavigateHome, onUnstopRedirect }) {
 
         .podium-amount {
           font-family: var(--font-heading);
-          font-size: 1.4rem;
+          font-size: 1.5rem;
           font-weight: 800;
           color: var(--primary-navy);
         }
 
         .podium-sub {
-          font-size: 0.75rem;
+          font-size: 0.775rem;
           color: var(--deep-blue);
         }
 
@@ -1064,11 +1113,11 @@ export default function RegistrationPage({ onNavigateHome, onUnstopRedirect }) {
 
         .disqualification-chips-list {
           list-style: disc;
-          padding-left: 18px;
+          padding-left: 20px;
           display: flex;
           flex-direction: column;
           gap: 6px;
-          font-size: 0.85rem;
+          font-size: 0.875rem;
           color: var(--deep-blue);
         }
 
@@ -1110,7 +1159,7 @@ export default function RegistrationPage({ onNavigateHome, onUnstopRedirect }) {
         .pass-title {
           color: var(--primary-navy);
           margin-bottom: 4px;
-          font-size: 1.35rem;
+          font-size: 1.4rem;
         }
 
         .pass-price-box {
@@ -1122,21 +1171,21 @@ export default function RegistrationPage({ onNavigateHome, onUnstopRedirect }) {
 
         .price-currency {
           font-family: var(--font-heading);
-          font-size: 1.3rem;
+          font-size: 1.4rem;
           font-weight: 800;
           color: var(--primary-navy);
         }
 
         .price-amount {
           font-family: var(--font-heading);
-          font-size: 2.75rem;
+          font-size: 2.85rem;
           font-weight: 800;
           color: var(--primary-navy);
           line-height: 1;
         }
 
         .price-period {
-          font-size: 0.85rem;
+          font-size: 0.875rem;
           color: var(--medium-blue);
           margin-left: 6px;
         }
@@ -1147,7 +1196,7 @@ export default function RegistrationPage({ onNavigateHome, onUnstopRedirect }) {
           flex-direction: column;
           gap: 10px;
           margin-bottom: var(--space-lg);
-          font-size: 0.9rem;
+          font-size: 0.925rem;
           color: var(--deep-blue);
         }
 
@@ -1178,11 +1227,11 @@ export default function RegistrationPage({ onNavigateHome, onUnstopRedirect }) {
 
         .perks-list {
           list-style: disc;
-          padding-left: 18px;
+          padding-left: 20px;
           display: flex;
           flex-direction: column;
           gap: 8px;
-          font-size: 0.9rem;
+          font-size: 0.925rem;
           color: var(--deep-blue);
         }
 
@@ -1206,21 +1255,21 @@ export default function RegistrationPage({ onNavigateHome, onUnstopRedirect }) {
           align-items: center;
           gap: 8px;
           font-family: var(--font-heading);
-          font-size: 0.9rem;
+          font-size: 0.925rem;
           font-weight: 700;
           color: var(--primary-navy);
           background: var(--white);
-          padding: 8px 16px;
+          padding: 8px 18px;
           border-radius: var(--radius-pill);
           border: 1px solid var(--light-blue);
         }
 
         .animate-fade-in {
-          animation: fadeIn 0.4s ease-out forwards;
+          animation: fadeIn 0.35s ease-out forwards;
         }
 
         .animate-slide-right {
-          animation: slideRight 0.4s ease-out forwards;
+          animation: slideRight 0.35s ease-out forwards;
         }
 
         @keyframes fadeIn {
@@ -1233,9 +1282,18 @@ export default function RegistrationPage({ onNavigateHome, onUnstopRedirect }) {
           to { opacity: 1; transform: translateX(0); }
         }
 
-        @media (max-width: 900px) {
+        /* RESPONSIVE LAPTOP & MOBILE OPTIMIZATIONS */
+        @media (max-width: 1024px) {
+          .reg-main-title {
+            font-size: clamp(2rem, 4.2vw, 2.75rem);
+            white-space: normal;
+          }
+        }
+
+        @media (max-width: 850px) {
           .reg-main-title {
             white-space: normal;
+            font-size: 2.1rem;
           }
           .rules-prize-flex-grid, .details-grid-simple, .passes-grid, .perks-grid {
             grid-template-columns: 1fr;
@@ -1246,14 +1304,18 @@ export default function RegistrationPage({ onNavigateHome, onUnstopRedirect }) {
           }
           .timeline-connector {
             width: 3px;
-            height: 24px;
-            margin-left: 16px;
+            height: 20px;
+            margin-left: 17px;
             margin-top: 0;
           }
           .timeline-step {
             flex-direction: row;
             text-align: left;
             gap: 12px;
+          }
+          .step-circle {
+            margin-bottom: 0;
+            flex-shrink: 0;
           }
           .event-card-header {
             flex-direction: column;
@@ -1262,6 +1324,13 @@ export default function RegistrationPage({ onNavigateHome, onUnstopRedirect }) {
           .event-header-actions {
             width: 100%;
             justify-content: space-between;
+            margin-top: 8px;
+          }
+          .card-bottom-cta {
+            justify-content: center;
+          }
+          .card-bottom-cta .btn {
+            width: 100%;
           }
         }
       `}</style>
