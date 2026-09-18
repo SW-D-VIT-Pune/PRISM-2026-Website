@@ -23,6 +23,9 @@ export default function App() {
     if (item.id === 'home') {
       setActiveTab('home');
       window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else if (item.id === 'about') {
+      setActiveTab('about');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     } else if (item.id === 'registration') {
       setActiveTab('registration');
       window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -86,13 +89,16 @@ export default function App() {
             onQuizClick={handleQuizClick}
           />
 
-          {/* SECTION 2: WHAT IS PRISM? */}
-          <AboutSection />
-
-          {/* SECTION 3: CALL TO ACTION */}
+          {/* SECTION 2: CALL TO ACTION */}
           <HighlightCTA 
             onUpcomingClick={() => handleNavClick({ id: 'registration', label: 'Registration' })}
           />
+        </main>
+      )}
+
+      {activeTab === 'about' && (
+        <main className="about-page-content" style={{ paddingTop: '148px', minHeight: '80vh' }}>
+          <AboutSection />
         </main>
       )}
 

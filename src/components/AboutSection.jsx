@@ -34,7 +34,6 @@ export default function AboutSection() {
       <div className="container-inner">
         
         <div className="section-header">
-          <span className="section-tag">COMMITTEE BACKGROUND & FOUNDATION</span>
           <h2 className="heading-1">What is PRISM?</h2>
           <p className="text-muted" style={{ marginTop: '8px' }}>
             PRISM is the annual social-impact gathering organized by the Social Welfare & Development Committee at VIT Pune—bringing together passion, community action, and structured reform.
