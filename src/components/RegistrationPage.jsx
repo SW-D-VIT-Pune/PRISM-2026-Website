@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { 
   Trophy, Users, Award, ShieldAlert, CheckCircle2, ArrowRight, 
   Sparkles, Calendar, Ticket, Music, Code2, Lightbulb, 
-  ExternalLink, ChevronDown, ChevronUp, Zap, HelpCircle, Layers
+  ExternalLink, ChevronDown, ChevronUp, Zap, HelpCircle, Layers, Camera
 } from 'lucide-react';
 
 export default function RegistrationPage({ onNavigateHome, onUnstopRedirect }) {
@@ -72,6 +72,19 @@ export default function RegistrationPage({ onNavigateHome, onUnstopRedirect }) {
             <p className="reg-hero-sub">
               Register your team for Sociothon, Ideathon, Kala-Kriti, or grab your official Student Event Passes.
             </p>
+
+            {/* Flashback & Youth Empowerment Proof Bar */}
+            <div className="hero-proof-bar" style={{ marginTop: '20px', marginBottom: '24px' }}>
+              <div className="proof-item">
+                <Camera size={18} />
+                <span>PRISM '25 Flashback Showcase</span>
+              </div>
+              <div className="proof-sep"></div>
+              <div className="proof-item">
+                <Sparkles size={18} />
+                <span>Youth Empowerment Action</span>
+              </div>
+            </div>
 
             {/* Registration Navigation Sub-Tabs */}
             <div className="reg-tab-controls">
@@ -1380,6 +1393,30 @@ export default function RegistrationPage({ onNavigateHome, onUnstopRedirect }) {
           }
           .card-bottom-cta .btn {
             width: 100%;
+          }
+          .hero-proof-bar {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            border-top: 1.5px solid var(--light-blue);
+            padding-top: var(--space-md);
+            width: 100%;
+            max-width: 540px;
+          }
+          .proof-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: var(--font-heading);
+            font-size: var(--font-size-sm);
+            font-weight: 700;
+            color: var(--deep-blue);
+          }
+          .proof-sep {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background-color: var(--medium-blue);
           }
         }
       `}</style>
