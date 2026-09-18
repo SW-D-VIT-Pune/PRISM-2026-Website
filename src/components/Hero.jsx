@@ -134,7 +134,6 @@ export default function Hero({ onExploreClick, onVisionClick, onQuizClick }) {
               <div className="photo-text-overlay-huge">
                 <span className="badge-pill photo-overlay-tag">{currentPhoto.tag}</span>
                 <h4 className="photo-title-huge">{currentPhoto.title}</h4>
-                <p className="photo-desc-huge">{currentPhoto.desc}</p>
               </div>
             </div>
 
