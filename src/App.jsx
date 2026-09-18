@@ -5,6 +5,7 @@ import './styles/components.css';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import AboutSection from './components/AboutSection';
+import KeyEventsSection from './components/KeyEventsSection';
 import EventTracks from './components/EventTracks';
 import CommunitySection from './components/TimelineSection';
 import HighlightCTA from './components/HighlightCTA';
@@ -89,7 +90,10 @@ export default function App() {
             onQuizClick={handleQuizClick}
           />
 
-          {/* SECTION 2: CALL TO ACTION */}
+          {/* SECTION 2: KEY EVENTS & TIMELINE HIGHLIGHTS */}
+          <KeyEventsSection />
+
+          {/* SECTION 3: CALL TO ACTION */}
           <HighlightCTA 
             onUpcomingClick={() => handleNavClick({ id: 'registration', label: 'Registration' })}
           />
