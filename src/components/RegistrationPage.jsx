@@ -1417,6 +1417,192 @@ export default function RegistrationPage({ onNavigateHome, onUnstopRedirect }) {
             width: 100%;
           }
         }
+
+        @media (max-width: 600px) {
+          .reg-hero-banner {
+            padding-top: 140px;
+            padding-bottom: 36px;
+          }
+          .realtime-announcement-bar {
+            max-width: 100%;
+            font-size: 0.775rem;
+            padding: 8px 14px;
+            text-align: center;
+            flex-wrap: wrap;
+            justify-content: center;
+          }
+          .reg-main-title {
+            font-size: clamp(1.75rem, 7.5vw, 2.3rem);
+            line-height: 1.25;
+            text-align: center;
+            white-space: normal;
+            margin-bottom: 12px;
+          }
+          .reg-hero-sub {
+            font-size: 0.95rem;
+            text-align: center;
+            margin-bottom: 24px;
+          }
+          .reg-tab-controls {
+            flex-direction: column;
+            width: 100%;
+            border-radius: var(--radius-lg);
+            gap: 6px;
+            padding: 6px;
+          }
+          .reg-tab-btn {
+            width: 100%;
+            justify-content: center;
+            min-height: 42px;
+            font-size: 0.9rem;
+          }
+          .reg-event-card {
+            padding: 16px;
+            border-radius: var(--radius-md);
+          }
+          .event-title-group {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 10px;
+            width: 100%;
+          }
+          .event-card-title {
+            font-size: 1.25rem;
+            line-height: 1.3;
+          }
+          .event-meta-badges {
+            flex-wrap: wrap;
+            gap: 6px;
+          }
+          .event-header-actions {
+            border-top: 1px dashed var(--light-blue);
+            padding-top: 10px;
+            margin-top: 6px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+          }
+          .event-header-actions .btn {
+            flex: 1;
+            justify-content: center;
+            font-size: 0.825rem;
+          }
+          .unstop-ps-notice-bar {
+            flex-direction: row;
+            font-size: 0.825rem;
+            padding: 10px 14px;
+            gap: 8px;
+          }
+          .details-visual-section {
+            padding: 14px;
+          }
+          .visual-section-heading {
+            font-size: 0.95rem;
+            margin-bottom: 14px;
+          }
+          .rounds-timeline-stepper {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 16px;
+            padding-left: 4px;
+          }
+          .timeline-connector {
+            display: none;
+          }
+          .timeline-step {
+            flex-direction: row;
+            align-items: flex-start;
+            text-align: left;
+            gap: 12px;
+            width: 100%;
+            background: var(--very-light-bg);
+            padding: 12px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--light-blue);
+          }
+          .step-circle {
+            width: 32px;
+            height: 32px;
+            font-size: 0.875rem;
+            margin-bottom: 0;
+            flex-shrink: 0;
+          }
+          .step-title {
+            font-size: 0.9rem;
+          }
+          .step-desc {
+            font-size: 0.8rem;
+            line-height: 1.4;
+          }
+          .rules-prize-flex-grid {
+            grid-template-columns: 1fr;
+            gap: 14px;
+          }
+          .visual-rule-card, .visual-prize-card, .visual-disqualification-card {
+            padding: 14px;
+          }
+          .detail-heading {
+            font-size: 0.95rem;
+          }
+          .detail-list, .disqualification-chips-list {
+            font-size: 0.825rem;
+            padding-left: 18px;
+          }
+          .prize-visual-strip {
+            flex-direction: column;
+            gap: 10px;
+            width: 100%;
+          }
+          .prize-podium {
+            width: 100%;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 16px;
+            text-align: left;
+          }
+          .podium-rank {
+            margin-bottom: 0;
+            font-size: 0.8rem;
+          }
+          .podium-amount {
+            font-size: 1.35rem;
+          }
+          .podium-sub {
+            font-size: 0.75rem;
+            text-align: right;
+          }
+          .card-bottom-cta {
+            width: 100%;
+            margin-top: 16px;
+          }
+          .card-bottom-cta .btn {
+            width: 100%;
+            justify-content: center;
+          }
+          .passes-grid, .perks-grid {
+            grid-template-columns: 1fr;
+            gap: 16px;
+          }
+          .pass-card {
+            padding: 16px;
+          }
+          .price-amount {
+            font-size: 2.25rem;
+          }
+          .summary-badges-grid {
+            flex-direction: column;
+            align-items: stretch;
+            gap: 8px;
+          }
+          .summary-badge-item {
+            justify-content: center;
+            width: 100%;
+            font-size: 0.85rem;
+          }
+        }
       `}</style>
     </div>
   );

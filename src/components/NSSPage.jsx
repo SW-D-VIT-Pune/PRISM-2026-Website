@@ -692,6 +692,116 @@ export default function NSSPage({ onNavigateHome, onRegisterRedirect, initialSec
             align-items: flex-start;
           }
         }
+
+        @media (max-width: 600px) {
+          .nss-hero-banner {
+            padding-top: 140px;
+            padding-bottom: 36px;
+            background: linear-gradient(180deg, rgba(10, 25, 49, 0.50) 0%, rgba(10, 25, 49, 0.88) 100%), url('/images/NSS_unit.jpg') center top / cover no-repeat, #0A1931;
+          }
+          .realtime-announcement-bar {
+            max-width: 100%;
+            font-size: 0.775rem;
+            padding: 8px 14px;
+            text-align: center;
+            flex-wrap: wrap;
+            justify-content: center;
+          }
+          .nss-main-title {
+            font-size: clamp(1.75rem, 7.5vw, 2.3rem);
+            line-height: 1.25;
+            text-align: center;
+            white-space: normal;
+            margin-bottom: 12px;
+          }
+          .nss-hero-sub {
+            font-size: 0.95rem;
+            text-align: center;
+            margin-bottom: 24px;
+          }
+          .nss-tab-controls {
+            flex-direction: column;
+            width: 100%;
+            border-radius: var(--radius-lg);
+            gap: 6px;
+            padding: 6px;
+          }
+          .nss-tab-btn {
+            width: 100%;
+            justify-content: center;
+            min-height: 42px;
+            font-size: 0.9rem;
+          }
+          .nss-main-card {
+            padding: 16px;
+            border-radius: var(--radius-md);
+          }
+          .nss-facts-strip {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            padding: 12px 8px;
+            background: var(--very-light-bg);
+          }
+          .fact-divider {
+            display: none;
+          }
+          .fact-item {
+            padding: 8px 4px;
+            border: 1px solid var(--light-blue);
+            border-radius: var(--radius-sm);
+            background: var(--white);
+          }
+          .fact-title {
+            font-size: 0.9rem;
+          }
+          .fact-sub {
+            font-size: 0.7rem;
+          }
+          .sevasrujan-highlight-card {
+            padding: 18px 16px;
+            border-radius: var(--radius-md);
+          }
+          .award-card-header {
+            flex-direction: row;
+            align-items: flex-start;
+            gap: 12px;
+          }
+          .award-trophy-badge {
+            width: 44px;
+            height: 44px;
+          }
+          .award-title {
+            font-size: 1.25rem;
+          }
+          .award-description {
+            font-size: 0.85rem;
+            line-height: 1.5;
+            margin-bottom: 14px;
+          }
+          .award-highlights-row {
+            flex-direction: column;
+            align-items: stretch;
+            gap: 8px;
+            width: 100%;
+          }
+          .award-pill {
+            width: 100%;
+            font-size: 0.775rem;
+            padding: 8px 12px;
+            text-align: left;
+          }
+          .nss-event-card {
+            padding: 16px;
+          }
+          .card-bottom-cta {
+            width: 100%;
+          }
+          .card-bottom-cta .btn {
+            width: 100%;
+            justify-content: center;
+          }
+        }
       `}</style>
     </div>
   );

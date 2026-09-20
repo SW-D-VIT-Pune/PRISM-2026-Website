@@ -250,9 +250,135 @@ export default function ContactPage() {
         .contact-thank-you-copy p { color: var(--light-blue); font-size: var(--font-size-body); line-height: 1.7; }
         @keyframes contact-rise { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
         @media (max-width: 1050px) { .contact-people-grid { grid-template-columns: repeat(2, 1fr); } .contact-details-layout { grid-template-columns: 1fr; gap: var(--space-lg); } }
-        @media (max-width: 800px) { .contact-map-layout { grid-template-columns: 1fr; } .contact-map-frame { min-height: 380px; border-top: 1px solid var(--medium-blue); border-left: 0; } .contact-map-frame iframe { min-height: 380px; } }
-        @media (max-width: 760px) { .contact-hero { min-height: 530px; padding-top: 155px; padding-bottom: 70px; } .contact-title { font-size: clamp(2.55rem, 12vw, 4rem); } .contact-section { padding: var(--space-2xl) 0; } .contact-details-grid { grid-template-columns: 1fr; } .contact-detail-card { min-height: auto; } .contact-location-card { gap: 16px; } }
-        @media (max-width: 520px) { .contact-people-grid { grid-template-columns: 1fr; } .contact-person-card { min-height: 190px; } .contact-closing-card { align-items: flex-start; padding: 24px; } .contact-thank-you-card { padding: 32px 24px; } }
+        @media (max-width: 800px) { .contact-map-layout { grid-template-columns: 1fr; } .contact-map-frame { min-height: 340px; border-top: 1px solid var(--medium-blue); border-left: 0; } .contact-map-frame iframe { min-height: 340px; } }
+        @media (max-width: 760px) { .contact-hero { min-height: 500px; padding-top: 155px; padding-bottom: 60px; } .contact-title { font-size: clamp(2.3rem, 10vw, 3.5rem); } .contact-section { padding: var(--space-2xl) 0; } .contact-details-grid { grid-template-columns: 1fr; } .contact-detail-card { min-height: auto; } .contact-location-card { gap: 16px; } }
+        @media (max-width: 600px) {
+          .contact-hero {
+            min-height: auto;
+            padding: 145px 0 45px;
+            text-align: center;
+          }
+          .contact-hero-inner {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+          }
+          .contact-eyebrow {
+            font-size: 0.775rem;
+            justify-content: center;
+          }
+          .contact-title {
+            font-size: clamp(2.1rem, 8.5vw, 3rem);
+            margin: 12px 0;
+            text-align: center;
+            width: 100%;
+          }
+          .contact-hero-copy {
+            font-size: 0.95rem;
+            text-align: center;
+            margin-bottom: 20px;
+          }
+          .contact-hero-action {
+            width: 100%;
+            justify-content: center;
+            font-size: 0.9rem;
+            padding: 12px 20px;
+          }
+          .contact-people-grid {
+            grid-template-columns: 1fr;
+            gap: 14px;
+          }
+          .contact-person-card {
+            min-height: auto;
+            padding: 18px 18px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+          }
+          .contact-phone-link {
+            font-size: 0.875rem;
+            padding: 8px 14px;
+            background: rgba(179, 207, 229, 0.25);
+            border: 1px solid var(--medium-blue);
+            border-radius: var(--radius-pill);
+            width: 100%;
+            justify-content: center;
+            border-bottom: none;
+            margin-top: 6px;
+          }
+          .contact-details-grid {
+            grid-template-columns: 1fr;
+            gap: 12px;
+          }
+          .contact-detail-card {
+            min-height: auto;
+            padding: 16px 18px;
+            flex-direction: row;
+            align-items: center;
+            gap: 14px;
+          }
+          .contact-detail-icon {
+            width: 42px;
+            height: 42px;
+            flex-shrink: 0;
+          }
+          .contact-detail-label {
+            margin-top: 0;
+            font-size: 0.7rem;
+          }
+          .contact-detail-card strong {
+            margin-top: 2px;
+            font-size: 0.925rem;
+            display: block;
+          }
+          .contact-map-layout {
+            grid-template-columns: 1fr;
+            border-radius: var(--radius-lg);
+          }
+          .contact-location-card {
+            padding: 20px 18px;
+            gap: 14px;
+          }
+          .contact-campus-picker {
+            width: 100%;
+            flex-direction: column;
+            gap: 8px;
+          }
+          .contact-campus-button {
+            width: 100%;
+            text-align: center;
+            min-height: 42px;
+          }
+          .contact-directions-button {
+            width: 100%;
+            justify-content: center;
+            font-size: 0.85rem;
+            padding: 12px 16px;
+            margin-top: 10px;
+          }
+          .contact-map-frame {
+            min-height: 320px;
+            width: 100%;
+          }
+          .contact-closing-card {
+            flex-direction: column;
+            text-align: center;
+            align-items: center;
+            padding: 22px 18px;
+            border-left: none;
+            border-top: 4px solid var(--medium-blue);
+            border-radius: var(--radius-md);
+          }
+          .contact-thank-you-card {
+            padding: 28px 18px;
+            border-radius: var(--radius-lg);
+          }
+          .contact-thank-you-card .heading-1 {
+            font-size: 1.85rem;
+            margin: 6px 0 16px;
+          }
+        }
         @media (prefers-reduced-motion: reduce) { [data-reveal] { opacity: 1; transform: none; transition: none; } .contact-title, .contact-hero [data-reveal] { animation: none; } }
       `}</style>
     </main>
