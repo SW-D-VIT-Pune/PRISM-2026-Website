@@ -21,6 +21,7 @@ import { Clock } from 'lucide-react';
 export default function App() {
   const [activeTab, setActiveTab] = useState('home');
   const [upcomingToast, setUpcomingToast] = useState(null);
+  const [nssInitialSection, setNssInitialSection] = useState('registration');
 
   const handleNavClick = (item) => {
     if (item.id === 'home') {
@@ -33,6 +34,7 @@ export default function App() {
       setActiveTab('registration');
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } else if (item.id === 'nss') {
+      setNssInitialSection('registration');
       setActiveTab('nss');
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } else if (item.id === 'contacts') {
@@ -72,10 +74,11 @@ export default function App() {
           el.scrollIntoView({ behavior: 'smooth' });
         }
       }, 100);
-    } else if (target === 'unit') {
+    } else if (target === 'unit' || target === 'nss-events' || target === 'nss-unit-events') {
+      setNssInitialSection('events');
       setActiveTab('nss');
       setTimeout(() => {
-        const el = document.getElementById('nss-hero');
+        const el = document.getElementById('nss-body-section');
         if (el) {
           el.scrollIntoView({ behavior: 'smooth' });
         }
@@ -148,6 +151,7 @@ export default function App() {
         <NSSPage 
           onNavigateHome={() => setActiveTab('home')}
           onRegisterRedirect={handleUnstopRedirect}
+          initialSection={nssInitialSection}
         />
       )}
 

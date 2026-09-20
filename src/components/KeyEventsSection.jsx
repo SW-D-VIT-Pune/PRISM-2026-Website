@@ -5,39 +5,39 @@ import {
 } from 'lucide-react';
 
 export default function KeyEventsSection({ onEventRegister }) {
-  const [selectedEventId, setSelectedEventId] = useState('youth-floor');
+  const [selectedEventId, setSelectedEventId] = useState('nss-events');
 
   const keyEvents = [
     {
-      id: 'youth-floor',
+      id: 'nss-events',
       num: '01',
-      title: 'The Youth Floor',
-      tag: 'YOUTH PARLIAMENT',
+      title: 'NSS Events',
+      tag: 'NSS UNIT EVENTS',
       day: 'Day 1',
-      audience: 'Registered Youth & Social Units',
-      regTarget: 'unit',
-      desc: 'Youth parliament simulation exercise where registered Youth & Social Units debate civic, social, and public policy issues in a mock-parliamentary format.',
+      audience: 'NSS Volunteers & Registered Units',
+      regTarget: 'nss-unit-events',
+      desc: 'Official competitive forums and showcase activities open to registered NSS & Social Units including The Youth Floor and Tenure Presentations.',
       highlights: [
-        'Mock parliamentary debate & policy resolution drafting',
-        'Direct evaluation by policy experts & domain mentors',
-        'Open specifically to registered Youth & Social Units'
+        'The Youth Floor: Mock parliamentary debate & policy resolutions',
+        'Tenure Presentations: Impact metrics & village project showcase',
+        'Direct redirection to NSS Unit Events in NSS tab'
       ],
       icon: <Landmark size={22} />,
       accentColor: '#4A7FA7'
     },
     {
-      id: 'ngo-talks-tenure',
+      id: 'ngo-talks',
       num: '02',
-      title: 'NGO Talks / Tenure Presentation',
-      tag: 'FIELD INSIGHTS & SHOWCASE',
+      title: 'NGO Talks',
+      tag: 'FIELD INSIGHTS & DIALOGUE',
       day: 'Day 1',
-      audience: 'All Attendees & Registered Units',
+      audience: 'All Attendees & Registered Delegates',
       regTarget: null,
-      desc: 'Representatives from leading NGOs (NAAM Foundation, Teach for India, Vanarai, 1M1B) share field insights alongside unit tenure presentations.',
+      desc: 'Representatives from leading NGOs (NAAM Foundation, Teach for India, Vanarai, 1M1B) share field insights, grassroots impact stories, and social innovation realities.',
       highlights: [
-        'Impact stories & grassroots field realities',
-        'Tenure achievements showcase by registered NSS units',
-        'Interactive panel Q&A with social entrepreneurs'
+        'Impact stories & grassroots field realities by NGO founders',
+        'Interactive panel Q&A with social sector pioneers',
+        'Access included for all registered attendees and delegates'
       ],
       icon: <Users size={22} />,
       accentColor: '#1A3D63'

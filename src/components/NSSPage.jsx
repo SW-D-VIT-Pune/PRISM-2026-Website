@@ -4,8 +4,14 @@ import {
   ExternalLink, Landmark, FileText, Heart, Shield, Zap, ChevronDown, Star
 } from 'lucide-react';
 
-export default function NSSPage({ onNavigateHome, onRegisterRedirect }) {
-  const [activeSection, setActiveSection] = useState('registration'); // 'registration' | 'events'
+export default function NSSPage({ onNavigateHome, onRegisterRedirect, initialSection = 'registration' }) {
+  const [activeSection, setActiveSection] = useState(initialSection); // 'registration' | 'events'
+
+  React.useEffect(() => {
+    if (initialSection) {
+      setActiveSection(initialSection);
+    }
+  }, [initialSection]);
 
   const scrollToTarget = (targetId) => {
     setTimeout(() => {
