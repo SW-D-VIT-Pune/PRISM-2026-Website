@@ -181,9 +181,19 @@ export default function ContactPage() {
       </section>
 
       <style>{`
-        .contact-page { background: var(--very-light-bg); overflow: hidden; }
-        .contact-hero { min-height: 570px; display: flex; align-items: center; padding: 210px 0 92px; background: linear-gradient(180deg, rgba(10, 25, 49, 0.35) 0%, rgba(10, 25, 49, 0.80) 100%), url('/images/Prism_IMG1.jpg') center top / 100% 100% no-repeat, #0A1931; color: #ffffff; position: relative; overflow: hidden; }
-        .contact-hero::before { content: ''; position: absolute; inset: 0; background: rgba(0, 0, 0, 0.15); backdrop-filter: blur(1.5px); -webkit-backdrop-filter: blur(1.5px); z-index: 0; }
+        .contact-hero {
+          position: relative;
+          background: linear-gradient(180deg, rgba(10, 25, 49, 0.70) 0%, rgba(10, 25, 49, 0.88) 100%), url('/images/Prism_IMG1.jpg') center top / 100% auto no-repeat, #0a1931;
+          border-bottom: 3px solid var(--deep-blue);
+          padding-top: 175px;
+          padding-bottom: 75px;
+          min-height: auto;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          overflow: hidden;
+          color: #ffffff;
+        }
         .contact-hero-inner { position: relative; z-index: 1; max-width: 1280px; }
         .contact-eyebrow { display: inline-flex; align-items: center; gap: 9px; color: #e2f1ff; font: 800 var(--font-size-caption) var(--font-heading); letter-spacing: .12em; text-shadow: 0 2px 8px rgba(0,0,0,0.85); }
         .contact-title { color: #ffffff; max-width: 820px; margin: 18px 0; font-size: clamp(2.2rem, 4.2vw, 3.25rem); animation: contact-rise .65s both; text-shadow: 0 3px 14px rgba(0,0,0,0.9); }
@@ -255,9 +265,9 @@ export default function ContactPage() {
         @media (max-width: 600px) {
           .contact-hero {
             min-height: auto;
-            padding: 140px 0 42px;
-            background: linear-gradient(180deg, rgba(10, 25, 49, 0.40) 0%, rgba(10, 25, 49, 0.85) 100%), url('/images/Prism_IMG1.jpg') center top / 100% 100% no-repeat, #0A1931;
+            padding: 140px 0 36px;
             text-align: center;
+            background: linear-gradient(180deg, rgba(10, 25, 49, 0.70) 0%, rgba(10, 25, 49, 0.88) 100%), url('/images/Prism_IMG1.jpg') center top / cover no-repeat, #0a1931;
           }
           .contact-hero-inner {
             display: flex;
