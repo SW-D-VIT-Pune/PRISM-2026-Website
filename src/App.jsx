@@ -22,6 +22,7 @@ export default function App() {
   const [activeTab, setActiveTab] = useState('home');
   const [upcomingToast, setUpcomingToast] = useState(null);
   const [nssInitialSection, setNssInitialSection] = useState('registration');
+  const [registrationInitialTrack, setRegistrationInitialTrack] = useState('sociothon');
 
   const handleNavClick = (item) => {
     if (item.id === 'home') {
@@ -67,22 +68,33 @@ export default function App() {
 
   const handleEventRegister = (target) => {
     if (target === 'sociothon' || target === 'ideathon' || target === 'kalakriti') {
+      setRegistrationInitialTrack(target);
       setActiveTab('registration');
       setTimeout(() => {
         const el = document.getElementById(`track-${target}`);
         if (el) {
-          el.scrollIntoView({ behavior: 'smooth' });
+          const navHeight = 140;
+          const elementPosition = el.getBoundingClientRect().top + window.pageYOffset;
+          window.scrollTo({
+            top: Math.max(0, elementPosition - navHeight),
+            behavior: 'smooth'
+          });
         }
-      }, 100);
-    } else if (target === 'unit' || target === 'nss-events' || target === 'nss-unit-events') {
+      }, 120);
+    } else if (target === 'unit' || target === 'nss-events' || target === 'nss-unit-events' || target === 'youth-floor' || target === 'tenure-presentations') {
       setNssInitialSection('events');
       setActiveTab('nss');
       setTimeout(() => {
         const el = document.getElementById('nss-body-section');
         if (el) {
-          el.scrollIntoView({ behavior: 'smooth' });
+          const navHeight = 140;
+          const elementPosition = el.getBoundingClientRect().top + window.pageYOffset;
+          window.scrollTo({
+            top: Math.max(0, elementPosition - navHeight),
+            behavior: 'smooth'
+          });
         }
-      }, 100);
+      }, 120);
     } else {
       setActiveTab('registration');
       window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -144,6 +156,7 @@ export default function App() {
         <RegistrationPage 
           onNavigateHome={() => setActiveTab('home')}
           onUnstopRedirect={handleUnstopRedirect}
+          initialTrack={registrationInitialTrack}
         />
       )}
 

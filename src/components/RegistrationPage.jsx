@@ -1,13 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   Trophy, Users, Award, ShieldAlert, CheckCircle2, ArrowRight, 
   Sparkles, Calendar, Ticket, Music, Code2, Lightbulb, 
   ExternalLink, ChevronDown, ChevronUp, Zap, HelpCircle, Layers
 } from 'lucide-react';
 
-export default function RegistrationPage({ onNavigateHome, onUnstopRedirect }) {
+export default function RegistrationPage({ onNavigateHome, onUnstopRedirect, initialTrack = 'sociothon' }) {
   const [activeTab, setActiveTab] = useState('tracks'); // 'tracks' | 'passes' | 'perks'
-  const [expandedTrack, setExpandedTrack] = useState('sociothon'); // 'sociothon' | 'ideathon' | 'kalakriti'
+  const [expandedTrack, setExpandedTrack] = useState(initialTrack); // 'sociothon' | 'ideathon' | 'kalakriti'
+
+  useEffect(() => {
+    if (initialTrack) {
+      setExpandedTrack(initialTrack);
+      scrollToTarget(`track-${initialTrack}`);
+    }
+  }, [initialTrack]);
 
   // AUTOMATIC PULL UP / SMOOTH SCROLL HANDLER
   const scrollToTarget = (targetId) => {
@@ -23,7 +30,7 @@ export default function RegistrationPage({ onNavigateHome, onUnstopRedirect }) {
           behavior: 'smooth'
         });
       }
-    }, 60);
+    }, 80);
   };
 
   const handleTabClick = (tabName) => {
@@ -32,11 +39,8 @@ export default function RegistrationPage({ onNavigateHome, onUnstopRedirect }) {
   };
 
   const handleTrackToggle = (trackKey) => {
-    const nextState = expandedTrack === trackKey ? null : trackKey;
-    setExpandedTrack(nextState);
-    if (nextState) {
-      scrollToTarget(`track-${trackKey}`);
-    }
+    setExpandedTrack(trackKey);
+    scrollToTarget(`track-${trackKey}`);
   };
 
   const handleUnstopClick = (eventName) => {

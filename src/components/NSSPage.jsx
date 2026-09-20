@@ -233,10 +233,10 @@ export default function NSSPage({ onNavigateHome, onRegisterRedirect, initialSec
               </p>
             </div>
 
-            <div className="nss-events-grid">
+            <div className="nss-events-grid" id="nss-events-grid">
               
               {/* Event 1: The Youth Floor */}
-              <div className="nss-event-card card-clean highlight-border">
+              <div className="nss-event-card card-clean highlight-border" id="youth-floor">
                 <div className="nss-event-header">
                   <div className="event-icon-box navy">
                     <Landmark size={22} />
@@ -264,7 +264,7 @@ export default function NSSPage({ onNavigateHome, onRegisterRedirect, initialSec
               </div>
 
               {/* Event 2: Tenure Presentations */}
-              <div className="nss-event-card card-clean">
+              <div className="nss-event-card card-clean" id="tenure-presentations">
                 <div className="nss-event-header">
                   <div className="event-icon-box blue">
                     <FileText size={22} />

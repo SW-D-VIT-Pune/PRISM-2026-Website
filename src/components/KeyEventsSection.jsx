@@ -32,7 +32,7 @@ export default function KeyEventsSection({ onEventRegister }) {
       tag: 'FIELD INSIGHTS & DIALOGUE',
       day: 'Day 1',
       audience: 'All Attendees & Registered Delegates',
-      regTarget: null,
+      regTarget: 'nss-unit-events',
       desc: 'Representatives from leading NGOs (NAAM Foundation, Teach for India, Vanarai, 1M1B) share field insights, grassroots impact stories, and social innovation realities.',
       highlights: [
         'Impact stories & grassroots field realities by NGO founders',
@@ -49,7 +49,7 @@ export default function KeyEventsSection({ onEventRegister }) {
       tag: 'OPEN THOUGHT EXCHANGE',
       day: 'Day 1',
       audience: 'Open Floor Dialogue',
-      regTarget: null,
+      regTarget: 'ideathon',
       desc: 'An open-floor thought-exchange platform where participants from all backgrounds voice perspectives on social, civic, and innovation themes.',
       highlights: [
         'Facilitated open-floor dialogue without rigid formality',
@@ -100,7 +100,7 @@ export default function KeyEventsSection({ onEventRegister }) {
       tag: 'CURATED SPEAKERS',
       day: 'Day 2',
       audience: 'All Event Pass Holders',
-      regTarget: null,
+      regTarget: 'ideathon',
       desc: 'Curated speaker sessions running alongside Day 2 competition tracks featuring practitioners, changemakers, and domain experts.',
       highlights: [
         'Inspirational talks by domain experts & changemakers',
@@ -117,7 +117,7 @@ export default function KeyEventsSection({ onEventRegister }) {
       tag: 'GRAND CLOSING SHOWCASE',
       day: 'Day 2',
       audience: 'All Attendees',
-      regTarget: null,
+      regTarget: 'kalakriti',
       desc: 'The flagship closing segment celebrating Maharashtra’s heritage through Marathi music, theatrical narration, drama, and awards.',
       highlights: [
         'Traditional Marathi music, narration, & drama',
@@ -163,7 +163,22 @@ export default function KeyEventsSection({ onEventRegister }) {
                   <button
                     type="button"
                     className={`circuit-node-capsule ${isSelected ? 'active-node' : ''}`}
-                    onClick={() => setSelectedEventId(item.id)}
+                    onClick={() => {
+                      setSelectedEventId(item.id);
+                      if (window.innerWidth <= 850) {
+                        setTimeout(() => {
+                          const focusCard = document.getElementById('circuit-focus-card');
+                          if (focusCard) {
+                            const navHeight = 140;
+                            const elementPosition = focusCard.getBoundingClientRect().top + window.pageYOffset;
+                            window.scrollTo({
+                              top: Math.max(0, elementPosition - navHeight),
+                              behavior: 'smooth'
+                            });
+                          }
+                        }, 80);
+                      }
+                    }}
                     aria-label={`Select ${item.title}`}
                   >
                     <div className="node-left-group">
@@ -188,7 +203,7 @@ export default function KeyEventsSection({ onEventRegister }) {
 
           {/* Right Interactive Focus Stage */}
           <div className="circuit-focus-stage">
-            <div className="focus-stage-card card-clean" style={{ '--active-accent': selectedEvent.accentColor }}>
+            <div className="focus-stage-card card-clean" id="circuit-focus-card" style={{ '--active-accent': selectedEvent.accentColor }}>
               
               <div className="focus-header">
                 <div className="focus-badge-strip">
