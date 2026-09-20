@@ -1063,10 +1063,37 @@ export default function AboutSection() {
           transform: translateX(3px);
         }
 
-        @media (max-width: 850px) {
+        @media (max-width: 900px) {
+          .prism-acronym-cards-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+          }
+          .prism-acronym-banner {
+            flex-wrap: wrap;
+            border-radius: 24px;
+            gap: 10px;
+            padding: 14px;
+          }
+          .acronym-track-line {
+            display: none;
+          }
+        }
+
+        @media (max-width: 600px) {
+          .prism-acronym-cards-grid {
+            grid-template-columns: 1fr;
+          }
+          .stewardship-card {
+            padding: 20px 18px;
+          }
+          .stewardship-card-header {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 12px;
+          }
           .stewardship-grid {
             grid-template-columns: 1fr;
-            gap: 20px;
+            gap: 18px;
           }
         }
 

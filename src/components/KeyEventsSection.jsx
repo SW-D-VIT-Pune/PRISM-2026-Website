@@ -618,6 +618,10 @@ export default function KeyEventsSection({ onEventRegister }) {
             padding: 14px;
             border-radius: var(--radius-md);
           }
+          .focus-action-btn {
+            width: 100%;
+            justify-content: center;
+          }
         }
       `}</style>
     </section>

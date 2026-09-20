@@ -582,10 +582,47 @@ export default function Hero({ onQuizClick }) {
         @media (max-width: 1180px) {
           .hero-inner {
             grid-template-columns: 1fr;
-            gap: var(--space-2xl);
+            gap: var(--space-xl);
           }
           .photo-view-window-huge {
-            height: 400px;
+            height: clamp(340px, 45vw, 480px);
+          }
+        }
+
+        @media (max-width: 600px) {
+          .hero-section-wrapper {
+            padding-top: 105px;
+            padding-bottom: 50px;
+          }
+          .hero-brand-heading {
+            font-size: clamp(2.2rem, 8.5vw, 3.2rem);
+            margin-top: 10px;
+          }
+          .hero-description-paragraph {
+            font-size: 1rem;
+          }
+          .editorial-kicker {
+            font-size: 0.78rem;
+            padding: 7px 14px;
+          }
+          .hero-proof-bar {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 10px;
+          }
+          .proof-sep {
+            display: none;
+          }
+          .photo-view-window-huge {
+            height: clamp(250px, 56vw, 350px);
+          }
+          .photo-title-huge {
+            font-size: 1.15rem;
+          }
+          .carousel-arrow {
+            width: 32px;
+            height: 32px;
+            font-size: 1.3rem;
           }
         }
       `}</style>

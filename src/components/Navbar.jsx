@@ -315,17 +315,35 @@ export default function Navbar({ activeTab, onNavClick }) {
 
         @media (max-width: 600px) {
           .prism-logo-110-box {
-            height: 75px;
+            height: 70px;
           }
           .prism-logo-110-img {
-            min-height: 75px;
+            min-height: 70px;
+            max-height: 75px;
           }
           .partner-logo-80-box {
-            width: 54px;
-            height: 54px;
+            width: 48px;
+            height: 48px;
+            padding: 4px;
+            border-width: 2px;
+          }
+          .partner-logo-divider {
+            height: 32px;
+          }
+          .nav-logos-right {
+            gap: 10px;
           }
           .prism-navbar-header {
-            height: 96px;
+            height: 90px;
+          }
+          .prism-navbar-header.scrolled {
+            height: 85px;
+          }
+          .mobile-drawer-menu {
+            top: 90px;
+            padding: 16px;
+            max-height: calc(100vh - 90px);
+            overflow-y: auto;
           }
         }
       `}</style>
