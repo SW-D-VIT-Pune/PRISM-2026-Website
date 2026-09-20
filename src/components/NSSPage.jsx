@@ -304,14 +304,14 @@ export default function NSSPage({ onNavigateHome, onRegisterRedirect, initialSec
           padding-bottom: var(--space-3xl);
         }
 
-        /* HERO BANNER - FULL VIEW SPAN WITH ULTRA-SUBTLE OVERLAY FOR 100% PHOTO CLEARNESS */
+        /* HERO BANNER - 100% COMPLETELY VISIBLE NSS PHOTO */
         .nss-hero-banner {
           position: relative;
-          background: url('/images/NSS_unit.jpg') center/cover no-repeat;
+          background: linear-gradient(180deg, rgba(10, 25, 49, 0.40) 0%, rgba(10, 25, 49, 0.78) 100%), url('/images/NSS_unit.jpg') center top / 100% auto no-repeat, #0A1931;
           border-bottom: 3px solid var(--deep-blue);
-          padding-top: 170px;
-          padding-bottom: 70px;
-          min-height: calc(100vh - 138px);
+          padding-top: 175px;
+          padding-bottom: 75px;
+          min-height: auto;
           display: flex;
           align-items: center;
           justify-content: center;
@@ -319,14 +319,12 @@ export default function NSSPage({ onNavigateHome, onRegisterRedirect, initialSec
           overflow: hidden;
         }
 
-        /* FULL PHOTO COVER OVERLAY WITH VERY LOW BLUR & OPACITY SO THE ENTIRE PHOTO IS CRISP & CLEAR */
+        /* LIGHT TRANSPARENT OVERLAY FOR 100% PHOTO CLEARNESS & VISIBILITY */
         .nss-hero-banner::before {
           content: '';
           position: absolute;
           inset: 0;
-          background: rgba(10, 25, 49, 0.32);
-          backdrop-filter: blur(2px);
-          -webkit-backdrop-filter: blur(2px);
+          background: rgba(10, 25, 49, 0.15);
           z-index: 1;
         }
 

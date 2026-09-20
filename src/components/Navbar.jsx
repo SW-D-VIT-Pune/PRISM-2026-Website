@@ -104,9 +104,22 @@ export default function Navbar({ activeTab, onNavClick }) {
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           aria-label="Toggle Navigation Menu"
         >
-          {mobileMenuOpen ? <X size={32} /> : <Menu size={32} />}
+          {mobileMenuOpen ? <X size={26} /> : <Menu size={26} />}
         </button>
 
+      </div>
+
+      {/* MOBILE QUICK SCROLLABLE TABS BAR - VISIBLE ON MOBILE */}
+      <div className="mobile-navbar-tabs-bar">
+        {navItems.map((item) => (
+          <button
+            key={item.id}
+            className={`mobile-tab-pill ${activeTab === item.id ? 'active' : ''}`}
+            onClick={() => handleItemClick(item)}
+          >
+            <span>{item.label}</span>
+          </button>
+        ))}
       </div>
 
       {/* Mobile Drawer Menu */}
@@ -304,6 +317,46 @@ export default function Navbar({ activeTab, onNavClick }) {
           color: var(--white);
         }
 
+        /* MOBILE QUICK NAVBAR TABS BAR */
+        .mobile-navbar-tabs-bar {
+          display: none;
+          align-items: center;
+          gap: 8px;
+          overflow-x: auto;
+          padding: 8px 16px 12px;
+          background: rgba(10, 25, 49, 0.98);
+          border-top: 1px solid rgba(179, 207, 229, 0.2);
+          -webkit-overflow-scrolling: touch;
+          scrollbar-width: none;
+        }
+
+        .mobile-navbar-tabs-bar::-webkit-scrollbar {
+          display: none;
+        }
+
+        .mobile-tab-pill {
+          background: rgba(255, 255, 255, 0.08);
+          border: 1px solid rgba(179, 207, 229, 0.35);
+          padding: 6px 16px;
+          font-family: var(--font-heading);
+          font-size: 0.88rem;
+          font-weight: 700;
+          color: var(--light-blue);
+          border-radius: var(--radius-pill);
+          white-space: nowrap;
+          cursor: pointer;
+          transition: all 0.2s ease;
+          flex-shrink: 0;
+        }
+
+        .mobile-tab-pill.active {
+          background: var(--white);
+          color: var(--primary-navy);
+          font-weight: 800;
+          border-color: var(--white);
+          box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+        }
+
         @media (max-width: 1140px) {
           .desktop-navbar-nav {
             display: none;
@@ -311,38 +364,42 @@ export default function Navbar({ activeTab, onNavClick }) {
           .mobile-hamburger-btn {
             display: block;
           }
+          .mobile-navbar-tabs-bar {
+            display: flex;
+          }
+          .prism-navbar-header {
+            height: auto;
+            padding-bottom: 2px;
+          }
+          .prism-navbar-header.scrolled {
+            height: auto;
+          }
         }
 
         @media (max-width: 600px) {
           .prism-logo-110-box {
-            height: 70px;
+            height: 62px;
           }
           .prism-logo-110-img {
-            min-height: 70px;
-            max-height: 75px;
+            min-height: 62px;
+            max-height: 68px;
           }
           .partner-logo-80-box {
-            width: 48px;
-            height: 48px;
-            padding: 4px;
+            width: 44px;
+            height: 44px;
+            padding: 3px;
             border-width: 2px;
           }
           .partner-logo-divider {
-            height: 32px;
+            height: 28px;
           }
           .nav-logos-right {
-            gap: 10px;
-          }
-          .prism-navbar-header {
-            height: 90px;
-          }
-          .prism-navbar-header.scrolled {
-            height: 85px;
+            gap: 8px;
           }
           .mobile-drawer-menu {
-            top: 90px;
+            top: 125px;
             padding: 16px;
-            max-height: calc(100vh - 90px);
+            max-height: calc(100vh - 125px);
             overflow-y: auto;
           }
         }
