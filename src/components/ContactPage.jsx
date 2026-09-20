@@ -182,7 +182,7 @@ export default function ContactPage() {
 
       <style>{`
         .contact-page { background: var(--very-light-bg); overflow: hidden; }
-        .contact-hero { min-height: 570px; display: flex; align-items: center; padding: 210px 0 92px; background: url('/images/Prism_IMG1.jpg') center/cover no-repeat; color: #ffffff; position: relative; overflow: hidden; }
+        .contact-hero { min-height: 570px; display: flex; align-items: center; padding: 210px 0 92px; background: linear-gradient(180deg, rgba(10, 25, 49, 0.35) 0%, rgba(10, 25, 49, 0.80) 100%), url('/images/Prism_IMG1.jpg') center top / 100% 100% no-repeat, #0A1931; color: #ffffff; position: relative; overflow: hidden; }
         .contact-hero::before { content: ''; position: absolute; inset: 0; background: rgba(0, 0, 0, 0.15); backdrop-filter: blur(1.5px); -webkit-backdrop-filter: blur(1.5px); z-index: 0; }
         .contact-hero-inner { position: relative; z-index: 1; max-width: 1280px; }
         .contact-eyebrow { display: inline-flex; align-items: center; gap: 9px; color: #e2f1ff; font: 800 var(--font-size-caption) var(--font-heading); letter-spacing: .12em; text-shadow: 0 2px 8px rgba(0,0,0,0.85); }
@@ -255,7 +255,8 @@ export default function ContactPage() {
         @media (max-width: 600px) {
           .contact-hero {
             min-height: auto;
-            padding: 145px 0 45px;
+            padding: 140px 0 42px;
+            background: linear-gradient(180deg, rgba(10, 25, 49, 0.40) 0%, rgba(10, 25, 49, 0.85) 100%), url('/images/Prism_IMG1.jpg') center top / 100% 100% no-repeat, #0A1931;
             text-align: center;
           }
           .contact-hero-inner {

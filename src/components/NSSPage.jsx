@@ -307,7 +307,7 @@ export default function NSSPage({ onNavigateHome, onRegisterRedirect, initialSec
         /* HERO BANNER - 100% COMPLETELY VISIBLE NSS PHOTO */
         .nss-hero-banner {
           position: relative;
-          background: linear-gradient(180deg, rgba(10, 25, 49, 0.40) 0%, rgba(10, 25, 49, 0.78) 100%), url('/images/NSS_unit.jpg') center top / 100% auto no-repeat, #0A1931;
+          background: linear-gradient(180deg, rgba(10, 25, 49, 0.35) 0%, rgba(10, 25, 49, 0.82) 100%), url('/images/NSS_unit.jpg') center top / 100% 100% no-repeat, #0A1931;
           border-bottom: 3px solid var(--deep-blue);
           padding-top: 175px;
           padding-bottom: 75px;
@@ -697,7 +697,7 @@ export default function NSSPage({ onNavigateHome, onRegisterRedirect, initialSec
           .nss-hero-banner {
             padding-top: 140px;
             padding-bottom: 36px;
-            background: linear-gradient(180deg, rgba(10, 25, 49, 0.50) 0%, rgba(10, 25, 49, 0.88) 100%), url('/images/NSS_unit.jpg') center top / cover no-repeat, #0A1931;
+            background: linear-gradient(180deg, rgba(10, 25, 49, 0.40) 0%, rgba(10, 25, 49, 0.85) 100%), url('/images/NSS_unit.jpg') center top / 100% 100% no-repeat, #0A1931;
           }
           .realtime-announcement-bar {
             max-width: 100%;
