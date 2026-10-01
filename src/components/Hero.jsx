@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ArrowRight, Compass, HeartHandshake, Camera, Sparkles, HelpCircle } from 'lucide-react';
+import { ArrowRight, Compass, HeartHandshake, Camera, Sparkles, HelpCircle, Film } from 'lucide-react';
 
 export default function Hero({ onQuizClick }) {
   const [activePhotoIndex, setActivePhotoIndex] = useState(0);
@@ -125,6 +125,25 @@ export default function Hero({ onQuizClick }) {
             <button className="btn btn-quiz-home btn-lg" onClick={onQuizClick}>
               <HelpCircle size={20} />
               <span>Take PRISM Quiz</span>
+            </button>
+
+            {/* WATCH FLAGSHIP AFTERMOVIE BUTTON */}
+            <button 
+              className="btn btn-primary btn-lg" 
+              onClick={() => {
+                const el = document.getElementById('aftermovie');
+                if (el) {
+                  const navHeight = 140;
+                  const elementPosition = el.getBoundingClientRect().top + window.pageYOffset;
+                  window.scrollTo({
+                    top: Math.max(0, elementPosition - navHeight),
+                    behavior: 'smooth'
+                  });
+                }
+              }}
+            >
+              <Film size={20} />
+              <span>Watch '25 Aftermovie</span>
             </button>
           </div>
 
