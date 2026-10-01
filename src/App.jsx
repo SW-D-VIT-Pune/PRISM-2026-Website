@@ -6,6 +6,7 @@ import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import AboutSection from './components/AboutSection';
 import KeyEventsSection from './components/KeyEventsSection';
+import AftermovieSection from './components/AftermovieSection';
 import GuestsSection from './components/GuestsSection';
 import NGOsSection from './components/NGOsSection';
 import EventTracks from './components/EventTracks';
@@ -133,7 +134,10 @@ export default function App() {
           {/* SECTION 2: KEY EVENTS & TIMELINE HIGHLIGHTS */}
           <KeyEventsSection onEventRegister={handleEventRegister} />
 
-          {/* SECTION 3: EMINENT GUESTS & KEYNOTE SPEAKERS */}
+          {/* SECTION 3: FLAGSHIP PRISM AFTERMOVIE SHOWCASE */}
+          <AftermovieSection />
+
+          {/* SECTION 4: EMINENT GUESTS & KEYNOTE SPEAKERS */}
           <GuestsSection />
 
           {/* SECTION 4: PARTNER NGOs & ORGANIZATIONS */}
