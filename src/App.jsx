@@ -134,10 +134,7 @@ export default function App() {
           {/* SECTION 2: KEY EVENTS & TIMELINE HIGHLIGHTS */}
           <KeyEventsSection onEventRegister={handleEventRegister} />
 
-          {/* SECTION 3: FLAGSHIP PRISM AFTERMOVIE SHOWCASE */}
-          <AftermovieSection />
-
-          {/* SECTION 4: EMINENT GUESTS & KEYNOTE SPEAKERS */}
+          {/* SECTION 3: EMINENT GUESTS & KEYNOTE SPEAKERS */}
           <GuestsSection />
 
           {/* SECTION 4: PARTNER NGOs & ORGANIZATIONS */}
@@ -153,6 +150,7 @@ export default function App() {
       {activeTab === 'about' && (
         <main className="about-page-content" style={{ paddingTop: '148px', minHeight: '80vh' }}>
           <AboutSection />
+          <AftermovieSection />
         </main>
       )}
 

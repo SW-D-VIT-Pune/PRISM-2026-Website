@@ -2,10 +2,10 @@ import React, { useEffect, useRef, useState } from 'react';
 import { AtSign, Camera, ExternalLink, Globe2, HeartHandshake, MapPin, Navigation, Phone, UsersRound } from 'lucide-react';
 
 const contactPeople = [
+  { name: 'Aditya Chiparikar', phone: '+91 70570 70071', href: 'tel:+917057070071' },
   { name: 'Amit Jain', phone: '+91 90210 65817', href: 'tel:+919021065817' },
   { name: 'Falguni Chaudhari', phone: '+91 97630 07984', href: 'tel:+919763007984' },
   { name: 'Kuldeep Dukare', phone: '+91 93733 32969', href: 'tel:+91937332969' },
-  { name: 'Aditya Chiparikar', phone: '+91 70570 70071', href: 'tel:+917057070071' },
 ];
 
 const campuses = [
