@@ -156,7 +156,7 @@ export default function RegistrationPage({ onNavigateHome, onUnstopRedirect, ini
                       <span className="badge-pill">TECHNICAL TRACK</span>
                       <span className="badge-outline">₹32,000 PRIZE POOL</span>
                     </div>
-                    <h2 className="heading-2 event-card-title">Sociothon — Technical Track</h2>
+                    <h2 className="heading-2 event-card-title">Sociothon — Hackathon For Social Impact</h2>
                     <p className="text-muted" style={{ fontSize: '0.9rem' }}>
                       Build functional software, hardware, or AI models solving grassroots social challenges.
                     </p>
@@ -310,7 +310,7 @@ export default function RegistrationPage({ onNavigateHome, onUnstopRedirect, ini
                       <span className="badge-pill">SOCIAL TRACK</span>
                       <span className="badge-outline">₹17,000 PRIZE POOL</span>
                     </div>
-                    <h2 className="heading-2 event-card-title">Ideathon — Social Track</h2>
+                    <h2 className="heading-2 event-card-title">Ideathon — Where Ideas Meet Impact</h2>
                     <p className="text-muted" style={{ fontSize: '0.9rem' }}>
                       Formulate domain-wise social impact proposals & sustainability action frameworks.
                     </p>
@@ -384,10 +384,10 @@ export default function RegistrationPage({ onNavigateHome, onUnstopRedirect, ini
                       <Users size={18} /> Team Formation Rules
                     </h4>
                     <ul className="detail-list">
-                      <li><strong>Participation:</strong> Individual &amp; Team-based (Social Impact &amp; Sustainability focus).</li>
+                      <li><strong>Participation:</strong> Individual &amp; Team-based.</li>
                       <li><strong>Team Size:</strong> 1–3 members (solo or team, your choice).</li>
                       <li>Open to all interested Bachelor's degree students.</li>
-                      <li><strong>Last Date to Register:</strong> <strong style={{color:'#E53E3E'}}>8 October 2026</strong></li>
+                      <li><strong>Last Date to Register:</strong> <strong style={{color:'#E53E3E'}}>12 October 2026</strong></li>
                     </ul>
                   </div>
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import AftermovieSection from './AftermovieSection';
 import {
   Heart,
   Users,
@@ -250,6 +251,12 @@ export default function AboutSection() {
 
         </div>
       </section>
+
+
+      {/* =========================================
+          PRISM '25 AFTERMOVIE — between Pillars & Who It's For
+      ========================================= */}
+      <AftermovieSection />
 
 
       {/* =========================================
