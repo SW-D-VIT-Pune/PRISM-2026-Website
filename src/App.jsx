@@ -150,7 +150,6 @@ export default function App() {
       {activeTab === 'about' && (
         <main className="about-page-content" style={{ paddingTop: '148px', minHeight: '80vh' }}>
           <AboutSection />
-          <AftermovieSection />
         </main>
       )}
 

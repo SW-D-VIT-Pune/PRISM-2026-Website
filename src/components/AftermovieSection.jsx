@@ -167,8 +167,8 @@ export default function AftermovieSection() {
         .aftermovie-fullscreen-section {
           position: relative;
           width: 100%;
-          height: min(72vh, 520px);
-          min-height: 320px;
+          height: 139vh;
+          min-height: 480px;
           background: #040D1A;
           overflow: hidden;
           display: flex;
