@@ -9,7 +9,7 @@ export default function AftermovieSection() {
   const sectionRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
-  const [rotation, setRotation] = useState(90); // raw portrait video => need 90 to show landscape
+  const [rotation, setRotation] = useState(-90); // browser auto-applies tkhd metadata rotation; CSS starts at 0
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [showControls, setShowControls] = useState(true);
@@ -163,18 +163,20 @@ export default function AftermovieSection() {
       </div>
 
       <style>{`
-        /* ===== FULLSCREEN VIDEO SECTION ===== */
+        /* ===== CINEMATIC VIDEO BAND (embedded in About page) ===== */
         .aftermovie-fullscreen-section {
           position: relative;
           width: 100%;
-          height: 100vh;
-          min-height: 480px;
+          height: min(72vh, 520px);
+          min-height: 320px;
           background: #040D1A;
           overflow: hidden;
           display: flex;
           align-items: center;
           justify-content: center;
           cursor: default;
+          border-top: 3px solid rgba(179, 207, 229, 0.18);
+          border-bottom: 3px solid rgba(179, 207, 229, 0.18);
         }
 
         /* Dark vignette around edges */
@@ -402,7 +404,7 @@ export default function AftermovieSection() {
 
         /* ===== MOBILE ===== */
         @media (max-width: 600px) {
-          .aftermovie-fullscreen-section { height: 100svh; }
+          .aftermovie-fullscreen-section { height: min(60vh, 400px); min-height: 280px; }
           .big-play-ring { width: 72px; height: 72px; }
           .btn-label { display: none; }
           .controls-left, .controls-right { gap: 6px; }

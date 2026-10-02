@@ -21,6 +21,22 @@ export default function AboutSection() {
 
   const [activePillar, setActivePillar] = React.useState(0);
 
+  const handlePillarClick = (idx) => {
+    setActivePillar(idx);
+    // On mobile: scroll to the highlighted card
+    const isMobile = window.innerWidth <= 900;
+    if (isMobile) {
+      setTimeout(() => {
+        const el = document.getElementById(`acronym-card-${idx}`);
+        if (el) {
+          const navH = 100;
+          const top = el.getBoundingClientRect().top + window.pageYOffset - navH;
+          window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+        }
+      }, 60);
+    }
+  };
+
   // -----------------------------
   // P.R.I.S.M. ACRONYM CONNECTED FULL FORM
   // -----------------------------
@@ -182,7 +198,7 @@ export default function AboutSection() {
               <div 
                 key={idx} 
                 className={`acronym-pill-item ${activePillar === idx ? 'active' : ''}`}
-                onClick={() => setActivePillar(idx)}
+                onClick={() => handlePillarClick(idx)}
               >
                 <div className="acronym-circle-badge" style={{ '--accent-color': item.color }}>
                   <span>{item.letter}</span>
@@ -200,8 +216,10 @@ export default function AboutSection() {
             {prismAcronym.map((item, idx) => (
               <div 
                 key={idx} 
+                id={`acronym-card-${idx}`}
                 className={`acronym-card ${activePillar === idx ? 'highlighted' : ''}`}
                 onMouseEnter={() => setActivePillar(idx)}
+                onClick={() => handlePillarClick(idx)}
               >
                 <div className="acronym-card-header">
                   <div className="acronym-letter-box" style={{ backgroundColor: item.color }}>

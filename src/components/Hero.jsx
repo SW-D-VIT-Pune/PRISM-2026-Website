@@ -77,7 +77,12 @@ export default function Hero({ onQuizClick }) {
     }
   ];
 
-  // Auto-advance photo carousel every 4.5 seconds
+  // Preload next image for smoother transitions
+  useEffect(() => {
+    const nextIdx = (activePhotoIndex + 1) % lastYearPhotos.length;
+    const img = new Image();
+    img.src = lastYearPhotos[nextIdx].src;
+  }, [activePhotoIndex]);
   useEffect(() => {
     const timer = setInterval(() => {
       setActivePhotoIndex((prev) => (prev + 1) % lastYearPhotos.length);
@@ -171,7 +176,11 @@ export default function Hero({ onQuizClick }) {
                 key={activePhotoIndex}
                 src={currentPhoto.src} 
                 alt="Glimpses of PRISM '25" 
-                className="photo-main-img-huge photo-fade-in" 
+                className="photo-main-img-huge photo-fade-in"
+                loading={activePhotoIndex === 0 ? 'eager' : 'lazy'}
+                decoding="async"
+                width="800"
+                height="530"
               />
 
               {/* CAROUSEL PREV/NEXT CONTROLS */}

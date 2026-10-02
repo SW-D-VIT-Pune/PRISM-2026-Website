@@ -43,8 +43,16 @@ export default function RegistrationPage({ onNavigateHome, onUnstopRedirect, ini
     scrollToTarget(`track-${trackKey}`);
   };
 
+  const UNSTOP_LINKS = {
+    Sociothon: 'https://unstop.com/p/sociothon-hackathon-for-social-impact-vishwakarma-institute-of-technology-pune-maharashtra-1762441',
+    Ideathon: 'https://unstop.com/p/ideathon-where-ideas-meet-impact-vishwakarma-institute-of-technology-pune-maharashtra-1762445',
+  };
+
   const handleUnstopClick = (eventName) => {
-    if (onUnstopRedirect) {
+    const link = UNSTOP_LINKS[eventName];
+    if (link) {
+      window.open(link, '_blank', 'noopener,noreferrer');
+    } else if (onUnstopRedirect) {
       onUnstopRedirect(eventName);
     } else {
       window.open('https://unstop.com', '_blank');
@@ -146,7 +154,7 @@ export default function RegistrationPage({ onNavigateHome, onUnstopRedirect, ini
                   <div>
                     <div className="event-meta-badges">
                       <span className="badge-pill">TECHNICAL TRACK</span>
-                      <span className="badge-outline">₹50,000 PRIZE POOL</span>
+                      <span className="badge-outline">₹32,000 PRIZE POOL</span>
                     </div>
                     <h2 className="heading-2 event-card-title">Sociothon — Technical Track</h2>
                     <p className="text-muted" style={{ fontSize: '0.9rem' }}>
@@ -234,26 +242,26 @@ export default function RegistrationPage({ onNavigateHome, onUnstopRedirect, ini
                       <Users size={18} /> Team Formation Rules
                     </h4>
                     <ul className="detail-list">
-                      <li><strong>Team Size:</strong> Exactly 5 members (Interdisciplinary collaboration encouraged).</li>
-                      <li><strong>Gender Inclusion Rule:</strong> The team leader must be a girl, <em>OR</em> the team must have at least 2 girl members.</li>
-                      <li className="rule-alert-text">Teams not fulfilling this criterion will not be eligible for registration/participation.</li>
+                      <li><strong>Team Size:</strong> 2–4 members (Interdisciplinary collaboration encouraged).</li>
+                      <li><strong>Participation:</strong> Team-based event open to all Bachelor's degree students.</li>
+                      <li><strong>Last Date to Register:</strong> <strong style={{color:'#E53E3E'}}>8 October 2026</strong></li>
                     </ul>
                   </div>
 
                   {/* Visual Prize Badge Box */}
                   <div className="visual-prize-card">
                     <h4 className="detail-heading">
-                      <Trophy size={18} /> Prize Breakdown (₹50,000 Pool)
+                      <Trophy size={18} /> Prize Breakdown (₹32,000 Pool)
                     </h4>
                     <div className="prize-visual-strip">
                       <div className="prize-podium winner">
                         <span className="podium-rank">🏆 WINNER</span>
-                        <span className="podium-amount">₹30,000</span>
+                        <span className="podium-amount">₹21,000</span>
                         <span className="podium-sub">Cash Prize + Trophy</span>
                       </div>
                       <div className="prize-podium runner">
-                        <span className="podium-rank">🥈 1ST RUNNER UP</span>
-                        <span className="podium-amount">₹20,000</span>
+                        <span className="podium-rank">🥈 RUNNER UP</span>
+                        <span className="podium-amount">₹11,000</span>
                         <span className="podium-sub">Cash Prize + Trophy</span>
                       </div>
                     </div>
@@ -269,7 +277,7 @@ export default function RegistrationPage({ onNavigateHome, onUnstopRedirect, ini
                   <ul className="disqualification-chips-list">
                     <li>Copied, plagiarized, or AI-generated submissions without originality</li>
                     <li>Non-adherence to deadlines or submission guidelines</li>
-                    <li>Failure to meet team size (5 members) or gender inclusion criteria</li>
+                    <li>Failure to meet team size criteria (2–4 members)</li>
                     <li>Misconduct during event (academic dishonesty, disruptive behavior)</li>
                   </ul>
                 </div>
@@ -376,9 +384,10 @@ export default function RegistrationPage({ onNavigateHome, onUnstopRedirect, ini
                       <Users size={18} /> Team Formation Rules
                     </h4>
                     <ul className="detail-list">
-                      <li><strong>Team Participation:</strong> Team-based (Social Impact & Sustainability focus).</li>
-                      <li><strong>Team Size:</strong> Minimum 2 – Maximum 3 members.</li>
+                      <li><strong>Participation:</strong> Individual &amp; Team-based (Social Impact &amp; Sustainability focus).</li>
+                      <li><strong>Team Size:</strong> 1–3 members (solo or team, your choice).</li>
                       <li>Open to all interested Bachelor's degree students.</li>
+                      <li><strong>Last Date to Register:</strong> <strong style={{color:'#E53E3E'}}>8 October 2026</strong></li>
                     </ul>
                   </div>
 
@@ -411,7 +420,7 @@ export default function RegistrationPage({ onNavigateHome, onUnstopRedirect, ini
                   <ul className="disqualification-chips-list">
                     <li>Copied, plagiarized, or AI-generated submissions without originality</li>
                     <li>Non-adherence to deadlines or submission guidelines</li>
-                    <li>Failure to meet team size criteria (2–3 members)</li>
+                    <li>Failure to meet team size criteria (1–3 members)</li>
                     <li>Misconduct during event (academic dishonesty, disruptive behavior)</li>
                   </ul>
                 </div>
