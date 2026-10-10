@@ -2,7 +2,11 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Play, Plus, Settings, Users, Trophy } from 'lucide-react';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
-const WS_URL = import.meta.env.VITE_API_URL?.replace('http', 'ws') || 'ws://localhost:8000';
+const WS_URL = API_URL.startsWith('https://')
+  ? API_URL.replace('https://', 'wss://')
+  : API_URL.startsWith('http://')
+    ? API_URL.replace('http://', 'ws://')
+    : 'ws://localhost:8000';
 
 export default function QuizAdminView({ user, onLogout }) {
   const [sessions, setSessions] = useState([]);
@@ -144,19 +148,11 @@ export default function QuizAdminView({ user, onLogout }) {
   };
 
   return (
-    <div style={{
-      minHeight: '100vh',
-      background: 'linear-gradient(135deg, #0A1931 0%, #1A3D63 100%)',
-      padding: '20px',
-      paddingTop: '150px'
-    }}>
-      <div style={{ maxWidth: '1000px', margin: '0 auto' }}>
+    <div className="quiz-admin-page">
+      <div style={{ maxWidth: '1000px', margin: '0 auto', width: '100%' }}>
         {/* Header */}
-        <div style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          marginBottom: '32px',
+        <div className="quiz-admin-header" style={{
+          marginBottom: '24px',
           padding: '20px',
           background: 'rgba(255, 255, 255, 0.05)',
           borderRadius: '16px',
@@ -411,6 +407,31 @@ export default function QuizAdminView({ user, onLogout }) {
           )}
         </div>
       </div>
+
+      <style>{`
+        .quiz-admin-page {
+          min-height: 100vh;
+          background: linear-gradient(135deg, #0A1931 0%, #1A3D63 100%);
+          padding: 20px;
+          padding-top: 150px;
+        }
+        .quiz-admin-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+        @media (max-width: 600px) {
+          .quiz-admin-page {
+            padding: 14px;
+            padding-top: 110px;
+          }
+          .quiz-admin-header {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 12px;
+          }
+        }
+      `}</style>
     </div>
   );
 }

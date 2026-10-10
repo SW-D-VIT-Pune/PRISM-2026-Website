@@ -328,6 +328,20 @@ export default function Footer({ onNavClick }) {
           .prism-footer-section {
             padding-top: 28px;
           }
+          .footer-social-btn {
+            width: 42px;
+            height: 42px;
+          }
+          .footer-nav-btn {
+            padding: 8px 0;
+            min-height: 40px;
+          }
+          .footer-bottom-bar {
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 12px;
+          }
         }
       `}</style>
     </footer>

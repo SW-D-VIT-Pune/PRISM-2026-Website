@@ -16,7 +16,6 @@ export default function Navbar({ activeTab, onNavClick }) {
   const navItems = [
     { id: 'home', label: 'Home', isFunctional: true },
     { id: 'about', label: 'About', isFunctional: false },
-    { id: 'quiz', label: 'Quiz', isFunctional: true },
     { id: 'registration', label: 'Registration', isFunctional: true },
     { id: 'nss', label: 'NSS', isFunctional: true },
     { id: 'contacts', label: 'Contacts', isFunctional: true }
@@ -378,6 +377,16 @@ export default function Navbar({ activeTab, onNavClick }) {
         }
 
         @media (max-width: 600px) {
+          .navbar-container-inner {
+            padding: 0 12px;
+          }
+          .mobile-hamburger-btn {
+            min-width: 44px;
+            min-height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
           .prism-logo-110-box {
             height: 62px;
           }

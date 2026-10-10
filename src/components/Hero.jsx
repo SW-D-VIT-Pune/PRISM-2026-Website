@@ -628,6 +628,18 @@ export default function Hero({ onQuizClick }) {
             font-size: 0.78rem;
             padding: 7px 14px;
           }
+          .hero-cta-group {
+            flex-direction: column;
+            width: 100%;
+            gap: 12px;
+          }
+          .hero-cta-group .btn {
+            width: 100%;
+            min-height: 48px;
+            padding: 0.95rem 1.5rem;
+            font-size: 1rem;
+            white-space: normal;
+          }
           .hero-proof-bar {
             flex-direction: column;
             align-items: flex-start;

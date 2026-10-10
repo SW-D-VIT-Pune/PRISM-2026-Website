@@ -2,7 +2,11 @@ import React, { useState, useEffect, useRef } from 'react';
 import { CheckCircle, XCircle, Clock, Trophy } from 'lucide-react';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
-const WS_URL = import.meta.env.VITE_API_URL?.replace('http', 'ws') || 'ws://localhost:8000';
+const WS_URL = API_URL.startsWith('https://')
+  ? API_URL.replace('https://', 'wss://')
+  : API_URL.startsWith('http://')
+    ? API_URL.replace('http://', 'ws://')
+    : 'ws://localhost:8000';
 
 export default function QuizParticipantView({ user, onLogout }) {
   const [sessionId, setSessionId] = useState(null);
@@ -303,23 +307,15 @@ export default function QuizParticipantView({ user, onLogout }) {
   }
 
   return (
-    <div style={{
-      minHeight: '100vh',
-      background: 'linear-gradient(135deg, #0A1931 0%, #1A3D63 100%)',
-      padding: '20px',
-      paddingTop: '150px'
-    }}>
-      <div style={{ maxWidth: '800px', margin: '0 auto' }}>
+    <div className="quiz-view-page">
+      <div style={{ maxWidth: '800px', margin: '0 auto', width: '100%' }}>
         {/* Header */}
-        <div style={{
+        <div className="quiz-card-box" style={{
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
-          marginBottom: '32px',
-          padding: '20px',
-          background: 'rgba(255, 255, 255, 0.05)',
-          borderRadius: '16px',
-          border: '1px solid rgba(179, 207, 229, 0.2)'
+          marginBottom: '24px',
+          padding: '20px'
         }}>
           <div>
             <p style={{ color: 'rgba(179, 207, 229, 0.7)', fontSize: '0.9rem' }}>
@@ -357,12 +353,8 @@ export default function QuizParticipantView({ user, onLogout }) {
         )}
 
         {!currentQuestion ? (
-          <div style={{
-            background: 'rgba(255, 255, 255, 0.05)',
-            borderRadius: '20px',
-            padding: '64px',
-            textAlign: 'center',
-            border: '1px solid rgba(179, 207, 229, 0.2)'
+          <div className="quiz-card-box quiz-waiting-card" style={{
+            textAlign: 'center'
           }}>
             <Clock size={48} style={{ color: 'rgba(179, 207, 229, 0.5)', marginBottom: '16px' }} />
             <h2 style={{ color: '#B3CFE5', fontSize: '1.5rem', marginBottom: '8px' }}>
@@ -373,12 +365,7 @@ export default function QuizParticipantView({ user, onLogout }) {
             </p>
           </div>
         ) : (
-          <div style={{
-            background: 'rgba(255, 255, 255, 0.05)',
-            borderRadius: '20px',
-            padding: '32px',
-            border: '1px solid rgba(179, 207, 229, 0.2)'
-          }}>
+          <div className="quiz-card-box quiz-question-card">
             <h2 style={{
               color: '#B3CFE5',
               fontSize: '1.5rem',
@@ -485,7 +472,8 @@ export default function QuizParticipantView({ user, onLogout }) {
                   fontSize: '1rem',
                   fontWeight: '700',
                   cursor: 'pointer',
-                  width: '100%'
+                  width: '100%',
+                  minHeight: '48px'
                 }}
               >
                 Submit Answer
@@ -494,6 +482,40 @@ export default function QuizParticipantView({ user, onLogout }) {
           </div>
         )}
       </div>
+
+      <style>{`
+        .quiz-view-page {
+          min-height: 100vh;
+          background: linear-gradient(135deg, #0A1931 0%, #1A3D63 100%);
+          padding: 20px;
+          padding-top: 150px;
+        }
+        .quiz-card-box {
+          background: rgba(255, 255, 255, 0.05);
+          backdrop-filter: blur(20px);
+          -webkit-backdrop-filter: blur(20px);
+          border-radius: 20px;
+          border: 1px solid rgba(179, 207, 229, 0.2);
+        }
+        .quiz-waiting-card {
+          padding: 64px;
+        }
+        .quiz-question-card {
+          padding: 32px;
+        }
+        @media (max-width: 600px) {
+          .quiz-view-page {
+            padding: 14px;
+            padding-top: 110px;
+          }
+          .quiz-waiting-card {
+            padding: 32px 18px;
+          }
+          .quiz-question-card {
+            padding: 22px 16px;
+          }
+        }
+      `}</style>
     </div>
   );
 }
