@@ -15,6 +15,7 @@ import HighlightCTA from './components/HighlightCTA';
 import RegistrationPage from './components/RegistrationPage';
 import NSSPage from './components/NSSPage';
 import ContactPage from './components/ContactPage';
+import QuizPage from './components/QuizPage';
 import Footer from './components/Footer';
 
 import { Clock } from 'lucide-react';
@@ -32,6 +33,22 @@ export default function App() {
     } else if (item.id === 'about') {
       setActiveTab('about');
       window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else if (item.id === 'quiz') {
+      setActiveTab('quiz');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else if (item.id === 'aftermovie') {
+      setActiveTab('home');
+      setTimeout(() => {
+        const el = document.getElementById('aftermovie');
+        if (el) {
+          const navHeight = 140;
+          const elementPosition = el.getBoundingClientRect().top + window.pageYOffset;
+          window.scrollTo({
+            top: Math.max(0, elementPosition - navHeight),
+            behavior: 'smooth'
+          });
+        }
+      }, 100);
     } else if (item.id === 'registration') {
       setActiveTab('registration');
       window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -127,7 +144,7 @@ export default function App() {
       {activeTab === 'home' && (
         <main className="home-page-content">
           {/* SECTION 1: HERO */}
-          <Hero 
+          <Hero
             onQuizClick={handleQuizClick}
           />
 
@@ -140,8 +157,11 @@ export default function App() {
           {/* SECTION 4: PARTNER NGOs & ORGANIZATIONS */}
           <NGOsSection />
 
-          {/* SECTION 5: CALL TO ACTION */}
-          <HighlightCTA 
+          {/* SECTION 5: AFTERMOVIE */}
+          <AftermovieSection />
+
+          {/* SECTION 6: CALL TO ACTION */}
+          <HighlightCTA
             onUpcomingClick={() => handleNavClick({ id: 'registration', label: 'Registration' })}
           />
         </main>
@@ -152,6 +172,8 @@ export default function App() {
           <AboutSection />
         </main>
       )}
+
+      {activeTab === 'quiz' && <QuizPage />}
 
       {activeTab === 'registration' && (
         <RegistrationPage 

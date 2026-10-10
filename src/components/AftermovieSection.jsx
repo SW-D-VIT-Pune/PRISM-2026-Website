@@ -111,6 +111,17 @@ export default function AftermovieSection() {
           <RotateCw size={12} />
           <span>{rotation}°</span>
         </div>
+        {/* Admin/Anchor access buttons */}
+        <div className="admin-access-buttons">
+          <a href="/quiz" className="admin-link-btn">
+            <Zap size={14} />
+            <span>Admin Panel</span>
+          </a>
+          <a href="/quiz" className="admin-link-btn">
+            <Sparkles size={14} />
+            <span>Anchor Panel</span>
+          </a>
+        </div>
       </div>
 
       {/* ── Big central play button (when paused) ── */}
@@ -260,6 +271,34 @@ export default function AftermovieSection() {
           font-weight: 700;
           padding: 5px 11px;
           border-radius: var(--radius-pill);
+        }
+
+        .admin-access-buttons {
+          display: flex;
+          gap: 8px;
+        }
+
+        .admin-link-btn {
+          display: flex;
+          align-items: center;
+          gap: 6px;
+          background: rgba(26, 61, 99, 0.75);
+          backdrop-filter: blur(6px);
+          border: 1px solid rgba(179, 207, 229, 0.4);
+          color: #B3CFE5;
+          font-family: var(--font-heading);
+          font-size: 0.75rem;
+          font-weight: 700;
+          padding: 6px 12px;
+          border-radius: var(--radius-pill);
+          text-decoration: none;
+          transition: all 0.2s ease;
+        }
+
+        .admin-link-btn:hover {
+          background: rgba(179, 207, 229, 0.25);
+          color: #fff;
+          border-color: #B3CFE5;
         }
 
         /* ===== BIG PLAY BUTTON ===== */
