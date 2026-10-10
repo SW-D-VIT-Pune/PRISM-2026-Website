@@ -300,3 +300,74 @@ async def test_require_role_participant_blocked_from_multi(db: Session) -> None:
         await multi_dep(current_user=participant)
 
     assert exc_info.value.status_code == 403
+
+
+@pytest.mark.asyncio
+async def test_participant_login_success(client: AsyncClient) -> None:
+    """A new participant can login with name and email, receiving participant tokens."""
+    resp = await client.post(
+        "/auth/participant-login",
+        json={"name": "Alice Smith", "email": "alice_test@example.com"},
+    )
+    assert resp.status_code == 200
+    data = resp.json()
+    assert "tokens" in data
+    assert data["tokens"]["access_token"]
+    assert data["tokens"]["refresh_token"]
+    assert data["user"]["role"] == "participant"
+    assert data["user"]["email"] == "alice_test@example.com"
+
+
+@pytest.mark.asyncio
+async def test_participant_login_existing_participant(
+    client: AsyncClient, db: Session
+) -> None:
+    """An existing participant can log in without password."""
+    create_user(
+        db, "existing_part@example.com", "DummyPass@1234", role=UserRole.participant
+    )
+    resp = await client.post(
+        "/auth/participant-login",
+        json={"name": "Existing User", "email": "existing_part@example.com"},
+    )
+    assert resp.status_code == 200
+    assert resp.json()["user"]["email"] == "existing_part@example.com"
+    assert resp.json()["user"]["role"] == "participant"
+
+
+@pytest.mark.asyncio
+async def test_participant_login_rejects_staff_email(
+    client: AsyncClient, db: Session
+) -> None:
+    """Admin or anchor accounts must NOT be accessible through participant endpoint."""
+    create_user(db, "staff_admin@vit.edu", "Admin@1234", role=UserRole.admin)
+    create_user(db, "staff_anchor@vit.edu", "Anchor@1234", role=UserRole.anchor)
+
+    resp_admin = await client.post(
+        "/auth/participant-login",
+        json={"name": "Attacker", "email": "staff_admin@vit.edu"},
+    )
+    assert resp_admin.status_code == 403
+    assert "staff" in resp_admin.json()["detail"].lower()
+
+    resp_anchor = await client.post(
+        "/auth/participant-login",
+        json={"name": "Attacker", "email": "staff_anchor@vit.edu"},
+    )
+    assert resp_anchor.status_code == 403
+    assert "staff" in resp_anchor.json()["detail"].lower()
+
+
+@pytest.mark.asyncio
+async def test_participant_login_inactive_user(
+    client: AsyncClient, db: Session
+) -> None:
+    """Disabled participant accounts cannot log in."""
+    create_user(
+        db, "disabled_p@example.com", "Pass@1234", role=UserRole.participant, is_active=False
+    )
+    resp = await client.post(
+        "/auth/participant-login",
+        json={"name": "Disabled", "email": "disabled_p@example.com"},
+    )
+    assert resp.status_code == 401

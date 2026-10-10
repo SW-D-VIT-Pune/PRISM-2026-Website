@@ -19,6 +19,13 @@ class LoginRequest(BaseModel):
     password: str = Field(..., min_length=1)
 
 
+class ParticipantLoginRequest(BaseModel):
+    """Body for POST /auth/participant-login."""
+
+    name: str = Field(..., min_length=1, max_length=100)
+    email: EmailStr
+
+
 class RefreshRequest(BaseModel):
     """Body for POST /auth/refresh."""
 
