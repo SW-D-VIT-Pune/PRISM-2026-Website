@@ -33,11 +33,22 @@ depends_on: Union[str, Sequence[str], None] = None
 
 
 def upgrade() -> None:
-    # Create the role enum type first (PostgreSQL-specific)
-    user_role_enum = sa.Enum(
-        "admin", "anchor", "participant", name="user_role"
-    )
-    user_role_enum.create(op.get_bind(), checkfirst=True)
+    bind = op.get_bind()
+
+    # Safely create enum type for PostgreSQL idempotently
+    if bind.dialect.name == "postgresql":
+        op.execute(
+            sa.text(
+                """
+                DO $$
+                BEGIN
+                    IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'user_role') THEN
+                        CREATE TYPE user_role AS ENUM ('admin', 'anchor', 'participant');
+                    END IF;
+                END$$;
+                """
+            )
+        )
 
     op.create_table(
         "users",
@@ -46,7 +57,7 @@ def upgrade() -> None:
         sa.Column("password_hash", sa.String(length=1024), nullable=False),
         sa.Column(
             "role",
-            sa.Enum("admin", "anchor", "participant", name="user_role"),
+            sa.Enum("admin", "anchor", "participant", name="user_role", create_type=False),
             nullable=False,
         ),
         sa.Column("is_active", sa.Boolean(), nullable=False, server_default="true"),
@@ -79,5 +90,6 @@ def downgrade() -> None:
     op.drop_index(op.f("ix_users_email"), table_name="users")
     op.drop_table("users")
 
-    # Drop the enum type after the table is gone
-    sa.Enum(name="user_role").drop(op.get_bind(), checkfirst=True)
+    bind = op.get_bind()
+    if bind.dialect.name == "postgresql":
+        op.execute(sa.text("DROP TYPE IF EXISTS user_role;"))
