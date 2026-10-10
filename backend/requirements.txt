@@ -1,0 +1,39 @@
+# ── Core framework ──────────────────────────────────────────────────────────
+# NOTE: Use `fastapi` (no [standard]) to avoid httptools which requires
+#       Microsoft C++ Build Tools to compile on Windows.
+fastapi==0.115.14
+uvicorn==0.34.3                # h11-based ASGI server, no C extensions
+
+# ── Database ─────────────────────────────────────────────────────────────────
+sqlalchemy==2.0.41
+aiosqlite==0.21.0              # async SQLite driver — tests + local dev
+alembic==1.14.1
+
+# ── PostgreSQL driver (production only — installed automatically on non-Windows) ──
+asyncpg==0.30.0; sys_platform != 'win32'
+
+# ── Config ───────────────────────────────────────────────────────────────────
+pydantic-settings==2.9.1
+pydantic[email]==2.13.5        # includes email-validator for EmailStr support
+
+
+# ── Authentication ────────────────────────────────────────────────────────────
+# PyJWT: pure Python, no C/Rust dependencies. Supports HS256/RS256 natively.
+PyJWT==2.9.0
+passlib[argon2]==1.7.4         # password hashing with argon2
+argon2-cffi==23.1.0            # argon2 backend (pure Python fallback available)
+python-multipart==0.0.20
+
+# ── Testing ───────────────────────────────────────────────────────────────────
+pytest==8.4.1
+pytest-asyncio==0.25.3
+httpx==0.28.1
+
+# ─────────────────────────────────────────────────────────────────────────────
+# PostgreSQL production driver — requires Microsoft C++ Build Tools to compile.
+# Install separately once Build Tools are available:
+#   pip install asyncpg==0.30.0
+# OR install the pre-built psycopg binary wheel as an alternative:
+#   pip install "psycopg[binary]"
+# See README.md > PostgreSQL Setup for details.
+# ─────────────────────────────────────────────────────────────────────────────

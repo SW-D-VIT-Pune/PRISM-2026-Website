@@ -10,7 +10,7 @@ from fastapi import APIRouter, Depends, HTTPException, Query, WebSocket, WebSock
 from sqlalchemy import select
 from sqlalchemy.orm import selectinload
 
-from app.database import get_db
+from app.database import get_db, get_db_context
 from app.dependencies.auth import get_current_user
 from app.models.quiz import (
     Answer,
@@ -43,8 +43,7 @@ class ConnectionManager:
         self.active_connections: dict[int, list[tuple[WebSocket, int, str]]] = {}
 
     async def connect(self, websocket: WebSocket, session_id: int, user_id: int, role: str) -> None:
-        """Accept and store a connection."""
-        await websocket.accept()
+        """Register an accepted connection for a session."""
         if session_id not in self.active_connections:
             self.active_connections[session_id] = []
         self.active_connections[session_id].append((websocket, user_id, role))
@@ -83,9 +82,16 @@ manager = ConnectionManager()
 async def websocket_endpoint(
     websocket: WebSocket,
     token: str = Query(...),
-    db = Depends(get_db),  # type: ignore
 ) -> None:
-    """Main WebSocket endpoint for quiz communication."""
+    """Main WebSocket endpoint for quiz communication.
+
+    Uses short-lived database sessions per event instead of keeping a DB handle
+    open for the lifetime of the socket, protecting the connection pool.
+    """
+    def get_scoped_db():
+        provider = websocket.app.dependency_overrides.get(get_db, get_db)
+        return get_db_context(provider)
+
     # Authenticate via JWT
     try:
         payload = decode_access_token(token)
@@ -95,12 +101,13 @@ async def websocket_endpoint(
         await websocket.close(code=status.WS_1008_POLICY_VIOLATION)
         return
 
-    # Get user from DB
-    result = await db.execute(select(User).where(User.id == user_id))
-    user = result.scalar_one_or_none()
-    if not user or not user.is_active:
-        await websocket.close(code=status.WS_1008_POLICY_VIOLATION)
-        return
+    # Verify user in DB with short-lived session
+    async with get_scoped_db() as db:
+        result = await db.execute(select(User).where(User.id == user_id))
+        user = result.scalar_one_or_none()
+        if not user or not user.is_active:
+            await websocket.close(code=status.WS_1008_POLICY_VIOLATION)
+            return
 
     await websocket.accept()
 
@@ -125,37 +132,76 @@ async def websocket_endpoint(
                     )
                     continue
 
-                # Verify session exists
-                result = await db.execute(
-                    select(QuizSession).where(QuizSession.id == session_id)
-                )
-                session = result.scalar_one_or_none()
-                if not session:
-                    await manager.send_personal(
-                        {"type": "error", "detail": "Session not found"}, websocket
-                    )
-                    continue
+                active_q_data: dict[str, Any] | None = None
+                already_answered = False
 
-                # Connect to session
-                await manager.connect(websocket, session_id, user_id, user_role)
-                current_session_id = session_id
-
-                # Verify participant
-                result = await db.execute(
-                    select(SessionParticipant).where(
-                        SessionParticipant.session_id == session_id,
-                        SessionParticipant.user_id == user_id,
+                async with get_scoped_db() as db:
+                    result = await db.execute(
+                        select(QuizSession).where(QuizSession.id == session_id)
                     )
-                )
-                participant = result.scalar_one_or_none()
-                if not participant:
-                    # Auto-join for participants
-                    if user_role == UserRole.participant.value:
-                        participant = SessionParticipant(
-                            session_id=session_id, user_id=user_id, score=0
+                    session = result.scalar_one_or_none()
+                    if not session:
+                        await manager.send_personal(
+                            {"type": "error", "detail": "Session not found"}, websocket
                         )
-                        db.add(participant)
-                        await db.commit()
+                        continue
+
+                    # Reject joining ended sessions
+                    if session.state == QuizSessionState.ended:
+                        await manager.send_personal(
+                            {"type": "error", "detail": "Cannot join an ended quiz session"}, websocket
+                        )
+                        continue
+
+                    # Connect to session
+                    await manager.connect(websocket, session_id, user_id, user_role)
+                    current_session_id = session_id
+
+                    # Verify / auto-join participant
+                    result = await db.execute(
+                        select(SessionParticipant).where(
+                            SessionParticipant.session_id == session_id,
+                            SessionParticipant.user_id == user_id,
+                        )
+                    )
+                    participant = result.scalar_one_or_none()
+                    if not participant:
+                        if user_role == UserRole.participant.value:
+                            participant = SessionParticipant(
+                                session_id=session_id, user_id=user_id, score=0
+                            )
+                            db.add(participant)
+                            await db.commit()
+
+                    # Reconnect / catch-up: if session has active question, fetch it
+                    if session.state == QuizSessionState.active and session.current_question_id:
+                        result = await db.execute(
+                            select(Question)
+                            .options(selectinload(Question.options))
+                            .where(
+                                Question.id == session.current_question_id,
+                                Question.is_active == True,
+                            )
+                        )
+                        current_q = result.scalar_one_or_none()
+                        if current_q:
+                            active_q_data = {
+                                "question_id": current_q.id,
+                                "text": current_q.text,
+                                "time_limit_seconds": current_q.time_limit_seconds,
+                                "options": [
+                                    {"id": opt.id, "text": opt.text, "order": opt.order}
+                                    for opt in current_q.options
+                                ],
+                            }
+                            if participant:
+                                res_ans = await db.execute(
+                                    select(Answer).where(
+                                        Answer.question_id == current_q.id,
+                                        Answer.participant_id == participant.id,
+                                    )
+                                )
+                                already_answered = res_ans.scalar_one_or_none() is not None
 
                 await manager.send_personal(
                     {
@@ -168,6 +214,17 @@ async def websocket_endpoint(
                     },
                     websocket,
                 )
+
+                # Send active question state to reconnecting/late-joining participant
+                if active_q_data:
+                    active_q_data["already_answered"] = already_answered
+                    await manager.send_personal(
+                        {
+                            "type": "question_broadcast",
+                            "data": active_q_data,
+                        },
+                        websocket,
+                    )
 
             # ── SUBMIT ANSWER ───────────────────────────────────────────────
             elif message_type == "submit_answer":
@@ -187,93 +244,121 @@ async def websocket_endpoint(
                     )
                     continue
 
-                # Verify session
-                result = await db.execute(
-                    select(QuizSession).where(QuizSession.id == session_id)
-                )
-                session = result.scalar_one_or_none()
-                if not session or session.state != QuizSessionState.active:
-                    await manager.send_personal(
-                        {"type": "error", "detail": "Session not active"}, websocket
-                    )
-                    continue
+                option_counts: dict[int, int] = {}
+                total_answers = 0
 
-                # Verify participant
-                result = await db.execute(
-                    select(SessionParticipant).where(
-                        SessionParticipant.session_id == session_id,
-                        SessionParticipant.user_id == user_id,
+                async with get_scoped_db() as db:
+                    # Verify session is active
+                    result = await db.execute(
+                        select(QuizSession).where(QuizSession.id == session_id)
                     )
-                )
-                participant = result.scalar_one_or_none()
-                if not participant:
-                    await manager.send_personal(
-                        {"type": "error", "detail": "Not a participant"}, websocket
+                    session = result.scalar_one_or_none()
+                    if not session or session.state != QuizSessionState.active:
+                        await manager.send_personal(
+                            {"type": "error", "detail": "Session not active"}, websocket
+                        )
+                        continue
+
+                    # Validate question is the active question of the session
+                    if not session.current_question_id or session.current_question_id != question_id:
+                        await manager.send_personal(
+                            {"type": "error", "detail": "Question is not currently active"}, websocket
+                        )
+                        continue
+
+                    # Verify question itself is active
+                    result = await db.execute(
+                        select(Question).where(
+                            Question.id == question_id,
+                            Question.session_id == session_id,
+                            Question.is_active == True,
+                        )
                     )
-                    continue
+                    question = result.scalar_one_or_none()
+                    if not question:
+                        await manager.send_personal(
+                            {"type": "error", "detail": "Question is not active"}, websocket
+                        )
+                        continue
 
-                # Verify option
-                result = await db.execute(
-                    select(QuestionOption).where(
-                        QuestionOption.id == option_id,
-                        QuestionOption.question_id == question_id,
+                    # Verify participant
+                    result = await db.execute(
+                        select(SessionParticipant).where(
+                            SessionParticipant.session_id == session_id,
+                            SessionParticipant.user_id == user_id,
+                        )
                     )
-                )
-                option = result.scalar_one_or_none()
-                if not option:
-                    await manager.send_personal(
-                        {"type": "error", "detail": "Invalid option"}, websocket
+                    participant = result.scalar_one_or_none()
+                    if not participant:
+                        await manager.send_personal(
+                            {"type": "error", "detail": "Not a participant"}, websocket
+                        )
+                        continue
+
+                    # Verify option belongs to question
+                    result = await db.execute(
+                        select(QuestionOption).where(
+                            QuestionOption.id == option_id,
+                            QuestionOption.question_id == question_id,
+                        )
                     )
-                    continue
+                    option = result.scalar_one_or_none()
+                    if not option:
+                        await manager.send_personal(
+                            {"type": "error", "detail": "Invalid option"}, websocket
+                        )
+                        continue
 
-                # Check duplicate
-                result = await db.execute(
-                    select(Answer).where(
-                        Answer.question_id == question_id,
-                        Answer.participant_id == participant.id,
+                    # Check duplicate
+                    result = await db.execute(
+                        select(Answer).where(
+                            Answer.question_id == question_id,
+                            Answer.participant_id == participant.id,
+                        )
                     )
-                )
-                if result.scalar_one_or_none():
-                    await manager.send_personal(
-                        {"type": "error", "detail": "Already answered"}, websocket
+                    if result.scalar_one_or_none():
+                        await manager.send_personal(
+                            {"type": "error", "detail": "Already answered"}, websocket
+                        )
+                        continue
+
+                    # Create answer
+                    answer = Answer(
+                        session_id=session_id,
+                        question_id=question_id,
+                        participant_id=participant.id,
+                        option_id=option_id,
+                        is_correct=option.is_correct,
                     )
-                    continue
+                    db.add(answer)
 
-                # Create answer
-                answer = Answer(
-                    session_id=session_id,
-                    question_id=question_id,
-                    participant_id=participant.id,
-                    option_id=option_id,
-                    is_correct=option.is_correct,
-                )
-                db.add(answer)
+                    if option.is_correct:
+                        participant.score += 1
 
-                if option.is_correct:
-                    participant.score += 1
+                    await db.commit()
 
-                await db.commit()
+                    # Query live counts
+                    result = await db.execute(
+                        select(Answer).where(Answer.question_id == question_id)
+                    )
+                    answers = result.scalars().all()
+                    for a in answers:
+                        option_counts[a.option_id] = option_counts.get(a.option_id, 0) + 1
+                    total_answers = len(answers)
 
+                # Send acknowledgment WITHOUT leaking is_correct while question is live
                 await manager.send_personal(
                     {
                         "type": "answer_acknowledged",
                         "data": {
                             "question_id": question_id,
-                            "is_correct": option.is_correct,
+                            "status": "submitted",
                         },
                     },
                     websocket,
                 )
 
-                # Broadcast live poll update (simplified - could be enhanced with Redis)
-                result = await db.execute(
-                    select(Answer).where(Answer.question_id == question_id)
-                )
-                answers = result.scalars().all()
-                option_counts: dict[int, int] = {}
-                for a in answers:
-                    option_counts[a.option_id] = option_counts.get(a.option_id, 0) + 1
-
+                # Broadcast live poll update
                 await manager.broadcast(
                     session_id,
                     {
@@ -281,7 +366,7 @@ async def websocket_endpoint(
                         "data": {
                             "question_id": question_id,
                             "option_counts": option_counts,
-                            "total_answers": len(answers),
+                            "total_answers": total_answers,
                         },
                     },
                 )
@@ -303,57 +388,58 @@ async def websocket_endpoint(
                     )
                     continue
 
-                # Verify session ownership
-                result = await db.execute(
-                    select(QuizSession).where(QuizSession.id == session_id)
-                )
-                session = result.scalar_one_or_none()
-                if not session:
-                    await manager.send_personal(
-                        {"type": "error", "detail": "Session not found"}, websocket
+                bcast_data: dict[str, Any] | None = None
+                async with get_scoped_db() as db:
+                    result = await db.execute(
+                        select(QuizSession).where(QuizSession.id == session_id)
                     )
-                    continue
+                    session = result.scalar_one_or_none()
+                    if not session:
+                        await manager.send_personal(
+                            {"type": "error", "detail": "Session not found"}, websocket
+                        )
+                        continue
 
-                if session.created_by != user_id and user_role != UserRole.admin.value:
-                    await manager.send_personal(
-                        {"type": "error", "detail": "Not authorized"}, websocket
+                    if session.created_by != user_id and user_role != UserRole.admin.value:
+                        await manager.send_personal(
+                            {"type": "error", "detail": "Not authorized"}, websocket
+                        )
+                        continue
+
+                    result = await db.execute(
+                        select(Question)
+                        .options(selectinload(Question.options))
+                        .where(Question.id == question_id)
                     )
-                    continue
+                    question = result.scalar_one_or_none()
+                    if not question:
+                        await manager.send_personal(
+                            {"type": "error", "detail": "Question not found"}, websocket
+                        )
+                        continue
 
-                # Get question with options
-                result = await db.execute(
-                    select(Question)
-                    .options(selectinload(Question.options))
-                    .where(Question.id == question_id)
-                )
-                question = result.scalar_one_or_none()
-                if not question:
-                    await manager.send_personal(
-                        {"type": "error", "detail": "Question not found"}, websocket
-                    )
-                    continue
+                    question.is_active = True
+                    session.current_question_id = question_id
+                    await db.commit()
 
-                # Activate question
-                question.is_active = True
-                session.current_question_id = question_id
-                await db.commit()
+                    bcast_data = {
+                        "question_id": question.id,
+                        "text": question.text,
+                        "time_limit_seconds": question.time_limit_seconds,
+                        "options": [
+                            {"id": opt.id, "text": opt.text, "order": opt.order}
+                            for opt in question.options
+                        ],
+                    }
 
-                # Broadcast question (without is_correct)
-                await manager.broadcast(
-                    session_id,
-                    {
-                        "type": "question_broadcast",
-                        "data": {
-                            "question_id": question.id,
-                            "text": question.text,
-                            "time_limit_seconds": question.time_limit_seconds,
-                            "options": [
-                                {"id": opt.id, "text": opt.text, "order": opt.order}
-                                for opt in question.options
-                            ],
+                if bcast_data:
+                    await manager.broadcast(
+                        session_id,
+                        {
+                            "type": "question_broadcast",
+                            "data": bcast_data,
                         },
-                    },
-                )
+                    )
 
             # ── END QUESTION (admin/anchor only) ────────────────────────────
             elif message_type == "end_question":
@@ -372,20 +458,36 @@ async def websocket_endpoint(
                     )
                     continue
 
-                # Deactivate question
-                result = await db.execute(
-                    select(Question).where(Question.id == question_id)
-                )
-                question = result.scalar_one_or_none()
-                if question:
-                    question.is_active = False
-                    await db.commit()
+                correct_option_ids: list[int] = []
+                async with get_scoped_db() as db:
+                    result = await db.execute(
+                        select(Question).where(
+                            Question.id == question_id,
+                            Question.session_id == session_id,
+                        )
+                    )
+                    question = result.scalar_one_or_none()
+                    if question:
+                        question.is_active = False
+                        await db.commit()
 
+                    result = await db.execute(
+                        select(QuestionOption.id).where(
+                            QuestionOption.question_id == question_id,
+                            QuestionOption.is_correct == True,
+                        )
+                    )
+                    correct_option_ids = [opt_id for opt_id in result.scalars().all()]
+
+                # Broadcast question ended with correct answers now revealed safely
                 await manager.broadcast(
                     session_id,
                     {
                         "type": "question_ended",
-                        "data": {"question_id": question_id},
+                        "data": {
+                            "question_id": question_id,
+                            "correct_option_ids": correct_option_ids,
+                        },
                     },
                 )
 
@@ -404,15 +506,15 @@ async def websocket_endpoint(
                     )
                     continue
 
-                # End session
-                result = await db.execute(
-                    select(QuizSession).where(QuizSession.id == session_id)
-                )
-                session = result.scalar_one_or_none()
-                if session:
-                    session.state = QuizSessionState.ended
-                    session.current_question_id = None
-                    await db.commit()
+                async with get_scoped_db() as db:
+                    result = await db.execute(
+                        select(QuizSession).where(QuizSession.id == session_id)
+                    )
+                    session = result.scalar_one_or_none()
+                    if session:
+                        session.state = QuizSessionState.ended
+                        session.current_question_id = None
+                        await db.commit()
 
                 await manager.broadcast(
                     session_id,
