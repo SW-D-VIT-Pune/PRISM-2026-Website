@@ -31,7 +31,7 @@ target_metadata = Base.metadata
 def run_migrations_offline() -> None:
     """Emit SQL to stdout — useful for review or manual application."""
     context.configure(
-        url=settings.database_url,
+        url=settings.async_database_url,
         target_metadata=target_metadata,
         literal_binds=True,
         dialect_opts={"paramstyle": "named"},
@@ -56,7 +56,7 @@ def do_run_migrations(connection):
 
 async def run_async_migrations() -> None:
     """Create an async engine and run migrations inside a sync-compatible wrapper."""
-    engine = create_async_engine(settings.database_url)
+    engine = create_async_engine(settings.async_database_url)
     async with engine.connect() as conn:
         await conn.run_sync(do_run_migrations)
     await engine.dispose()

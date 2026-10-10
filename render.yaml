@@ -1,0 +1,32 @@
+services:
+  - type: web
+    name: prism26-backend
+    runtime: python
+    region: oregon
+    plan: free
+    branch: quiz-backend
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    preDeployCommand: alembic upgrade head
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: CORS_ORIGINS
+        value: https://prism26.in,https://www.prism26.in
+      - key: DATABASE_URL
+        fromDatabase:
+          name: prism26-db
+          property: connectionString
+      - key: JWT_SECRET
+        generateValue: true
+      - key: JWT_REFRESH_SECRET
+        generateValue: true
+
+databases:
+  - name: prism26-db
+    region: oregon
+    plan: free
+    databaseName: prism26
+    user: prism_admin

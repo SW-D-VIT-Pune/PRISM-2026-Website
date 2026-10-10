@@ -33,6 +33,16 @@ class Settings(BaseSettings):
     # SQLite URL used by the test suite (swapped via conftest fixture)
     test_database_url: str = "sqlite+aiosqlite:///./test_prism26.db"
 
+    @property
+    def async_database_url(self) -> str:
+        """Return database URL formatted for async SQLAlchemy driver."""
+        url = self.database_url
+        if url.startswith("postgres://"):
+            url = url.replace("postgres://", "postgresql+asyncpg://", 1)
+        elif url.startswith("postgresql://") and not url.startswith("postgresql+"):
+            url = url.replace("postgresql://", "postgresql+asyncpg://", 1)
+        return url
+
     # ── JWT ───────────────────────────────────────────────────────
     jwt_secret: str = "CHANGE_ME_IN_PRODUCTION"
     jwt_refresh_secret: str = "CHANGE_ME_IN_PRODUCTION_REFRESH"

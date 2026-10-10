@@ -55,7 +55,7 @@ if not IS_TESTING and not USE_SYNC_MODE:
         _engine_kwargs["pool_size"] = 10
         _engine_kwargs["max_overflow"] = 20
 
-    engine = create_async_engine(settings.database_url, **_engine_kwargs)
+    engine = create_async_engine(settings.async_database_url, **_engine_kwargs)
 
     # ---------------------------------------------------------------------------
     # Session factory
