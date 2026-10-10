@@ -133,17 +133,12 @@ export default function Hero({ onQuizClick }) {
             </button>
 
             {/* WATCH FLAGSHIP AFTERMOVIE BUTTON */}
-            <button 
-              className="btn btn-primary btn-lg" 
+            <button
+              className="btn btn-primary btn-lg"
               onClick={() => {
                 const el = document.getElementById('aftermovie');
                 if (el) {
-                  const navHeight = 140;
-                  const elementPosition = el.getBoundingClientRect().top + window.pageYOffset;
-                  window.scrollTo({
-                    top: Math.max(0, elementPosition - navHeight),
-                    behavior: 'smooth'
-                  });
+                  el.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }
               }}
             >

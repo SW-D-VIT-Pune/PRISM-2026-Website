@@ -15,15 +15,46 @@ import HighlightCTA from './components/HighlightCTA';
 import RegistrationPage from './components/RegistrationPage';
 import NSSPage from './components/NSSPage';
 import ContactPage from './components/ContactPage';
+import QuizPage from './components/QuizPage';
 import Footer from './components/Footer';
 
 import { Clock } from 'lucide-react';
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState('home');
+  const [activeTab, setActiveTab] = useState(() => {
+    const path = window.location.pathname.toLowerCase();
+    const hash = window.location.hash.toLowerCase();
+    if (path === '/admin' || hash === '#admin') return 'admin';
+    if (path === '/quiz' || hash === '#quiz') return 'quiz';
+    if (path === '/about' || hash === '#about') return 'about';
+    if (path === '/registration' || hash === '#registration') return 'registration';
+    if (path === '/nss' || hash === '#nss') return 'nss';
+    if (path === '/contacts' || hash === '#contacts') return 'contacts';
+    return 'home';
+  });
   const [upcomingToast, setUpcomingToast] = useState(null);
   const [nssInitialSection, setNssInitialSection] = useState('registration');
   const [registrationInitialTrack, setRegistrationInitialTrack] = useState('sociothon');
+
+  React.useEffect(() => {
+    const handleUrlChange = () => {
+      const path = window.location.pathname.toLowerCase();
+      const hash = window.location.hash.toLowerCase();
+      if (path === '/admin' || hash === '#admin') {
+        setActiveTab('admin');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else if (path === '/quiz' || hash === '#quiz') {
+        setActiveTab('quiz');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    };
+    window.addEventListener('popstate', handleUrlChange);
+    window.addEventListener('hashchange', handleUrlChange);
+    return () => {
+      window.removeEventListener('popstate', handleUrlChange);
+      window.removeEventListener('hashchange', handleUrlChange);
+    };
+  }, []);
 
   const handleNavClick = (item) => {
     if (item.id === 'home') {
@@ -32,6 +63,25 @@ export default function App() {
     } else if (item.id === 'about') {
       setActiveTab('about');
       window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else if (item.id === 'quiz') {
+      setActiveTab('quiz');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else if (item.id === 'admin') {
+      setActiveTab('admin');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else if (item.id === 'aftermovie') {
+      setActiveTab('home');
+      setTimeout(() => {
+        const el = document.getElementById('aftermovie');
+        if (el) {
+          const navHeight = 140;
+          const elementPosition = el.getBoundingClientRect().top + window.pageYOffset;
+          window.scrollTo({
+            top: Math.max(0, elementPosition - navHeight),
+            behavior: 'smooth'
+          });
+        }
+      }, 100);
     } else if (item.id === 'registration') {
       setActiveTab('registration');
       window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -127,7 +177,7 @@ export default function App() {
       {activeTab === 'home' && (
         <main className="home-page-content">
           {/* SECTION 1: HERO */}
-          <Hero 
+          <Hero
             onQuizClick={handleQuizClick}
           />
 
@@ -140,8 +190,11 @@ export default function App() {
           {/* SECTION 4: PARTNER NGOs & ORGANIZATIONS */}
           <NGOsSection />
 
-          {/* SECTION 5: CALL TO ACTION */}
-          <HighlightCTA 
+          {/* SECTION 5: AFTERMOVIE */}
+          <AftermovieSection />
+
+          {/* SECTION 6: CALL TO ACTION */}
+          <HighlightCTA
             onUpcomingClick={() => handleNavClick({ id: 'registration', label: 'Registration' })}
           />
         </main>
@@ -152,6 +205,9 @@ export default function App() {
           <AboutSection />
         </main>
       )}
+
+      {activeTab === 'quiz' && <QuizPage isAdminPortal={false} />}
+      {activeTab === 'admin' && <QuizPage isAdminPortal={true} />}
 
       {activeTab === 'registration' && (
         <RegistrationPage 
