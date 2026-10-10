@@ -1,31 +1,104 @@
 import React, { useState } from 'react';
-import { Lock, Mail, AlertCircle, User } from 'lucide-react';
+import { Lock, Mail, AlertCircle, User, ShieldCheck, Trophy, Sparkles } from 'lucide-react';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
 
-export default function QuizLoginPage({ onLogin }) {
+export default function QuizLoginPage({ onLogin, isAdminPortal = false }) {
+  // Participant state (name + email only, no password)
+  const [fullName, setFullName] = useState('');
+  
+  // Admin / shared credentials
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [isParticipant, setIsParticipant] = useState(true);
+  
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const handleLogin = async (e) => {
+  // ── PARTICIPANT LOGIN (Name + Email only) ───────────────────────────────────
+  const handleParticipantSubmit = async (e) => {
     e.preventDefault();
     setError('');
+    const trimmedName = fullName.trim();
+    const trimmedEmail = email.trim();
+
+    if (!trimmedName || !trimmedEmail) {
+      setError('Please provide both your full name and email address.');
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      // 1. Attempt specialized participant login / registration endpoint
+      let response = await fetch(`${API_URL}/auth/participant-login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: trimmedName, email: trimmedEmail }),
+      }).catch(() => null);
+
+      // 2. If endpoint not found or returns 404, fallback to standard participant login
+      if (!response || response.status === 404) {
+        response = await fetch(`${API_URL}/auth/login`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: trimmedEmail, password: 'Participant@1234' }),
+        }).catch(() => null);
+      }
+
+      if (response && response.ok) {
+        const data = await response.json();
+        localStorage.setItem('access_token', data.tokens.access_token);
+        localStorage.setItem('refresh_token', data.tokens.refresh_token);
+        localStorage.setItem('user', JSON.stringify({ ...data.user, name: trimmedName }));
+        localStorage.setItem('participant_name', trimmedName);
+        onLogin({ ...data.user, name: trimmedName });
+        return;
+      }
+
+      // If backend response exists but returned an error
+      if (response && !response.ok) {
+        const errData = await response.json().catch(() => ({}));
+        throw new Error(errData.detail || 'Could not join quiz. Please check your email.');
+      }
+
+      // If backend was completely unreachable, notify user clearly
+      throw new Error('Quiz backend connection unavailable. Please ensure server is running.');
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // ── ADMIN / ANCHOR SECURE LOGIN (Email + Password) ─────────────────────────
+  const handleAdminSubmit = async (e) => {
+    e.preventDefault();
+    setError('');
+    const trimmedEmail = email.trim();
+
+    if (!trimmedEmail || !password) {
+      setError('Email and password are required for admin authentication.');
+      return;
+    }
+
     setLoading(true);
 
     try {
       const response = await fetch(`${API_URL}/auth/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: email.trim(), password }),
+        body: JSON.stringify({ email: trimmedEmail, password }),
       });
 
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.detail || 'Login failed');
+        throw new Error(data.detail || 'Invalid administrative credentials');
+      }
+
+      // Enforce admin/anchor role access
+      if (data.user.role !== 'admin' && data.user.role !== 'anchor') {
+        throw new Error('Access denied: Only administrative accounts can access this portal.');
       }
 
       localStorage.setItem('access_token', data.tokens.access_token);
@@ -40,6 +113,182 @@ export default function QuizLoginPage({ onLogin }) {
     }
   };
 
+  // ── ADMIN PORTAL VIEW ───────────────────────────────────────────────────────
+  if (isAdminPortal) {
+    return (
+      <div style={{
+        minHeight: '100vh',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        background: 'linear-gradient(135deg, #0A1931 0%, #1A3D63 100%)',
+        padding: '20px',
+        paddingTop: '150px'
+      }}>
+        <div style={{
+          background: 'rgba(255, 255, 255, 0.05)',
+          backdropFilter: 'blur(20px)',
+          border: '1px solid rgba(179, 207, 229, 0.25)',
+          borderRadius: '24px',
+          padding: '44px',
+          width: '100%',
+          maxWidth: '440px',
+          boxShadow: '0 25px 70px rgba(10, 25, 49, 0.6)'
+        }}>
+          <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '16px' }}>
+            <div style={{
+              width: '60px',
+              height: '60px',
+              borderRadius: '16px',
+              background: 'rgba(179, 207, 229, 0.15)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              border: '1px solid rgba(179, 207, 229, 0.3)'
+            }}>
+              <ShieldCheck size={32} style={{ color: '#B3CFE5' }} />
+            </div>
+          </div>
+
+          <h1 style={{
+            color: '#B3CFE5',
+            fontSize: '1.8rem',
+            fontWeight: '800',
+            marginBottom: '8px',
+            textAlign: 'center',
+            fontFamily: 'var(--font-heading, sans-serif)'
+          }}>
+            Admin & Anchor Portal
+          </h1>
+          <p style={{
+            color: 'rgba(179, 207, 229, 0.7)',
+            fontSize: '0.9rem',
+            marginBottom: '28px',
+            textAlign: 'center'
+          }}>
+            Restricted Access — Enter your staff credentials
+          </p>
+
+          {error && (
+            <div style={{
+              background: 'rgba(220, 38, 38, 0.15)',
+              border: '1px solid rgba(220, 38, 38, 0.3)',
+              borderRadius: '12px',
+              padding: '12px 16px',
+              marginBottom: '20px',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '12px',
+              color: '#FCA5A5',
+              fontSize: '0.9rem'
+            }}>
+              <AlertCircle size={18} />
+              {error}
+            </div>
+          )}
+
+          <form onSubmit={handleAdminSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+            <div>
+              <label style={{
+                display: 'block',
+                color: '#B3CFE5',
+                fontSize: '0.9rem',
+                fontWeight: '600',
+                marginBottom: '8px'
+              }}>
+                Administrator / Anchor Email
+              </label>
+              <div style={{ position: 'relative' }}>
+                <Mail size={18} style={{
+                  position: 'absolute',
+                  left: '14px',
+                  top: '50%',
+                  transform: 'translateY(-50%)',
+                  color: 'rgba(179, 207, 229, 0.5)'
+                }} />
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="admin/anchor-vitswd26@vit.edu"
+                  required
+                  style={{
+                    width: '100%',
+                    padding: '14px 14px 14px 44px',
+                    background: 'rgba(10, 25, 49, 0.6)',
+                    border: '1px solid rgba(179, 207, 229, 0.2)',
+                    borderRadius: '12px',
+                    color: '#FFFFFF',
+                    fontSize: '1rem',
+                    outline: 'none'
+                  }}
+                />
+              </div>
+            </div>
+
+            <div>
+              <label style={{
+                display: 'block',
+                color: '#B3CFE5',
+                fontSize: '0.9rem',
+                fontWeight: '600',
+                marginBottom: '8px'
+              }}>
+                Password
+              </label>
+              <div style={{ position: 'relative' }}>
+                <Lock size={18} style={{
+                  position: 'absolute',
+                  left: '14px',
+                  top: '50%',
+                  transform: 'translateY(-50%)',
+                  color: 'rgba(179, 207, 229, 0.5)'
+                }} />
+                <input
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="••••••••••••"
+                  required
+                  style={{
+                    width: '100%',
+                    padding: '14px 14px 14px 44px',
+                    background: 'rgba(10, 25, 49, 0.6)',
+                    border: '1px solid rgba(179, 207, 229, 0.2)',
+                    borderRadius: '12px',
+                    color: '#FFFFFF',
+                    fontSize: '1rem',
+                    outline: 'none'
+                  }}
+                />
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              disabled={loading}
+              style={{
+                marginTop: '8px',
+                padding: '16px',
+                background: loading ? 'rgba(179, 207, 229, 0.3)' : '#B3CFE5',
+                border: 'none',
+                borderRadius: '12px',
+                color: '#0A1931',
+                fontSize: '1rem',
+                fontWeight: '700',
+                cursor: loading ? 'not-allowed' : 'pointer',
+                fontFamily: 'var(--font-heading, sans-serif)'
+              }}
+            >
+              {loading ? 'Authenticating...' : 'Sign In to Portal'}
+            </button>
+          </form>
+        </div>
+      </div>
+    );
+  }
+
+  // ── PUBLIC PARTICIPANT QUIZ VIEW (Name + Email Only — No Password) ───────────
   return (
     <div style={{
       minHeight: '100vh',
@@ -53,13 +302,28 @@ export default function QuizLoginPage({ onLogin }) {
       <div style={{
         background: 'rgba(255, 255, 255, 0.05)',
         backdropFilter: 'blur(20px)',
-        border: '1px solid rgba(179, 207, 229, 0.2)',
-        borderRadius: '20px',
-        padding: '40px',
+        border: '1px solid rgba(179, 207, 229, 0.25)',
+        borderRadius: '24px',
+        padding: '44px',
         width: '100%',
-        maxWidth: '420px',
-        boxShadow: '0 20px 60px rgba(10, 25, 49, 0.5)'
+        maxWidth: '440px',
+        boxShadow: '0 25px 70px rgba(10, 25, 49, 0.6)'
       }}>
+        <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '16px' }}>
+          <div style={{
+            width: '60px',
+            height: '60px',
+            borderRadius: '16px',
+            background: 'rgba(179, 207, 229, 0.15)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            border: '1px solid rgba(179, 207, 229, 0.3)'
+          }}>
+            <Trophy size={32} style={{ color: '#B3CFE5' }} />
+          </div>
+        </div>
+
         <h1 style={{
           color: '#B3CFE5',
           fontSize: '2rem',
@@ -68,59 +332,16 @@ export default function QuizLoginPage({ onLogin }) {
           textAlign: 'center',
           fontFamily: 'var(--font-heading, sans-serif)'
         }}>
-          PRISM Quiz
+          PRISM '26 Live Quiz
         </h1>
         <p style={{
           color: 'rgba(179, 207, 229, 0.7)',
           fontSize: '0.95rem',
-          marginBottom: '24px',
+          marginBottom: '28px',
           textAlign: 'center'
         }}>
-          Select your role to continue
+          Enter your name and email to join the live quiz
         </p>
-
-        {/* Role Toggle */}
-        <div style={{
-          display: 'flex',
-          gap: '12px',
-          marginBottom: '24px',
-          background: 'rgba(10, 25, 49, 0.6)',
-          borderRadius: '12px',
-          padding: '6px'
-        }}>
-          <button
-            onClick={() => setIsParticipant(false)}
-            style={{
-              flex: 1,
-              padding: '12px',
-              background: !isParticipant ? '#B3CFE5' : 'transparent',
-              border: 'none',
-              borderRadius: '8px',
-              color: !isParticipant ? '#0A1931' : '#B3CFE5',
-              fontWeight: '700',
-              cursor: 'pointer',
-              fontSize: '0.9rem'
-            }}
-          >
-            Admin/Anchor
-          </button>
-          <button
-            onClick={() => setIsParticipant(true)}
-            style={{
-              flex: 1,
-              padding: '12px',
-              background: isParticipant ? '#B3CFE5' : 'transparent',
-              border: 'none',
-              borderRadius: '8px',
-              color: isParticipant ? '#0A1931' : '#B3CFE5',
-              fontWeight: '700',
-              cursor: 'pointer',
-              fontSize: '0.9rem'
-            }}
-          >
-            Participant
-          </button>
-        </div>
 
         {error && (
           <div style={{
@@ -140,7 +361,7 @@ export default function QuizLoginPage({ onLogin }) {
           </div>
         )}
 
-        <form onSubmit={handleLogin} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+        <form onSubmit={handleParticipantSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
           <div>
             <label style={{
               display: 'block',
@@ -149,7 +370,45 @@ export default function QuizLoginPage({ onLogin }) {
               fontWeight: '600',
               marginBottom: '8px'
             }}>
-              {isParticipant ? 'Participant Email' : 'Staff / Admin Email'}
+              Full Name
+            </label>
+            <div style={{ position: 'relative' }}>
+              <User size={18} style={{
+                position: 'absolute',
+                left: '14px',
+                top: '50%',
+                transform: 'translateY(-50%)',
+                color: 'rgba(179, 207, 229, 0.5)'
+              }} />
+              <input
+                type="text"
+                value={fullName}
+                onChange={(e) => setFullName(e.target.value)}
+                placeholder="e.g. Rahul Sharma"
+                required
+                style={{
+                  width: '100%',
+                  padding: '14px 14px 14px 44px',
+                  background: 'rgba(10, 25, 49, 0.6)',
+                  border: '1px solid rgba(179, 207, 229, 0.2)',
+                  borderRadius: '12px',
+                  color: '#FFFFFF',
+                  fontSize: '1rem',
+                  outline: 'none'
+                }}
+              />
+            </div>
+          </div>
+
+          <div>
+            <label style={{
+              display: 'block',
+              color: '#B3CFE5',
+              fontSize: '0.9rem',
+              fontWeight: '600',
+              marginBottom: '8px'
+            }}>
+              Email Address
             </label>
             <div style={{ position: 'relative' }}>
               <Mail size={18} style={{
@@ -163,7 +422,7 @@ export default function QuizLoginPage({ onLogin }) {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder={isParticipant ? "participant@prism26.dev" : "admin@prism26.dev"}
+                placeholder="e.g. rahul@college.edu"
                 required
                 style={{
                   width: '100%',
@@ -173,52 +432,8 @@ export default function QuizLoginPage({ onLogin }) {
                   borderRadius: '12px',
                   color: '#FFFFFF',
                   fontSize: '1rem',
-                  outline: 'none',
-                  transition: 'all 0.2s'
+                  outline: 'none'
                 }}
-                onFocus={(e) => e.target.style.borderColor = 'rgba(179, 207, 229, 0.5)'}
-                onBlur={(e) => e.target.style.borderColor = 'rgba(179, 207, 229, 0.2)'}
-              />
-            </div>
-          </div>
-
-          <div>
-            <label style={{
-              display: 'block',
-              color: '#B3CFE5',
-              fontSize: '0.9rem',
-              fontWeight: '600',
-              marginBottom: '8px'
-            }}>
-              Password
-            </label>
-            <div style={{ position: 'relative' }}>
-              <Lock size={18} style={{
-                position: 'absolute',
-                left: '14px',
-                top: '50%',
-                transform: 'translateY(-50%)',
-                color: 'rgba(179, 207, 229, 0.5)'
-              }} />
-              <input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="••••••••"
-                required
-                style={{
-                  width: '100%',
-                  padding: '14px 14px 14px 44px',
-                  background: 'rgba(10, 25, 49, 0.6)',
-                  border: '1px solid rgba(179, 207, 229, 0.2)',
-                  borderRadius: '12px',
-                  color: '#FFFFFF',
-                  fontSize: '1rem',
-                  outline: 'none',
-                  transition: 'all 0.2s'
-                }}
-                onFocus={(e) => e.target.style.borderColor = 'rgba(179, 207, 229, 0.5)'}
-                onBlur={(e) => e.target.style.borderColor = 'rgba(179, 207, 229, 0.2)'}
               />
             </div>
           </div>
@@ -227,6 +442,7 @@ export default function QuizLoginPage({ onLogin }) {
             type="submit"
             disabled={loading}
             style={{
+              marginTop: '8px',
               padding: '16px',
               background: loading ? 'rgba(179, 207, 229, 0.3)' : '#B3CFE5',
               border: 'none',
@@ -236,16 +452,15 @@ export default function QuizLoginPage({ onLogin }) {
               fontWeight: '700',
               cursor: loading ? 'not-allowed' : 'pointer',
               transition: 'all 0.2s',
-              fontFamily: 'var(--font-heading, sans-serif)'
+              fontFamily: 'var(--font-heading, sans-serif)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '8px'
             }}
-            onMouseEnter={(e) => !loading && (e.target.style.background = '#FFFFFF')}
-            onMouseLeave={(e) => !loading && (e.target.style.background = '#B3CFE5')}
           >
-            {loading
-              ? 'Authenticating...'
-              : isParticipant
-                ? 'Join as Participant'
-                : 'Sign In as Admin/Anchor'}
+            <Sparkles size={18} />
+            {loading ? 'Joining Quiz...' : 'Join Quiz'}
           </button>
         </form>
 
@@ -255,7 +470,7 @@ export default function QuizLoginPage({ onLogin }) {
           marginTop: '24px',
           textAlign: 'center'
         }}>
-          {isParticipant ? 'Sign in with your participant credentials' : 'Contact system admin for staff credentials'}
+          No password needed for participants. Join directly with your name and email.
         </p>
       </div>
     </div>

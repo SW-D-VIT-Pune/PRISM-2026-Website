@@ -21,10 +21,40 @@ import Footer from './components/Footer';
 import { Clock } from 'lucide-react';
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState('home');
+  const [activeTab, setActiveTab] = useState(() => {
+    const path = window.location.pathname.toLowerCase();
+    const hash = window.location.hash.toLowerCase();
+    if (path === '/admin' || hash === '#admin') return 'admin';
+    if (path === '/quiz' || hash === '#quiz') return 'quiz';
+    if (path === '/about' || hash === '#about') return 'about';
+    if (path === '/registration' || hash === '#registration') return 'registration';
+    if (path === '/nss' || hash === '#nss') return 'nss';
+    if (path === '/contacts' || hash === '#contacts') return 'contacts';
+    return 'home';
+  });
   const [upcomingToast, setUpcomingToast] = useState(null);
   const [nssInitialSection, setNssInitialSection] = useState('registration');
   const [registrationInitialTrack, setRegistrationInitialTrack] = useState('sociothon');
+
+  React.useEffect(() => {
+    const handleUrlChange = () => {
+      const path = window.location.pathname.toLowerCase();
+      const hash = window.location.hash.toLowerCase();
+      if (path === '/admin' || hash === '#admin') {
+        setActiveTab('admin');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else if (path === '/quiz' || hash === '#quiz') {
+        setActiveTab('quiz');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    };
+    window.addEventListener('popstate', handleUrlChange);
+    window.addEventListener('hashchange', handleUrlChange);
+    return () => {
+      window.removeEventListener('popstate', handleUrlChange);
+      window.removeEventListener('hashchange', handleUrlChange);
+    };
+  }, []);
 
   const handleNavClick = (item) => {
     if (item.id === 'home') {
@@ -35,6 +65,9 @@ export default function App() {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } else if (item.id === 'quiz') {
       setActiveTab('quiz');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else if (item.id === 'admin') {
+      setActiveTab('admin');
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } else if (item.id === 'aftermovie') {
       setActiveTab('home');
@@ -173,7 +206,8 @@ export default function App() {
         </main>
       )}
 
-      {activeTab === 'quiz' && <QuizPage />}
+      {activeTab === 'quiz' && <QuizPage isAdminPortal={false} />}
+      {activeTab === 'admin' && <QuizPage isAdminPortal={true} />}
 
       {activeTab === 'registration' && (
         <RegistrationPage 

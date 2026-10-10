@@ -3,7 +3,7 @@ import QuizLoginPage from './QuizLoginPage';
 import QuizParticipantView from './QuizParticipantView';
 import QuizAdminView from './QuizAdminView';
 
-export default function QuizPage() {
+export default function QuizPage({ isAdminPortal = false }) {
   const [user, setUser] = useState(null);
   const [participantName, setParticipantName] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -16,10 +16,21 @@ export default function QuizPage() {
 
     if (storedUser && token) {
       try {
-        setUser(JSON.parse(storedUser));
+        const parsed = JSON.parse(storedUser);
+        if (isAdminPortal) {
+          if (parsed.role === 'admin' || parsed.role === 'anchor') {
+            setUser(parsed);
+          } else {
+            setUser(null);
+          }
+        } else {
+          setUser(parsed);
+        }
       } catch (err) {
         localStorage.clear();
       }
+    } else {
+      setUser(null);
     }
 
     if (storedParticipantName) {
@@ -27,15 +38,10 @@ export default function QuizPage() {
     }
 
     setLoading(false);
-  }, []);
+  }, [isAdminPortal]);
 
   const handleLogin = (userData) => {
     setUser(userData);
-  };
-
-  const handleParticipantJoin = (name) => {
-    setParticipantName(name);
-    localStorage.setItem('participant_name', name);
   };
 
   const handleLogout = () => {
@@ -61,7 +67,7 @@ export default function QuizPage() {
   }
 
   if (!user) {
-    return <QuizLoginPage onLogin={handleLogin} />;
+    return <QuizLoginPage onLogin={handleLogin} isAdminPortal={isAdminPortal} />;
   }
 
   // Route based on role

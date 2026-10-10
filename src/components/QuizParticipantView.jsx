@@ -15,7 +15,7 @@ export default function QuizParticipantView({ user, onLogout }) {
   const [error, setError] = useState('');
   const [sessionName, setSessionName] = useState('');
   
-  const participantName = user?.email || 'Participant';
+  const participantName = localStorage.getItem('participant_name') || user?.name || user?.email || 'Participant';
   const wsRef = useRef(null);
   const selectedOptionRef = useRef(null);
   const isSubmittingRef = useRef(false);
