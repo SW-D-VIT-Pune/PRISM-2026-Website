@@ -116,25 +116,8 @@ export default function QuizLoginPage({ onLogin, isAdminPortal = false }) {
   // ── ADMIN PORTAL VIEW ───────────────────────────────────────────────────────
   if (isAdminPortal) {
     return (
-      <div style={{
-        minHeight: '100vh',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        background: 'linear-gradient(135deg, #0A1931 0%, #1A3D63 100%)',
-        padding: '20px',
-        paddingTop: '150px'
-      }}>
-        <div style={{
-          background: 'rgba(255, 255, 255, 0.05)',
-          backdropFilter: 'blur(20px)',
-          border: '1px solid rgba(179, 207, 229, 0.25)',
-          borderRadius: '24px',
-          padding: '44px',
-          width: '100%',
-          maxWidth: '440px',
-          boxShadow: '0 25px 70px rgba(10, 25, 49, 0.6)'
-        }}>
+      <div className="quiz-login-wrapper">
+        <div className="quiz-login-card">
           <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '16px' }}>
             <div style={{
               width: '60px',
@@ -290,25 +273,8 @@ export default function QuizLoginPage({ onLogin, isAdminPortal = false }) {
 
   // ── PUBLIC PARTICIPANT QUIZ VIEW (Name + Email Only — No Password) ───────────
   return (
-    <div style={{
-      minHeight: '100vh',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      background: 'linear-gradient(135deg, #0A1931 0%, #1A3D63 100%)',
-      padding: '20px',
-      paddingTop: '150px'
-    }}>
-      <div style={{
-        background: 'rgba(255, 255, 255, 0.05)',
-        backdropFilter: 'blur(20px)',
-        border: '1px solid rgba(179, 207, 229, 0.25)',
-        borderRadius: '24px',
-        padding: '44px',
-        width: '100%',
-        maxWidth: '440px',
-        boxShadow: '0 25px 70px rgba(10, 25, 49, 0.6)'
-      }}>
+    <div className="quiz-login-wrapper">
+      <div className="quiz-login-card">
         <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '16px' }}>
           <div style={{
             width: '60px',
@@ -473,6 +439,39 @@ export default function QuizLoginPage({ onLogin, isAdminPortal = false }) {
           No password needed for participants. Join directly with your name and email.
         </p>
       </div>
+
+      <style>{`
+        .quiz-login-wrapper {
+          min-height: 100vh;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background: linear-gradient(135deg, #0A1931 0%, #1A3D63 100%);
+          padding: 20px;
+          padding-top: 150px;
+        }
+        .quiz-login-card {
+          background: rgba(255, 255, 255, 0.05);
+          backdrop-filter: blur(20px);
+          -webkit-backdrop-filter: blur(20px);
+          border: 1px solid rgba(179, 207, 229, 0.25);
+          border-radius: 24px;
+          padding: 44px;
+          width: 100%;
+          max-width: 440px;
+          box-shadow: 0 25px 70px rgba(10, 25, 49, 0.6);
+        }
+        @media (max-width: 600px) {
+          .quiz-login-wrapper {
+            padding: 16px;
+            padding-top: 110px;
+          }
+          .quiz-login-card {
+            padding: 24px 18px;
+            border-radius: 18px;
+          }
+        }
+      `}</style>
     </div>
   );
 }
