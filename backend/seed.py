@@ -82,7 +82,7 @@ async def main() -> None:
     print("WARNING: For development use only — never run in production!")
     print("=" * 60)
 
-    engine = create_async_engine(settings.database_url, echo=False)
+    engine = create_async_engine(settings.async_database_url, echo=False)
     AsyncSession_ = async_sessionmaker(engine, expire_on_commit=False)
 
     async with AsyncSession_() as session:
