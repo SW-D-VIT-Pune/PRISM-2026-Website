@@ -25,6 +25,7 @@ from typing import Sequence, Union
 
 import sqlalchemy as sa
 from alembic import op
+from sqlalchemy.dialects import postgresql
 
 revision: str = "0001"
 down_revision: Union[str, None] = None
@@ -36,7 +37,7 @@ def upgrade() -> None:
     bind = op.get_bind()
 
     # Safely create enum type for PostgreSQL idempotently
-    if bind.dialect.name == "postgresql":
+    if bind is not None and bind.dialect.name == "postgresql":
         op.execute(
             sa.text(
                 """
@@ -50,46 +51,63 @@ def upgrade() -> None:
             )
         )
 
-    op.create_table(
-        "users",
-        sa.Column("id", sa.Integer(), nullable=False),
-        sa.Column("email", sa.String(length=255), nullable=False),
-        sa.Column("password_hash", sa.String(length=1024), nullable=False),
-        sa.Column(
-            "role",
-            sa.Enum("admin", "anchor", "participant", name="user_role", create_type=False),
-            nullable=False,
-        ),
-        sa.Column("is_active", sa.Boolean(), nullable=False, server_default="true"),
-        sa.Column(
-            "created_at",
-            sa.DateTime(timezone=True),
-            server_default=sa.text("now()"),
-            nullable=False,
-        ),
-        sa.Column(
-            "updated_at",
-            sa.DateTime(timezone=True),
-            server_default=sa.text("now()"),
-            nullable=False,
-        ),
-        sa.PrimaryKeyConstraint("id"),
-    )
+    tables: list[str] = []
+    if bind is not None:
+        try:
+            tables = sa.inspect(bind).get_table_names()
+        except Exception:
+            tables = []
 
-    # Unique index on email
-    op.create_index(op.f("ix_users_email"), "users", ["email"], unique=True)
+    if "users" not in tables:
+        role_type = sa.Enum("admin", "anchor", "participant", name="user_role").with_variant(
+            postgresql.ENUM("admin", "anchor", "participant", name="user_role", create_type=False),
+            "postgresql",
+        )
 
-    # Compound index for role-based dashboard queries
-    op.create_index(
-        "ix_users_role_is_active", "users", ["role", "is_active"], unique=False
-    )
+        op.create_table(
+            "users",
+            sa.Column("id", sa.Integer(), nullable=False),
+            sa.Column("email", sa.String(length=255), nullable=False),
+            sa.Column("password_hash", sa.String(length=1024), nullable=False),
+            sa.Column("role", role_type, nullable=False),
+            sa.Column("is_active", sa.Boolean(), nullable=False, server_default="true"),
+            sa.Column(
+                "created_at",
+                sa.DateTime(timezone=True),
+                server_default=sa.text("now()"),
+                nullable=False,
+            ),
+            sa.Column(
+                "updated_at",
+                sa.DateTime(timezone=True),
+                server_default=sa.text("now()"),
+                nullable=False,
+            ),
+            sa.PrimaryKeyConstraint("id"),
+        )
+
+        # Unique index on email
+        op.create_index(op.f("ix_users_email"), "users", ["email"], unique=True)
+
+        # Compound index for role-based dashboard queries
+        op.create_index(
+            "ix_users_role_is_active", "users", ["role", "is_active"], unique=False
+        )
 
 
 def downgrade() -> None:
-    op.drop_index("ix_users_role_is_active", table_name="users")
-    op.drop_index(op.f("ix_users_email"), table_name="users")
-    op.drop_table("users")
-
     bind = op.get_bind()
-    if bind.dialect.name == "postgresql":
+    tables: list[str] = []
+    if bind is not None:
+        try:
+            tables = sa.inspect(bind).get_table_names()
+        except Exception:
+            tables = []
+
+    if "users" in tables:
+        op.drop_index("ix_users_role_is_active", table_name="users")
+        op.drop_index(op.f("ix_users_email"), table_name="users")
+        op.drop_table("users")
+
+    if bind is not None and bind.dialect.name == "postgresql":
         op.execute(sa.text("DROP TYPE IF EXISTS user_role;"))

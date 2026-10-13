@@ -143,3 +143,39 @@ async def test_get_db_context_session_lifecycle(db: Session) -> None:
         assert session is adapter
 
     # Context exits cleanly without unhandled exceptions or dangling transactions
+
+
+def test_postgresql_user_role_enum_schema_creation_and_idempotency() -> None:
+    """Ensure user_role enum is defined with create_type=False for PostgreSQL to prevent DuplicateObjectError."""
+    import sqlalchemy as sa
+    from sqlalchemy.dialects import postgresql
+    from sqlalchemy.schema import CreateTable
+
+    role_type = sa.Enum("admin", "anchor", "participant", name="user_role").with_variant(
+        postgresql.ENUM("admin", "anchor", "participant", name="user_role", create_type=False),
+        "postgresql",
+    )
+
+    # 1. Dialect implementation on PostgreSQL must have create_type=False
+    pg_impl = role_type.dialect_impl(postgresql.dialect())
+    assert getattr(pg_impl, "create_type", True) is False
+
+    # 2. Table creation listener must not trigger CREATE TYPE
+    # On postgresql.ENUM with create_type=False, _on_table_create returns early
+    m = sa.MetaData()
+    users_table = sa.Table("users", m, sa.Column("id", sa.Integer, primary_key=True), sa.Column("role", role_type))
+    
+    ddl = str(CreateTable(users_table).compile(dialect=postgresql.dialect()))
+    assert "user_role" in ddl
+    assert "CREATE TYPE" not in ddl
+
+    # 3. Repeated / mock execution verifies no exception when enum type pre-exists
+    executed_statements: list[str] = []
+    mock_engine = sa.create_mock_engine(
+        "postgresql://",
+        lambda sql, *args: executed_statements.append(str(sql)),
+    )
+    users_table.create(mock_engine)
+    # The table creation must execute CREATE TABLE without pre-creating user_role
+    assert any("CREATE TABLE users" in s for s in executed_statements)
+    assert not any("CREATE TYPE user_role" in s for s in executed_statements)
